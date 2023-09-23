@@ -1,0 +1,92 @@
+﻿[
+    {
+        "00": 30001,
+        "01": "ARTIFACT_30001",
+        "02": "artifact_08",
+        "03": "ARTIFACT_EFF_30001",
+        "04": "ARTIFACT_DES_30001",
+        "05": "ARTIFACT_LVUP_30001",
+        "06": 1,
+        "07": 1
+    },
+    {
+        "00": 30002,
+        "01": "ARTIFACT_30002",
+        "02": "artifact_03",
+        "03": "ARTIFACT_EFF_30002",
+        "04": "ARTIFACT_DES_30002",
+        "05": "ARTIFACT_LVUP_30002",
+        "06": 2,
+        "07": 1
+    },
+    {
+        "00": 30003,
+        "01": "ARTIFACT_30003",
+        "02": "artifact_02",
+        "03": "ARTIFACT_EFF_30003",
+        "04": "ARTIFACT_DES_30003",
+        "05": "ARTIFACT_LVUP_30003",
+        "06": 3,
+        "07": 1
+    },
+    {
+        "00": 30004,
+        "01": "ARTIFACT_30004",
+        "02": "artifact_13",
+        "03": "ARTIFACT_EFF_30004",
+        "04": "ARTIFACT_DES_30004",
+        "05": "ARTIFACT_LVUP_30004",
+        "06": 4,
+        "07": 1
+    },
+    {
+        "00": 30005,
+        "01": "ARTIFACT_30005",
+        "02": "artifact_06",
+        "03": "ARTIFACT_EFF_30005",
+        "04": "ARTIFACT_DES_30005",
+        "05": "ARTIFACT_LVUP_30005",
+        "06": 5,
+        "07": 1
+    },
+    {
+        "00": 30006,
+        "01": "ARTIFACT_30006",
+        "02": "artifact_05",
+        "03": "ARTIFACT_EFF_30006",
+        "04": "ARTIFACT_DES_30006",
+        "05": "ARTIFACT_LVUP_30006",
+        "06": 6,
+        "07": 1
+    },
+    {
+        "00": 30007,
+        "01": "ARTIFACT_30007",
+        "02": "artifact_04",
+        "03": "ARTIFACT_EFF_30007",
+        "04": "ARTIFACT_DES_30007",
+        "05": "ARTIFACT_LVUP_30007",
+        "06": 7,
+        "07": 1
+    },
+    {
+        "00": 30008,
+        "01": "ARTIFACT_30008",
+        "02": "artifact_16",
+        "03": "ARTIFACT_EFF_30008",
+        "04": "ARTIFACT_DES_30008",
+        "05": "ARTIFACT_LVUP_30008",
+        "06": 8,
+        "07": 0
+    },
+    {
+        "00": 30009,
+        "01": "ARTIFACT_30009",
+        "02": "artifact_01",
+        "03": "ARTIFACT_EFF_30009",
+        "04": "ARTIFACT_DES_30009",
+        "05": "ARTIFACT_LVUP_30009",
+        "06": 9,
+        "07": 0
+    }
+]

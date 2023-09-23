@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  
+  <ItemGroup>
+	<Protobuf Include="..\Protos\greet.proto" GrpcServices="Server" Link="Protos\greet.proto" />
+	<Protobuf Include="..\Protos\account.proto" GrpcServices="Server" Link="Protos\account.proto" />
+	
+	<PackageReference Include="CloudStructures" Version="3.2.0" />	
+    <PackageReference Include="Grpc.AspNetCore" Version="2.50.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.0" />
+    <PackageReference Include="MySqlConnector" Version="2.2.1" />
+    <PackageReference Include="SqlKata" Version="2.4.0" />
+    <PackageReference Include="SqlKata.Execution" Version="2.4.0" />
+    <PackageReference Include="ZLogger" Version="1.7.0" />
+  </ItemGroup>
+
+</Project>

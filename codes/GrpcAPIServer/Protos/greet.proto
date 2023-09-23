@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package greet;
+
+// My amazing greeter service.
+service Greeter {
+  // Sends a greeting.
+  rpc SayHello (HelloRequest) returns (HelloReply) {
+    option (google.api.http) = {
+      get: "/v1/greeter/{name}"
+    };
+  }
+  // Sends a stream of greetings.
+  rpc SayHelloStream (HelloRequestCount) returns (stream HelloReply) {
+    option (google.api.http) = {
+      post: "/v1/greeter"
+      body: "*"
+    };
+  }
+}
+
+// SayHello request message.
+message HelloRequest {
+  // Name to say hello to.
+  string name = 1;
+}
+
+// SayHelloStream request message.
+message HelloRequestCount {
+  // Name to say hello to.
+  string name = 1;
+  // Count of messages to send.
+  int32 count = 2;
+}
+
+// SayHello response message.
+message HelloReply {
+  // Hello reply message.
+  string message = 1;
+}
