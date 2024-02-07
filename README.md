@@ -34,6 +34,10 @@
 [demo 프로그램](./codes/github_sqlkata_demo.zip)  `codes` 디렉토리에 있는 `github_sqlkata_demo.zip` 파일이다.     
 
   
+### 2022년 신입 사원 교육 프로젝트
+- https://github.com/jacking75/com2us_edu_robotmon-go
+  
+    
 ### 서버 캠퍼스 1기 수료생 정리 자료
 - https://sueshin.tistory.com/category/%EA%B0%9C%EC%9D%B8%EA%B3%B5%EB%B6%80/Web%20API%20%EA%B2%8C%EC%9E%84%20%EC%84%9C%EB%B2%84%20%EA%B3%B5%EB%B6%80
 - https://gist.github.com/jacking75/344fd3c8c16fc27fe51d4c983a3a6306
