@@ -10,6 +10,7 @@
 **직접 예제 코드를 만들어 보면서 학습을 잘하자**    
   
 ### Redis 프로그래밍
+- [Redis의 기본 데이터 유형 및 명령](https://docs.google.com/document/d/10mHFq-kTpGBk1-id5Z-zoseiLnTKr_T8N3byBZP5mEg/edit?usp=sharing )
 - [(영상) Redis 야무지게 사용하기](https://forward.nhn.com/2021/sessions/16 )
 - [Redis 기능 학습하기](http://redisgate.kr/redis/introduction/redis_intro.php )
 - C# Redis 프로그래밍 학습
