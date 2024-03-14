@@ -35,7 +35,8 @@
 
   
 ### 2022년 신입 사원 교육 프로젝트
-- https://github.com/jacking75/com2us_edu_robotmon-go
+- `codes/robotmon-go` 디렉토리에 있다.  
+- `.NET 6` 버전 사용  
   
     
 ### 서버 캠퍼스 1기 수료생 정리 자료

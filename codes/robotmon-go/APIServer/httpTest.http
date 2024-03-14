@@ -1,0 +1,282 @@
+POST http://localhost:5000/CreateAccount
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "PW":"123qwe"
+}
+
+###
+POST http://localhost:5000/CreateAccount
+Content-Type: application/json
+
+{
+  "ID":"richard0326",
+  "PW":"root1234"
+}
+
+###
+POST http://localhost:5000/Login
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "PW":"123qwe"
+}
+
+###
+POST http://localhost:5000/Login
+Content-Type: application/json
+
+{
+  "ID":"richard0326",
+  "PW":"root1234"
+}
+
+###
+POST http://localhost:5000/UserGameInfo
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk"
+}
+
+###
+POST http://localhost:5000/UserGameInfo
+Content-Type: application/json
+
+{
+  "ID":"richard0326",
+  "AuthToken":"hhvtdbzh603woii8fhrtyad15"
+}
+
+###
+POST http://localhost:5000/FieldMonster
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk"
+}
+
+###
+POST http://localhost:5000/Catch
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken": "4ov5i7xoq673mn1fonbalbaqk",
+  "MonsterID": 2
+}
+
+###
+POST http://localhost:5000/DailyCheck
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk"
+}
+
+###
+POST http://localhost:5000/MailList
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk",
+  "PageIndex": 0
+}
+
+###
+POST http://localhost:5000/MailList
+Content-Type: application/json
+
+{
+  "ID":"richard0326",
+  "AuthToken":"hhvtdbzh603woii8fhrtyad15",
+  "PageIndex": 0
+}
+
+###
+POST http://localhost:5000/SendMail
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk",
+  "sendID":"richard0326",
+  "StarCount": 900
+}
+
+###
+POST http://localhost:5000/RecvMail
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk",
+  "MailID": 4
+}
+
+###
+POST http://localhost:5000/RecvMail
+Content-Type: application/json
+
+{
+  "ID":"richard0326",
+  "AuthToken":"hhvtdbzh603woii8fhrtyad15",
+  "MailID": 9
+}
+
+###
+POST http://localhost:5000/RankingList
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk",
+  "PageIndex": 0
+}
+
+###
+POST http://localhost:5000/RemoveCatch
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk",
+  "RemoveID": 1
+}
+
+###
+POST http://localhost:5000/Upgrade
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk",
+  "CatchID": 13,
+  "MonsterID": 2,
+  "UpgradeSize": 1
+}
+
+###
+POST http://localhost:5000/Evolve
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "AuthToken":"4ov5i7xoq673mn1fonbalbaqk",
+  "CatchID": 5,
+  "MonsterID": 1
+}
+
+###
+POST http://localhost:5000/CreateAccount
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "PW":"test"
+}
+
+###
+POST http://localhost:5000/Login
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "PW":"test"
+}
+
+###
+POST http://localhost:5000/UserGameInfo
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "AuthToken": "vcfp9doqy1sx6xb1epyldy2u9"
+}
+
+###
+POST http://localhost:5000/FieldMonster
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "AuthToken": "vcfp9doqy1sx6xb1epyldy2u9"
+}
+
+###
+POST http://localhost:5000/Catch
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "AuthToken": "vcfp9doqy1sx6xb1epyldy2u9",
+  "MonsterID": 2
+}
+
+###
+POST http://localhost:5000/DailyCheck
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "AuthToken": "vcfp9doqy1sx6xb1epyldy2u9"
+}
+
+###
+POST http://localhost:5000/MailList
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "AuthToken": "vcfp9doqy1sx6xb1epyldy2u9",
+  "PageIndex": 0
+}
+
+###
+POST http://localhost:5000/SendMail
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "AuthToken": "vcfp9doqy1sx6xb1epyldy2u9",
+  "sendID":"richard0326",
+  "StarCount": 900
+}
+
+###
+POST http://localhost:5000/RankingList
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "AuthToken": "vcfp9doqy1sx6xb1epyldy2u9",
+  "PageIndex": 0
+}
+
+###
+POST http://localhost:5000/RemoveCatch
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "AuthToken": "vcfp9doqy1sx6xb1epyldy2u9",
+  "RemoveID": 11
+}
+
+###
+POST http://localhost:5000/Upgrade
+Content-Type: application/json
+
+{
+  "ID":"test",
+  "AuthToken": "vcfp9doqy1sx6xb1epyldy2u9",
+  "CatchID": 13,
+  "MonsterID": 2,
+  "UpgradeSize": 1
+}
