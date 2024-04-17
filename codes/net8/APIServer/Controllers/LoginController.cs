@@ -47,7 +47,7 @@ public class Login : ControllerBase
             return response;
         }
 
-        _logger.ZLogInformationWithPayload(EventIdDic[EventType.Login], new { request.Email, AuthToken = authToken, AccountId = accountId }, "Login Success");
+        _logger.ZLogInformation($"EventType:{EventIdDic[EventType.Login]}, email:{request.Email}, AuthToken:{authToken}, AccountId:{accountId}");
 
         response.AuthToken = authToken;
         return response;

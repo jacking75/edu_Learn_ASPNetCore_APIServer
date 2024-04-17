@@ -34,7 +34,7 @@ public class CreateAccount : ControllerBase
             return response;
         }
 
-        _logger.ZLogInformationWithPayload(EventIdDic[EventType.CreateAccount], new { Email = request.Email }, $"CreateAccount Success");
+        _logger.ZLogInformation($"EventType:{EventIdDic[EventType.CreateAccount]}, Email:{request.Email}");
         return response;
     }
 }

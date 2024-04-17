@@ -41,8 +41,7 @@ public class CreateCharacter : ControllerBase
             return response;
         }
 
-        _logger.ZLogInformationWithPayload(EventIdDic[EventType.CreateCharacter], new { request.Email, request.NickName, CharacterId = characterId },
-            $"CreateCharacter Success");
+        _logger.ZLogInformation($"EventType:{EventIdDic[EventType.CreateCharacter]}, email:{request.Email}, NickName:{request.NickName}, CharacterId:{characterId}");
         return response;
     }
 
