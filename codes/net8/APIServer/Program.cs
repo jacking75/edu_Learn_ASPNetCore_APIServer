@@ -74,32 +74,11 @@ void SettingLogger()
             options.FilePathSelector = (timestamp, sequenceNumber) => $"{fileDir}{timestamp.ToLocalTime():yyyy-MM-dd}_{sequenceNumber:000}.log";
             options.RollingInterval = ZLogger.Providers.RollingInterval.Day;
             options.RollingSizeKB = 1024;
-
-            //JsonEncodedText time = JsonEncodedText.Encode("Timestamp");
-            //DateTime.Now는 UTC+0 이고 한국은 UTC+9이므로 9시간을 더한 값을 출력한다.
-            //JsonEncodedText timeValue = JsonEncodedText.Encode(DateTime.Now.AddHours(9).ToString("yyyy/MM/dd HH:mm:ss"));
-
-            /*options.UseJsonFormatter(formatter =>
-            {
-                formatter.AdditionalFormatter = (writer, info) =>
-                {
-                    writer.WriteString(time, timeValue);
-                    info.WriteToJsonWriter(writer);
-                };
-            });*/            
         }); 
 
     _ = logging.AddZLoggerConsole(options =>
     {
-        options.UseJsonFormatter();
-        /*JsonEncodedText time = JsonEncodedText.Encode("EventTime");
-        JsonEncodedText timeValue = JsonEncodedText.Encode(DateTime.Now.AddHours(9).ToString("yyyy/MM/dd HH:mm:ss"));
-
-        options.StructuredLoggingFormatter = (writer, info) =>
-        {
-            writer.WriteString(time, timeValue);
-            info.WriteToJsonWriter(writer);
-        };*/
+        options.UseJsonFormatter(); 
     });
 
 }
