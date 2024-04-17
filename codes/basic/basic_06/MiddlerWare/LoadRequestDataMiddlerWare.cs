@@ -38,7 +38,7 @@ public class LoadRequestDataMiddlerWare
         {
             case PACKET_TYPE_ENCRYPT:
 
-                string data = string.Format("{0}:{1}", body, DEF_SIGNATURE_KEY_V1);
+                /*string data = string.Format("{0}:{1}", body, DEF_SIGNATURE_KEY_V1);
                 string sign = Encrypter.SHA1Hash(data);
 
                 if (!context.Request.Headers.ContainsKey(DEF_SIGN))
@@ -60,13 +60,13 @@ public class LoadRequestDataMiddlerWare
                 }
 
                 var refObj = new JObject();
-                refObj = obj;
+                refObj = obj;*/
 
                 // 요청 패스 변경
                 //context.Request.Path = "/" + "Test/API/" + obj["api"];
 
                 //
-                context.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(obj["reqdata"].ToString()));
+                //context.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(obj["reqdata"].ToString()));
                 break;
 
             default:
@@ -82,7 +82,7 @@ public class LoadRequestDataMiddlerWare
 
     readonly static string[] DEF_COMMON_PARAMS = new string[] { "api", "apiver", "sid", "seq", "timestamp", "user_id", "reqdata" };
 
-    static bool CheckPacketParams(JObject obj, string[] paramList)
+    /*static bool CheckPacketParams(JObject obj, string[] paramList)
     {
         foreach (string param in paramList)
         {
@@ -93,5 +93,5 @@ public class LoadRequestDataMiddlerWare
         }
 
         return true;
-    }
+    }*/
 }

@@ -13,9 +13,9 @@ var app = builder.Build();
 
 app.UseRouting();
 
-
-app.UseLoadRequestDataMiddlerWare();
-app.UseCheckUserSessionMiddleWare();
+// 구현이 올바르게 되지 않았으므로 주석 처리 한다
+//app.UseLoadRequestDataMiddlerWare();
+//app.UseCheckUserSessionMiddleWare();
 
 
 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

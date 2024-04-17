@@ -188,3 +188,13 @@ public class CheckUserSessionMiddleWare
 
     
 }
+
+public class MiddlewareResponse
+{
+    public ErrorCode result { get; set; }
+}
+
+public class User
+{
+
+}
