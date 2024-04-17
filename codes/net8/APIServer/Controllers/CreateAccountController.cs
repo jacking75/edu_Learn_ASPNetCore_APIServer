@@ -35,6 +35,8 @@ public class CreateAccount : ControllerBase
         }
 
         _logger.ZLogInformation($"EventType:{EventIdDic[EventType.CreateAccount]}, Email:{request.Email}");
+        //_logger.ZLogInformation($"{EventIdDic[EventType.CreateAccount]}: {request:json}");
+        //_logger.ZLogInformation($"{EventIdDic[EventType.CreateAccount]}: {new { request.Email }:json}");
         return response;
     }
 }
