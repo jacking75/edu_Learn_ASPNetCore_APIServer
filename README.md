@@ -33,13 +33,8 @@
 학습에서는 데이터 베이스 프로그래밍으로 `Dapper`를 사용하고 있는데 실제 실습에서는 `SqlKata`를 사용한다  
 [SqlKata 소개](https://docs.google.com/document/d/e/2PACX-1vTnRYJOXyOagNhTdhpkI_xOQX4DlMu0TRcC9Ehew6wraufgEtBuQiSdGpKzaEmRb-jfsLv43i0nBQsp/pub  )    
 [demo 프로그램](./codes/github_sqlkata_demo.zip)  `codes` 디렉토리에 있는 `github_sqlkata_demo.zip` 파일이다.     
-
   
-### 2022년 신입 사원 교육 프로젝트
-- `codes/robotmon-go` 디렉토리에 있다.  
-- `.NET 6` 버전 사용  
-  
-    
+      
 ### 서버 캠퍼스 1기 수료생 정리 자료
 - https://sueshin.tistory.com/category/%EA%B0%9C%EC%9D%B8%EA%B3%B5%EB%B6%80/Web%20API%20%EA%B2%8C%EC%9E%84%20%EC%84%9C%EB%B2%84%20%EA%B3%B5%EB%B6%80
 - https://gist.github.com/jacking75/344fd3c8c16fc27fe51d4c983a3a6306
@@ -51,22 +46,26 @@
 - https://velog.io/@oak_cassia/%EC%84%9C%EB%B2%84%EC%BA%A0%ED%8D%BC%EC%8A%A4-1%EA%B8%B0-ASP.NET-Core
 - https://beathe.at/2023-04/ASP.NET-Core-GameServer
     - [GitHub Com2usEduProject](https://github.com/beatheat/Com2usEduProject )
-  
-  
-### 2023년 지니어스 인턴 프로젝트 
-- https://github.com/jacking75/com2us_edu_GenieFarm
-  
-  
-  
+   
+     
 ### 문서 
 - [Web서비스의 서버구성과목적](https://docs.google.com/presentation/d/105NPfv7CPfgk0Iw_6vSB_oOavQZpes7-Wit5HuCm7oM/edit?usp=sharing )
 - [DAO, DTO, VO 란? 간단한 개념 정리](https://melonicedlatte.com/2021/07/24/231500.html )
-- ASP.NET Core Web [시작](https://blog.naver.com/sssang97/223088811266 ) | [컨트롤러와 route 규칙](https://blog.naver.com/sssang97/223088978577 ) |  [Request 처리](https://blog.naver.com/sssang97/223089025576 ) |  [Response 처리](https://blog.naver.com/sssang97/223089045407 )
+- ASP.NET Core Web 
+    - [시작](https://blog.naver.com/sssang97/223088811266 ) 
+	- [컨트롤러와 route 규칙](https://blog.naver.com/sssang97/223088978577 ) 
+	- [Request 처리](https://blog.naver.com/sssang97/223089025576 ) 
+	- [Response 처리](https://blog.naver.com/sssang97/223089045407 )
+- [ASP.NET Core 입문 – 미들웨어와 파이프라인 해설](https://docs.google.com/document/d/e/2PACX-1vRsqcyeBi--VYCPwQlhW9LsAyYUKSuuh80_BiSgnNnrfULsZFgz3i_Bj8nGG6dl-Q6NEiKBjhGx2bJ6/pub )	
 - [ASP.NET Core의 속도 제한 미들웨어](https://learn.microsoft.com/ko-kr/aspnet/core/performance/rate-limit?preserve-view=true&view=aspnetcore-7.0  )
 - [요청 본문을 Stream 또는 PipeReader로 바인딩](https://learn.microsoft.com/ko-kr/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0#rbs ) 
 - [STREAM](https://learn.microsoft.com/ko-kr/aspnet/core/fundamentals/minimal-apis?preserve-view=true&view=aspnetcore-7.0#stream7  )
 - [ASP.NET Core 출력 캐싱 미들웨어](https://learn.microsoft.com/ko-kr/aspnet/core/performance/caching/output?view=aspnetcore-7.0  ) 
-- 외부 자료: [모바일 게임 개발 개요](https://drive.google.com/file/d/1WImt5yn7cpIBm2opZFWMapWW2GX6XB_R/view?usp=sharing ) | [게임 엔진 아웃라인](https://drive.google.com/file/d/1HeBu2NXeLXU8VY5l7Gph4l6SRZkhZQae/view?usp=sharing ) | [데이터 설계](https://drive.google.com/file/d/14NcczPD6XS1rLH6TpORCcLhF9ftsVSgu/view?usp=sharing ) | [통신](https://drive.google.com/file/d/1VmxaTRA1qJnoIGWKK6SoYDH-pHBvnGbz/view?usp=sharing )
+- 외부 자료: 
+    - [모바일 게임 개발 개요](https://drive.google.com/file/d/1WImt5yn7cpIBm2opZFWMapWW2GX6XB_R/view?usp=sharing ) 
+	- [게임 엔진 아웃라인](https://drive.google.com/file/d/1HeBu2NXeLXU8VY5l7Gph4l6SRZkhZQae/view?usp=sharing ) 
+	- [데이터 설계](https://drive.google.com/file/d/14NcczPD6XS1rLH6TpORCcLhF9ftsVSgu/view?usp=sharing ) 
+	- [통신](https://drive.google.com/file/d/1VmxaTRA1qJnoIGWKK6SoYDH-pHBvnGbz/view?usp=sharing )
     
 
 <br>   
@@ -192,6 +191,16 @@ DI를 사용한다
 - [ASP.NET Core gRPC 앱에서 gRPC JSON 코드 변환 프로젝트 만들기](https://docs.google.com/document/d/e/2PACX-1vTQCG9IMA32WOgCFO417LqwS0KxrPK_AiijaR9tuz3a0lboL9C4TuHiOw-y9WZ0LtfIq1Wn2qxHvkZE/pub)    
   
    
+<br>   
+     
+## 참고할 실습 프로젝트 
+- 2022년 신입 사원 교육 프로젝트
+    - `codes/robotmon-go` 디렉토리에 있다.  
+	- `.NET 6` 버전 사용  
+- 2023년 지니어스 인턴 프로젝트 
+    - https://github.com/jacking75/com2us_edu_GenieFarm
+    
+    
 <br>   
 <br>   
   
