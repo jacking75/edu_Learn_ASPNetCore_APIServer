@@ -29,10 +29,7 @@ WebApplication app = builder.Build();
 app.UseMiddleware<basic_07.Middleware.CheckUserAuthAndLoadUserData>();
 
 
-app.UseRouting();
-#pragma warning disable ASP0014
-app.UseEndpoints(endpoints => { _ = endpoints.MapControllers(); });
-#pragma warning restore ASP0014
+app.MapDefaultControllerRoute();
 
 
 app.Run(configuration["ServerAddress"]);

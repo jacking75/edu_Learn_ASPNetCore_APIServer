@@ -18,7 +18,7 @@ app.UseRouting();
 //app.UseCheckUserSessionMiddleWare();
 
 
-app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+app.MapDefaultControllerRoute();
 
 IConfiguration configuration = app.Configuration;
 DBManager.Init(configuration);

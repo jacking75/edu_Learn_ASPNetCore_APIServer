@@ -18,17 +18,7 @@ SettingLogger();
 WebApplication app = builder.Build();
 
 
-//log setting
-ILoggerFactory loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
-LogManager.SetLoggerFactory(loggerFactory, "Global");
-
-
-
-
-app.UseRouting();
-#pragma warning disable ASP0014
-app.UseEndpoints(endpoints => { _ = endpoints.MapControllers(); });
-#pragma warning restore ASP0014
+app.MapDefaultControllerRoute();
 
 app.Run(configuration["ServerAddress"]);
 

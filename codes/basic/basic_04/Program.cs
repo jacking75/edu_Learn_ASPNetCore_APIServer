@@ -9,9 +9,7 @@ builder.Logging.AddConsole();
 
 var app = builder.Build();
 
-app.UseRouting();
-
-app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+app.MapDefaultControllerRoute();
 
 IConfiguration configuration = app.Configuration;
 DBManager.Init(configuration);

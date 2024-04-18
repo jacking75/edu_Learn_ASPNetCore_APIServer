@@ -15,8 +15,6 @@ if (!app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseRouting();
-
-app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+app.MapDefaultControllerRoute();
 
 app.Run();
