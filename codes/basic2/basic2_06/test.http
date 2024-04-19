@@ -1,0 +1,12 @@
+@basic2_HostAddress = http://localhost:5000/api
+
+POST {{basic2_HostAddress}}/AttendanceInfo/
+
+"UserID" : "test01",
+"AuthToken" : "c9v3arfa83vaugm0rxb7txm0c!",
+
+Content-Type: application/json
+{
+}
+
+###
