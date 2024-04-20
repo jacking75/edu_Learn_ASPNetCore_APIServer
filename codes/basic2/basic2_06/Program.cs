@@ -2,6 +2,7 @@
 using ZLogger;
 
 using basic2_03.Repository;
+using basic2_06.Middleware;
 
 
 
@@ -24,6 +25,7 @@ SettingLogger();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<CheckUserAuthAndLoadUserData>();
 
 
 app.MapControllers();

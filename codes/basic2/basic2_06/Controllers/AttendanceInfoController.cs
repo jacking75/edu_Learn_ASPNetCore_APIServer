@@ -29,12 +29,9 @@ public class AttendanceInfoController : ControllerBase
 
         MdbUserData userInfo = (MdbUserData)HttpContext.Items[nameof(MdbUserData)]!;
 
-        response.AttendanceInfo = await _gameDB.GetAttendance(userInfo.UId);
-        if (response.AttendanceInfo == null)
-        {
-            response.Result = ErrorCode.AttendanceDataNull; 
-        }
-
+        // DB 관련 처리를 했다고 가정하고...
+        await Task.Delay(32);
+        
         _logger.ZLogInformation($"[AttendanceInfo] Uid : {userInfo.UId} , Result:{response.Result}");
         return response;
     }

@@ -78,6 +78,7 @@ public class CheckUserAuthAndLoadUserData
 
     async Task<(bool, string)> IsUserIDNotExistOrReturnUserID(HttpContext context)
     {
+        // 대문자를 사용해서 보내어도 소문자로 인코딩 되므로 소문자로 검색한다
         if (context.Request.Headers.TryGetValue("userid", out var uid))
         {
             return (false, uid);
