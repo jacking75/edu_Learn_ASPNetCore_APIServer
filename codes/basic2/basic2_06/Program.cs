@@ -1,7 +1,7 @@
 
 using ZLogger;
 
-using basic2_03.Repository;
+using basic2_06.Repository;
 using basic2_06.Middleware;
 
 

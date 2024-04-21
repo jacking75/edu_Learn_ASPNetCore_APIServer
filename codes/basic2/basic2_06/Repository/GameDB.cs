@@ -1,12 +1,10 @@
-﻿using System;
-using System.Data;
-using basic2_06.Controllers;
-using Microsoft.Extensions.Logging;
+﻿using System.Data;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
 
-namespace basic2_03.Repository;
+namespace basic2_06.Repository;
+
 
 public class GameDB : IGameDB
 {

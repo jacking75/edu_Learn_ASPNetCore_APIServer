@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using ZLogger;
 
 
-namespace basic2_03.Repository;
+namespace basic2_06.Repository;
 
 public class MemoryDB : IMemoryDB
 {

@@ -1,5 +1,5 @@
-﻿using basic2_03.Repository;
-using System.Text.Json;
+﻿using System.Text.Json;
+using basic2_06.Repository;
 
 namespace basic2_06.Middleware;
 
@@ -41,8 +41,9 @@ public class CheckUserAuthAndLoadUserData
 
         //uid를 키로 하는 데이터 없을 때
         (bool isOk, MdbUserData userInfo) = await _memoryDB.GetUserAsync(user_id);
-        if (await IsInvalidUserAuthTokenNotFound(context, isOk))
+        if (isOk == false)
         {
+            await ResponseInvalidUserAuthToken(context);
             return;
         }
 
@@ -111,18 +112,15 @@ public class CheckUserAuthAndLoadUserData
         return true;
     }
 
-    async Task<bool> IsInvalidUserAuthTokenNotFound(HttpContext context, bool isOk)
+    async Task ResponseInvalidUserAuthToken(HttpContext context)
     {
-        if (!isOk)
+        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+        var errorJsonResponse = JsonSerializer.Serialize(new MiddlewareResponse
         {
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            var errorJsonResponse = JsonSerializer.Serialize(new MiddlewareResponse
-            {
-                result = ErrorCode.AuthTokenKeyNotFound
-            });
-            await context.Response.WriteAsync(errorJsonResponse);
-        }
-        return !isOk;
+            result = ErrorCode.AuthTokenKeyNotFound
+        });
+        
+        await context.Response.WriteAsync(errorJsonResponse);        
     }
 
     class MiddlewareResponse

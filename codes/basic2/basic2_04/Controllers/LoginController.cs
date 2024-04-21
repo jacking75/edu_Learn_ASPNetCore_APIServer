@@ -1,9 +1,8 @@
-﻿using basic2_03.Repository;
-using Microsoft.AspNetCore.Http;
+﻿using basic2_04.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 
-namespace basic2_02.Controllers;
+namespace basic2_04.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

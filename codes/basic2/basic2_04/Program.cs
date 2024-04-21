@@ -1,15 +1,4 @@
-/*using System;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Text.Json;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;*/
-
-
-using basic2_03.Repository;
-
+using basic2_04.Repository;
 
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,9 +1,9 @@
-﻿using basic2_03.Repository;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ZLogger;
+using basic2_06.Repository;
 
 namespace basic2_06.Controllers;
+
 
 [Route("api/[controller]")]
 [ApiController]

@@ -1,8 +1,6 @@
-﻿using basic2_06.Controllers;
-using System;
+﻿
 
-
-namespace basic2_03.Repository;
+namespace basic2_06.Repository;
 
 public interface IGameDB : IDisposable
 {
