@@ -47,7 +47,12 @@
 - https://beathe.at/2023-04/ASP.NET-Core-GameServer
     - [GitHub Com2usEduProject](https://github.com/beatheat/Com2usEduProject )
    
-     
+  
+### 서버 캠퍼스 1기 수료생 정리 자료
+`학습자료_2024_서버캠퍼스2기`  디렉토리를 보기 바란다  
+   
+  
+  
 ### 문서 
 - [Web서비스의 서버구성과목적](https://docs.google.com/presentation/d/105NPfv7CPfgk0Iw_6vSB_oOavQZpes7-Wit5HuCm7oM/edit?usp=sharing )
 - [DAO, DTO, VO 란? 간단한 개념 정리](https://melonicedlatte.com/2021/07/24/231500.html )
