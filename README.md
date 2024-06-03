@@ -2,6 +2,7 @@
 - 닷넷에서 API Server용 게임서버 개발을 위해 학습을 하기 위한 것이다.
 - [ASP.NET Core 7.0의 새로운 기능](https://learn.microsoft.com/ko-kr/aspnet/core/release-notes/aspnetcore-7.0?view=aspnetcore-7.0  )  
 - [Announcing ASP.NET Core in .NET 7](https://devblogs.microsoft.com/dotnet/announcing-asp-net-core-in-dotnet-7/  )  
+- [C# 비동기 프로그래밍 정리](https://docs.google.com/document/d/e/2PACX-1vRHRbQjeoJH9lXalTClFBuB-D41v9TaBTPc_TeUS-yKhPZTJa2dWjpv_Rib863b_disjspqymOjgKwq/pub )
       
     
 <br>     
