@@ -1,0 +1,19 @@
+﻿POST http://localhost:11500/Login
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "PW":"123qwe"
+}
+
+###
+POST http://localhost:11500/CreateAccount
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "PW":"123qwe",
+  "NickName": "aaa"
+}
+
+
