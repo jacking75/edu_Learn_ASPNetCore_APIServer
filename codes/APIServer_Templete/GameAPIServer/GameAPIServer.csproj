@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <OutputPath>..\00_ServerBin\GameAPIServer\</OutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <OutputPath>..\00_ServerBin\GameAPIServer\</OutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CloudStructures" Version="3.3.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+        <PackageReference Include="MySqlConnector" Version="2.3.7" />
+        <PackageReference Include="SqlKata" Version="2.4.0" />
+        <PackageReference Include="SqlKata.Execution" Version="2.4.0" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+        <PackageReference Include="System.Net.Security" Version="4.3.2" />
+        <PackageReference Include="ZLogger" Version="2.4.1" />
+    </ItemGroup>
+
+</Project>
