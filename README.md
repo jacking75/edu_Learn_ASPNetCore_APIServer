@@ -71,109 +71,29 @@
     - [모바일 게임 개발 개요](https://drive.google.com/file/d/1WImt5yn7cpIBm2opZFWMapWW2GX6XB_R/view?usp=sharing ) 
 	- [게임 엔진 아웃라인](https://drive.google.com/file/d/1HeBu2NXeLXU8VY5l7Gph4l6SRZkhZQae/view?usp=sharing ) 
 	- [데이터 설계](https://drive.google.com/file/d/14NcczPD6XS1rLH6TpORCcLhF9ftsVSgu/view?usp=sharing ) 
-	- [통신](https://drive.google.com/file/d/1VmxaTRA1qJnoIGWKK6SoYDH-pHBvnGbz/view?usp=sharing )
-    
+	- [통신](https://drive.google.com/file/d/1VmxaTRA1qJnoIGWKK6SoYDH-pHBvnGbz/view?usp=sharing )    
 
 <br>   
 <br>      
-   
-## 2. 실습
-아래 프로그램은 `codes` 디렉토리의 `basic` 디렉토리 안에 있다.  
-     
-### basic_01  
-ASP.NET Core Web API 기본 템플릿으로 만든 프로그램이다   
-Get 메소드로 `http://localhost:5000/WeatherForecast`를 호출하면 Json 데이터를 받을 수 있다.
-  
-<br>   
-  
-### basic_02
-보통 API 서버에 요청을 할 때 Post 메소드로 Json 포맷으로 요청하고, Josn 포맷으로 응답을 받는다.
-로그인 요청을 가정한 아주 간단한 컨트룰러를 하나 만들어서 이 동작을 시연한다.  
-  
-실제 API 서버를 운용할 때는 앞단에 로드밸런스를 두고, 여기서 HTTPS 처리를 하게 하면 되므로 HTTP 프로토콜은 사용하지 않도록 하였다.   
-  
-요청은 아래와 같다.  
-```
-POST http://localhost:11500/Login
-Content-Type: application/json
-
-{
-  "ID":"jacking",
-  "PW":"dsd"
-}
-```    
     
-<br>   
-
-### basic_03  
-MySQL과 Redis를 사용하여 계정 생성과 로그인 처리를 한다.   
-라이브러리: MySQL(Sqlkata), Redis(CloudStructures)  
-   
-DataBase 이름은 `account_db`, 테이블 이름은 `account`  이다.    
-```sql
-CREATE TABLE IF NOT EXISTS account_db.`account`
-(
-    AccountId BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '계정번호',
-    Email VARCHAR(50) NOT NULL UNIQUE COMMENT '이메일',
-    SaltValue VARCHAR(100) NOT NULL COMMENT  '암호화 값',
-    HashedPassword VARCHAR(100) NOT NULL COMMENT '해싱된 비밀번호',
-    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '생성 날짜'
-) COM    
-```  
+	
+## 단계 별로 따라하면서 API 서버 만들기
+아래 영상과 예제 코드를 참고하면서 단계 별로 만들면서 배운다.  
+- [(YOUTUBE)1~6단계로 ASP.NET Core 기본 실습](https://youtu.be/YTDWXJG1SD8?si=PHz6XvNGy4yU-Sjj ) 
+- [설명 문서](https://docs.google.com/presentation/d/e/2PACX-1vQMWp7xa2ihTYvrytkMPSGSLOaKZq2qQgL4yCa7RXiBKkBfpqc4Y_LBDpWLaeJXoctfSn0ASPbQQfVz/pub?start=false&loop=false&delayms=3000&slide=id.p )  
+- 예제 코드는 `codes` 디렉토리의 `basic2` 디렉토리 안에 있다.    
+      
+<br>      
   
-아래는 요청  
-```  
-POST http://localhost:11500/Login
-Content-Type: application/json
-
-{
-  "Email":"heungbae01@nasdfsfdver.com",
-  "Password":"123qwe"
-}
-```
   
-<br>  
-
-### basic_04  
-`basic_03`과 동일하지만 **로거**가 추가되었다.  
-ASP.NET Core에서 제공하는 로거를 설정해서 사용한다.  
-여기에서는 콘솔 출력만 하고 있다.  
-  
-
-<br>    
-  
-### basic_05  
-`basic_04`과 동일하지만 **로거를 표준에서 ZLogger**로 변경하였다.    
-`ZLogger`를 오픈소스 라이브러리로 표준 로거 보다 더 고성능이다.  
-조금의 코드 변경으로 표준에서 ZLogger로 변경이 가능하다.  
-   
-
-<br>  
-
-### basic_06    
-미들웨어를 사용하고 있다.  
-이번 프로젝트는 구현을 다 하지 않고, 미들웨어를 사용하는 방법만 코드로 보여주고 있다.  
-이 샘플만으로는 미들웨어의 장점에 대해서 잘 이해시키기 힘들다.  
-설명이 필요하다.    
-
-<br>   
-  
-### basic_07    
-DI를 사용한다  
-  
-
-<br>  
-<br>  
-   
-
-## API Server  
-- 게임 서버를 개발할 때 사용할 기본 템플릿  
-- 아래 프로그램은 `codes` 디렉토리의 `net7` 디렉토리 안에 있다.  
-    - 만약 닷넷 8 혹은 9가 나오면 거의 동일한 코드가 있는 `net8`, `net9` 디렉토리가 있을 것이다  
-
-  
+## API Server 개발하기 
+- `code` 디렉토리의 `APIServer_Templete` 디렉토리에 있는 코드를 참고해서 만들기 바란다.
+- 프로젝트는 새로 만들고 구조나 코드 등을 참고한다.  
+- `APIServer_Templete`에 있는 코드 보다 더 좋은 코드를 만드는 것을 목표로 한다.  
+    
 <br>  
     
+	
 ## example_filter_APIServer
 - 아래 프로그램은 `codes` 디렉토리 안에 있다.  
 - 기획데이터(마스터 데이터)가 json으로 된 것을 로딩
@@ -200,12 +120,15 @@ DI를 사용한다
 <br>   
      
 ## 참고할 실습 프로젝트 
-- 2022년 신입 사원 교육 프로젝트
-    - `codes/robotmon-go` 디렉토리에 있다.  
+- (2022년) 신입 사원 교육 프로젝트
+    - `codes/practice_robotmon-go` 디렉토리에 있다.  
 	- `.NET 6` 버전 사용  
 - 2023년 지니어스 인턴 프로젝트 
     - https://github.com/jacking75/com2us_edu_GenieFarm
-    
+- (2024년 1월) 신입 사원 교육 프로젝트
+    - 미니게임천국 모작
+    - `codes/practice_MiniGameHeavenAPIServer` 디렉토리에 있다.  
+	- `.NET 8` 버전 사용      
     
 <br>   
 <br>   
