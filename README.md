@@ -4,6 +4,7 @@
 - [Announcing ASP.NET Core in .NET 7](https://devblogs.microsoft.com/dotnet/announcing-asp-net-core-in-dotnet-7/  )  
 - [C# 비동기 프로그래밍 정리](https://docs.google.com/document/d/e/2PACX-1vRHRbQjeoJH9lXalTClFBuB-D41v9TaBTPc_TeUS-yKhPZTJa2dWjpv_Rib863b_disjspqymOjgKwq/pub )
 - [(YOUTUBE) VisualAcademy](https://www.youtube.com/@VisualAcademy/videos )
+- [practical-aspnetcore](https://github.com/dodyg/practical-aspnetcore) ASP.NET Core의 다양한 샘플 코드를 볼 수 있다.  
       
     
 <br>     
