@@ -25,7 +25,8 @@
 - [MySqlConnector 간단 정리](https://gist.github.com/jacking75/51a1c96f4efa1b7a27030a7410f39bc6 ) 
 - [프로그래밍 라이브러리는 SalKata 소개](https://docs.google.com/document/d/e/2PACX-1vTnRYJOXyOagNhTdhpkI_xOQX4DlMu0TRcC9Ehew6wraufgEtBuQiSdGpKzaEmRb-jfsLv43i0nBQsp/pub )
     - [예제 프로그램: github_sqlkata_demo.zip](https://drive.google.com/file/d/1FBpB1zQ84LqGOA9WAJ6vk5S3453ekqDc/view?usp=sharing )
-  
+- [코드에서 DB 트랜잭션 하기](./how_to_db_transaction.md )
+    
   
 ### 2022년 인턴 사원이 만든 학습 자료
 `학습자료_2022년_인턴` 이라는 디렉토리에 2022년 인턴 사원으로 근무한 분이 만든 학습 자료가 있다.    
