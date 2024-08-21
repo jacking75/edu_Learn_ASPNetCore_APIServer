@@ -60,21 +60,49 @@
 ### 문서 
 - [Web서비스의 서버구성과목적](https://docs.google.com/presentation/d/105NPfv7CPfgk0Iw_6vSB_oOavQZpes7-Wit5HuCm7oM/edit?usp=sharing )
 - [DAO, DTO, VO 란? 간단한 개념 정리](https://melonicedlatte.com/2021/07/24/231500.html )
-- ASP.NET Core Web 
-    - [시작](https://blog.naver.com/sssang97/223088811266 ) 
-	- [컨트롤러와 route 규칙](https://blog.naver.com/sssang97/223088978577 ) 
-	- [Request 처리](https://blog.naver.com/sssang97/223089025576 ) 
-	- [Response 처리](https://blog.naver.com/sssang97/223089045407 )
+- ASP.NET Core Web [시작](https://blog.naver.com/sssang97/223088811266 )  [컨트롤러와 route 규칙](https://blog.naver.com/sssang97/223088978577 )  [Request 처리](https://blog.naver.com/sssang97/223089025576 )  [Response 처리](https://blog.naver.com/sssang97/223089045407 )
+- [ASP.NET Core 애플리케이션 최소 구현 치트 시트](https://jacking75.github.io/csharp_netcore_cheatsheet/)
+- 설정 파일  app.config
+    - [Microsoft.Extensions.Configuration.Json에서 읽은 설정 값에 Prefix 부여](https://docs.google.com/document/d/e/2PACX-1vQbK6RbrkoyhQDL1u1_8_ZQ02Dsqhkdv3WHj2UHY8SyuM5fgOy3RtIZ2B2f0iFtMqySU-dCZKjAsd4Y/pub )
+    - [MS Docs ASP.NET Core에서 여러 환경 사용](https://docs.microsoft.com/ko-kr/aspnet/core/fundamentals/environments?view=aspnetcore-6.0 )
+    - [ASP.NET Core에서 여러 환경 사용](https://docs.microsoft.com/ko-kr/aspnet/core/fundamentals/environments )
+    - [Microsoft.Extensions.Configuration 및 Microsoft.Extensions.Options 사용 시작](https://docs.google.com/document/d/12OwjWyzMwYWMWi9LEZEvgE2gjx-aGWP17f2Pw_z1S4o/pub)
+- DI
+    - [ASP.Net Core - DI 시스템 사용하기](https://docs.google.com/document/d/e/2PACX-1vR0NxfIPIQe_CAxf2-yo9B9QB4O0NIlJz3U-oe4iF_sHIpMnJiu_4o3ZlWoPD0kcW9ve9ka49_sLa8u/pub )
+    - [ASP.Net Core - DI에서 Dbcontext 사용하기](https://docs.google.com/document/d/e/2PACX-1vTw549tqwoIE6WOWv5a8lFUFNakk988zXvpu2NHzhWrf8dKnbyYBza281hp3Gk9kRqO6r22hTQ63hGI/pub )
+    - [ASP.NET Core - DI로 추가한 클래스의 초기화 방법](https://www.sysnet.pe.kr/2/0/13152 )
 - [ASP.NET Core 입문 – 미들웨어와 파이프라인 해설](https://docs.google.com/document/d/e/2PACX-1vRsqcyeBi--VYCPwQlhW9LsAyYUKSuuh80_BiSgnNnrfULsZFgz3i_Bj8nGG6dl-Q6NEiKBjhGx2bJ6/pub )	
+- [C#(.NET) 이미 빌드 된 API 서버의 엔드 포인트 url을 변경하는 방법](https://docs.google.com/document/d/e/2PACX-1vRhHebXWTa1OOY60NT3T0ZRkr8NMNRIuFADhVZIknSs_YsnlYTz7FObkexo9x1iNfoQID31-hVxiwTB/pub )
+- [.NET 6에서 Kestrel 포트를 설정하는 몇가지(너무 많은?) 방법](https://forum.dotnetdev.kr/t/net-6-kestrel-bryan-hogan/2681 )
+- [Visual Studio - launchSettings.json을 이용한 HTTP/HTTPS 포트 바인딩](https://www.sysnet.pe.kr/2/0/13539 )
+- [ASP.NET Core 앱에서 URL을 설정하는 5가지 방법](https://docs.google.com/document/d/1x3ZJQtGt2uNW5_xRT6QHrOmZkfbNU2KQ23N5RCLi4cE/edit?usp=sharing )
 - [ASP.NET Core의 속도 제한 미들웨어](https://learn.microsoft.com/ko-kr/aspnet/core/performance/rate-limit?preserve-view=true&view=aspnetcore-7.0  )
 - [요청 본문을 Stream 또는 PipeReader로 바인딩](https://learn.microsoft.com/ko-kr/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0#rbs ) 
 - [STREAM](https://learn.microsoft.com/ko-kr/aspnet/core/fundamentals/minimal-apis?preserve-view=true&view=aspnetcore-7.0#stream7  )
 - [ASP.NET Core 출력 캐싱 미들웨어](https://learn.microsoft.com/ko-kr/aspnet/core/performance/caching/output?view=aspnetcore-7.0  ) 
+- [ASP.NET Core 프레임워크 내부의 로그 수준 설정하기](https://docs.google.com/document/d/e/2PACX-1vRN7e0qnQE9gC780ddPfIojCnVUhd7mf-uYk6oRIibo_nEbs3HWJe8-61jDAiel37AQxe8BxKjb58-l/pub )
+- [ASP.NET Core에서 호스팅되는 서비스를 사용하는 백그라운드 작업](https://docs.microsoft.com/ko-kr/aspnet/core/fundamentals/host/hosted-services?tabs=visual-studio&utm_source=pocket_mylist&view=aspnetcore-6.0 )
+- [IHostedService 및 BackgroundService 클래스를 사용하여 마이크로 서비스에서 백그라운드 작업 구현](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/multi-container-microservice-net-applications/background-tasks-with-ihostedservice )
+- [practical-aspnetcore ASP.NET Core 예제 프로젝트 모음](https://github.com/dodyg/practical-aspnetcore )
+- [ASP.NET Core 서버 시작까지 흐름 추적](https://jacking75.github.io/NET_lAspNetCoreTrace/)
+- [ASP.NET Caching](https://docs.google.com/presentation/d/14x3Byprw28n-bwzwT0a5IZ_IBty9ZCaZmUM3pNUmrww/edit?usp=sharing)
+- [Client IP safelist for ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/ip-safelist?view=aspnetcore-2.1 )
+- [Custom ASP.NET Core Middleware Example](https://blogs.msdn.microsoft.com/dotnet/2016/09/19/custom-asp-net-core-middleware-example/ )
+- [Exploring a minimal WebAPI with ASP.NET Core](http://www.hanselman.com/blog/ExploringAMinimalWebAPIWithASPNETCore.aspx )
+- [ASP.NET Core에서 API 별 버전 관리](https://docs.google.com/document/d/1XMqTausAUspWr0GLXMkdLpX-vE4uDnQj0JZ3Fmi61-Y/edit?usp=sharing )
+- [ASP.NET Core WebAPI에서 Custom Formatter를 이용하여 CSV 및 JSON 출력을 전환하는 샘플](https://docs.google.com/document/d/12sLRZPFBh3uJ5UGTfd59bvuTZhjIHkwi9tT2ZyDYjJs/edit?usp=sharing )
+- 실행, 배포
+    - ["Docker Desktop for Windows" - ASP.NET Core 응용 프로그램의 소켓 주소 바인딩(IPv4/IPv6 loopback, Any)](https://www.sysnet.pe.kr/2/0/13548 )
+    - [Visual Studio - .NET 8 프로젝트부터 dockerfile에 추가된 "USER app" 설정](https://www.sysnet.pe.kr/2/0/13547 )
+    - [ASP.NET Core - 우선순위에 따른 HTTP/HTTPS 호스트:포트 바인딩 방법](https://www.sysnet.pe.kr/2/0/13545 )
+- CORS
+    - [.NET Core3.1에서 CORS 설정하기](https://jacking75.github.io/csharp_cors/ )
+    - [(MS Docs) ASP.NET Core에서 CORS(원본 간 요청) 사용](https://learn.microsoft.com/ko-kr/aspnet/core/security/cors?view=aspnetcore-8.0 )
 - 외부 자료: 
     - [모바일 게임 개발 개요](https://drive.google.com/file/d/1WImt5yn7cpIBm2opZFWMapWW2GX6XB_R/view?usp=sharing ) 
 	- [게임 엔진 아웃라인](https://drive.google.com/file/d/1HeBu2NXeLXU8VY5l7Gph4l6SRZkhZQae/view?usp=sharing ) 
 	- [데이터 설계](https://drive.google.com/file/d/14NcczPD6XS1rLH6TpORCcLhF9ftsVSgu/view?usp=sharing ) 
-	- [통신](https://drive.google.com/file/d/1VmxaTRA1qJnoIGWKK6SoYDH-pHBvnGbz/view?usp=sharing )    
+	- [통신](https://drive.google.com/file/d/1VmxaTRA1qJnoIGWKK6SoYDH-pHBvnGbz/view?usp=sharing )
 
 <br>   
 <br>      
