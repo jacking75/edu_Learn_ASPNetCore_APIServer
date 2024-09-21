@@ -72,7 +72,7 @@ public class CheckUserAuthAndLoadUserData
         await _next(context);
 
         // 트랜잭션 해제(Redis 동기화 해제)
-        await _memoryDb.DelUserReqLockAsync(userLockKey);
+        await _memoryDb.UnLockUserReqAsync(userLockKey);
     }
 
     async Task<(bool,string)> IsTokenNotExistOrReturnToken(HttpContext context)
@@ -111,7 +111,7 @@ public class CheckUserAuthAndLoadUserData
 
     async Task<bool> SetLockAndIsFailThenSendError(HttpContext context, string AuthToken)
     {
-        if (await _memoryDb.SetUserReqLockAsync(AuthToken))
+        if (await _memoryDb.LockUserReqAsync(AuthToken))
         {
             return false;
         }

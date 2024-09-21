@@ -117,7 +117,7 @@ public class MemoryDb : IMemoryDb
         }
     }
 
-    public async Task<bool> SetUserReqLockAsync(string key)
+    public async Task<bool> LockUserReqAsync(string key)
     {
         try
         {
@@ -139,7 +139,7 @@ public class MemoryDb : IMemoryDb
         return true;
     }
 
-    public async Task<bool> DelUserReqLockAsync(string key)
+    public async Task<bool> UnLockUserReqAsync(string key)
     {
         if (string.IsNullOrEmpty(key))
         {
