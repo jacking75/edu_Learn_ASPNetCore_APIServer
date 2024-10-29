@@ -71,6 +71,7 @@
     - [ASP.Net Core - DI 시스템 사용하기](https://docs.google.com/document/d/e/2PACX-1vR0NxfIPIQe_CAxf2-yo9B9QB4O0NIlJz3U-oe4iF_sHIpMnJiu_4o3ZlWoPD0kcW9ve9ka49_sLa8u/pub )
     - [ASP.Net Core - DI에서 Dbcontext 사용하기](https://docs.google.com/document/d/e/2PACX-1vTw549tqwoIE6WOWv5a8lFUFNakk988zXvpu2NHzhWrf8dKnbyYBza281hp3Gk9kRqO6r22hTQ63hGI/pub )
     - [ASP.NET Core - DI로 추가한 클래스의 초기화 방법](https://www.sysnet.pe.kr/2/0/13152 )
+	- [의존성 주입 방법의 라이프 사이클 - AddTransient, AddScoped, AddSingleton](https://docs.google.com/document/d/e/2PACX-1vRFi_2Z6yMOWNwWfILDXGsbqYS3aJfiO6aO2u22Awy-pQ5XEEz0GpIOjehif47noYsR06jT6z_pD6Mr/pub )
 - [ASP.NET Core 입문 – 미들웨어와 파이프라인 해설](https://docs.google.com/document/d/e/2PACX-1vRsqcyeBi--VYCPwQlhW9LsAyYUKSuuh80_BiSgnNnrfULsZFgz3i_Bj8nGG6dl-Q6NEiKBjhGx2bJ6/pub )	
 - [C#(.NET) 이미 빌드 된 API 서버의 엔드 포인트 url을 변경하는 방법](https://docs.google.com/document/d/e/2PACX-1vRhHebXWTa1OOY60NT3T0ZRkr8NMNRIuFADhVZIknSs_YsnlYTz7FObkexo9x1iNfoQID31-hVxiwTB/pub )
 - [.NET 6에서 Kestrel 포트를 설정하는 몇가지(너무 많은?) 방법](https://forum.dotnetdev.kr/t/net-6-kestrel-bryan-hogan/2681 )
