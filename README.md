@@ -27,7 +27,12 @@
     - [예제 프로그램: github_sqlkata_demo.zip](https://drive.google.com/file/d/1FBpB1zQ84LqGOA9WAJ6vk5S3453ekqDc/view?usp=sharing )
 - [코드에서 DB 트랜잭션 하기](./how_to_db_transaction.md )
     
-  
+    
+### 로그 라이브러리 ZLogger
+.NET 에서 로그 라이브러리로 ZLogger를 추천한다.  
+사용 방법은 `ZLogger` 디렉토리를 보기 바란다.    
+    
+    
 ### 2022년 인턴 사원이 만든 학습 자료
 `학습자료_2022년_인턴` 이라는 디렉토리에 2022년 인턴 사원으로 근무한 분이 만든 학습 자료가 있다.    
 이 자료들을 순서대로 한번 보기 바란다.  
