@@ -12,10 +12,10 @@ namespace APIServer.Controllers.Friend;
 [Route("[controller]")]
 public class FriendCancelReq : ControllerBase
 {
-    readonly ILogger<FriendDelete> _logger;
+    readonly ILogger<FriendCancelReq> _logger;
     readonly IFriendService _friendService;
 
-    public FriendCancelReq(ILogger<FriendDelete> logger, IFriendService friendService)
+    public FriendCancelReq(ILogger<FriendCancelReq> logger, IFriendService friendService)
     {
         _logger = logger;
         _friendService = friendService;
@@ -26,9 +26,9 @@ public class FriendCancelReq : ControllerBase
     /// 보낸 친구 요청을 취소합니다.
     /// </summary>
     [HttpPost]
-    public async Task<FriendDeleteResponse> CancelFriendReq([FromHeader] HeaderDTO header, FriendDeleteRequest request)
+    public async Task<FriendCancelResponse> CancelFriendReq([FromHeader] HeaderDTO header, FriendCancelRequest request)
     {
-        FriendDeleteResponse response = new();
+        FriendCancelResponse response = new();
 
         response.Result = await _friendService.CancelFriendReq(header.Uid, request.FriendUid);
 
