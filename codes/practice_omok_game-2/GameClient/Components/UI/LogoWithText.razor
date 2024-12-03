@@ -1,0 +1,11 @@
+﻿@inject NavigationManager NavigationManager
+
+<div onclick=@(() => NavigationManager.NavigateTo("/")) style="cursor: pointer;">
+	<img style="
+                transition: transform 1s linear;
+                transform: rotate(0deg);"
+		 onmouseover="this.style.transform='rotate(360deg)'"
+		 onmouseout="this.style.transform='rotate(0deg)'" height="40" src="images/logo_icon.png" />
+	<img height="40" src="images/logo_text.png" />
+</div>
+

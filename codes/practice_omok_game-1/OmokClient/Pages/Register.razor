@@ -1,0 +1,132 @@
+﻿@page "/register"
+@using AntDesign
+@inject MessageService _message
+@inject CustomAuthenticationStateProvider CustomAuthProvider
+@inject NavigationManager Navigation
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject OmokClient.Services.AuthService AuthService
+
+<PageTitle>Register</PageTitle>
+
+    <div class="main-content">
+        <RadzenCard Class="card-container">
+            <header class="header">
+                <h3>회원가입</h3>
+            </header>
+            <div class="form-container">
+                <RadzenStack Orientation="Orientation.Vertical" Gap="10px">
+                    <form>
+                        <div class="input-container">
+                            <RadzenStack Orientation="Orientation.Horizontal" Gap="10px">
+                                <RadzenStack Orientation="Orientation.Vertical" Gap="10px">
+                                    <AntDesign.Input Placeholder="Email" @bind-Value="@registerEmail" Size="@AntDesign.InputSize.Default">
+                                        <Prefix>
+                                            <Icon Type="user" />
+                                        </Prefix>
+                                    </AntDesign.Input>
+                                    <InputPassword Placeholder="Password" @bind-Value="@registerPassword" Size="@AntDesign.InputSize.Default">
+                                        <Prefix>
+                                            <Icon Type="lock" />
+                                        </Prefix>
+                                    </InputPassword>
+                                </RadzenStack>
+                                <div class="btn">
+                                    <Button Type="primary" Size="large" OnClick="RegisterUser">
+                                        회원가입
+                                    </Button>
+                                </div>
+                            </RadzenStack>
+                        </div>
+                    </form>
+                    <form>
+                        <div class="last-btn-info">
+                            <Button Type="dashed" OnClick="MoveToHomePage">
+                                계정이 이미 있습니다. 로그인하기
+                            </Button>
+                        </div>
+                    </form>
+                </RadzenStack>
+            </div>
+        </RadzenCard>
+    </div>
+
+@code {
+    private string registerEmail = string.Empty;
+    private string registerPassword = string.Empty;
+
+    private async Task RegisterUser()
+    {
+        var result = await AuthService.RegisterUserAsync(registerEmail, registerPassword);
+        if (result?.Result == ErrorCode.None)
+        {
+            Console.WriteLine("Registration successful");
+            await _message.Success("회원가입 성공");
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            Console.WriteLine("Registration failed: " + result?.Result);
+            await _message.Error("회원가입 실패: " + result?.Result, 5);
+        }
+    }
+
+    private void MoveToHomePage()
+    {
+        Navigation.NavigateTo("/");
+    }
+}
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .page-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .header {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .card-container {      
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 255, 255, 0.8); /* 배경색을 약간 투명하게 설정 */
+        border-radius: 8px;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    btn{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    last-btn-info{
+        align-items: end;
+    }
+    /* main-content 클래스의 배경색 제거 */
+    .main-content {
+        /* background-color: transparent; /* 배경색을 투명하게 설정 */ */
+    }
+</style>

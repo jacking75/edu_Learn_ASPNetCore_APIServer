@@ -1,0 +1,40 @@
+﻿
+	<button 
+		style="
+				width: 160px;
+				height: 80px;
+				color:white;
+				background-color:transparent;
+				text-align: center;
+				background-image: url('images/ui/button_pink.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+				font-family: 'Cherry Bomb One', system-ui;
+				font-weight: 400;
+				font-style: normal;
+				margin:auto;
+				border:none; outline:none;
+				z-index: 999;
+				cursor:pointer;" @onclick="@OnClickHandler">
+		
+		@ChildContent
+	</button>
+
+@code {
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+
+	[Parameter]
+	public bool IsDisabled { get; set; } = false;
+
+	[Parameter]
+	public EventCallback OnClick { get; set; }
+
+	private async Task OnClickHandler()
+	{
+		if (!IsDisabled)
+		{
+			await OnClick.InvokeAsync(null);
+		}
+	}
+}

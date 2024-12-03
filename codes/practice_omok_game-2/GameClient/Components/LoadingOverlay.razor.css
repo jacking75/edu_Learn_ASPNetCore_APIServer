@@ -1,0 +1,15 @@
+﻿@keyframes infinite-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate {
+    width: 100px;
+    height: 100px;
+    animation: infinite-rotate 2s linear infinite; /* Infinite rotation */
+}

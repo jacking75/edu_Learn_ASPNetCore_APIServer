@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+
+<AuthorizeView>
+	<Authorized>
+		<FluentLabel>@context.User.Identity?.Name</FluentLabel>
+		<FluentProfileMenu Image="images/logo_icon.png"
+						   Status="@PresenceStatus.Available"
+						   HeaderLabel="Microsoft"
+						   FullName="@context.User.Identity?.Name"
+						   PopoverStyle="min-width: 330px;" />
+	</Authorized>
+</AuthorizeView>

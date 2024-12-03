@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+
+<FluentStack Orientation="@Orientation.Vertical" Style="height: 100%; width: 400px;" HorizontalAlignment="@HorizontalAlignment.Center">
+	<FluentStack Orientation="@Orientation.Horizontal" HorizontalAlignment="@HorizontalAlignment.Center">
+		<FluentStack Orientation="@Orientation.Vertical" VerticalAlignment="@VerticalAlignment.Center" Width="50%">
+			<img src="/images/profile.png" width="180" style="padding: 5px; margin: auto;" />
+		</FluentStack>
+		<FluentStack Orientation="@Orientation.Vertical" VerticalAlignment="@VerticalAlignment.Center" VerticalGap="0" HorizontalGap="0">
+			<FluentStack Orientation="@Orientation.Horizontal" VerticalAlignment="@VerticalAlignment.Center" HorizontalAlignment="@HorizontalAlignment.Center" Style=" width:200px; border-radius: 16px;background: #9e5649;" VerticalGap="2" HorizontalGap="0">
+			
+				@if (IsEditMode())
+				{
+					<FluentTextField @bind-Value="@UserInfo.Nickname" />
+				}
+				else
+				{
+					<h1 style="text-align: center; color:white;"> @UserInfo?.Nickname</h1>
+				}
+
+				<img @onclick=ToggleEditMode class="menu-icon" src="/images/icons/pencil.png" width="30" />
+			</FluentStack>
+			<FluentSpacer />
+			<FluentStack Orientation="@Orientation.Horizontal" VerticalGap="0" HorizontalGap="0" VerticalAlignment="@VerticalAlignment.Center">
+				<img class="game-item" src="/images/icons/swap.png" width="50" />
+				<img class="game-item" src="/images/icons/star.png" width="50" />
+				<img class="game-item" src="/images/icons/message.png" width="50" 
+				@onclick=@StartMailMode
+				/>
+
+			</FluentStack>
+		</FluentStack>
+	</FluentStack>
+	<FluentStack Orientation="@Orientation.Horizontal"
+				 Style="background: #ffecd9; height: 250px; border-radius: 16px;">
+
+	</FluentStack>
+	<FluentSpacer />
+	<FluentStack Orientation="@Orientation.Vertical" VerticalAlignment="@VerticalAlignment.Center"
+				 HorizontalAlignment="@HorizontalAlignment.Start"
+				 VerticalGap="20">
+		@if (((CookieStateProvider)CookieStateProvider).AuthenticatedUser != null)
+		{
+			<span style="font-size: 48px; line-height:48px">
+				Win Rate: @(((@UserInfo?.WinCount * 100.0) / @UserInfo?.PlayCount)?.ToString("0.##"))%
+			</span>
+		}
+		<FluentSpacer />
+		<FluentStack Orientation="@Orientation.Horizontal">
+			<span style="font-size: 48px;" class="fredoka">Wins: @UserInfo?.WinCount</span>
+			<span style="font-size: 48px;" class="fredoka">Total: @UserInfo?.PlayCount</span>
+		</FluentStack>
+
+	</FluentStack>
+
+	<Popup IsOpen="@IsMailMode()" OnClose="@QuitMailMode" Title="@(SendMail != null ? SendMail.Title : string.Empty)">
+		@if (SendMail != null)
+		{
+			<FluentStack Orientation="@Orientation.Vertical" Style="width: 450px; height: 100%">
+				<FluentStack Orientation="@Orientation.Horizontal" HorizontalAlignment="@HorizontalAlignment.Start">
+					<img src="images/ui/back.png" @onclick="@QuitMailMode" width="50" />
+					<FluentSpacer />
+				</FluentStack>
+				<FluentStack Style="background-color:bisque; border-radius:8px; height:100%"
+							 Orientation="@Orientation.Vertical"
+				
+				HorizontalAlignment="@HorizontalAlignment.Center"
+				VerticalAlignment="VerticalAlignment.Center"
+				>
+					<FluentStack Orientation="@Orientation.Horizontal" Width="100%">
+						<FluentTextArea @bind-Value="@SendMail.Content" Rows="6" Style="width: 100%" />
+					</FluentStack>
+
+
+				</FluentStack>		
+				<FluentSpacer />
+				<FluentStack Orientation="@Orientation.Horizontal">
+					<img class="menu-icon" src="images/ui/save_button.png" @onclick="@SendMailToUser" width="180" />
+					<img class="menu-icon" src="images/ui/cancel_button.png" @onclick="@QuitMailMode" width="180" />
+				</FluentStack>
+			</FluentStack>
+		}
+	</Popup>
+
+</FluentStack>

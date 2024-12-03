@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+@inject ILogger<BottomNavBar> Logger
+
+<div class="bottom-navbar">
+    <nav class="bottom-nav">
+        <button class="nav-button" @onclick="() => NavigateAndLog("/", \"Home Button Clicked\")">
+            <span class="bi bi-house-door-fill" aria-hidden="true"></span>
+            Home
+        </button>
+        <button class="nav-button" @onclick="() => NavigateAndLog("gamestart", \"Game Start Button Clicked\")">
+            <span class="bi bi-play-fill" aria-hidden="true"></span>
+            Game Start
+        </button>
+        <button class="nav-button" @onclick="() => NavigateAndLog("omok", \"Omok Game Button Clicked\")">
+            <span class="bi bi-play-fill" aria-hidden="true"></span>
+            Omok Game
+        </button>
+        <button class="nav-button" @onclick="() => LogButtonClick(\"btn1 Clicked\")">
+            <span class="bi bi-envelope" aria-hidden="true"></span>
+            btn1
+        </button>
+        <button class="nav-button" @onclick="() => LogButtonClick(\"btn2 Clicked\")">
+            <span class="bi bi-envelope" aria-hidden="true"></span>
+            btn2
+        </button>
+        <button class="nav-button" @onclick="() => LogButtonClick(\"btn3 Clicked\")">
+            <span class="bi bi-envelope" aria-hidden="true"></span>
+            btn3
+        </button>
+    </nav>
+</div>
+
+@code {
+    private void Logout()
+    {
+        ((CustomAuthenticationStateProvider)AuthenticationStateProvider).NotifyUserLoggedOut();
+        Navigation.NavigateTo("/");
+    }
+
+    private void NavigateAndLog(string url, string logMessage)
+    {
+        Logger.LogInformation(logMessage);
+        Navigation.NavigateTo(url);
+    }
+
+    private void LogButtonClick(string logMessage)
+    {
+        Logger.LogInformation(logMessage);
+    }
+}

@@ -1,0 +1,802 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Blazored.SessionStorage
+@using OmokClient.Services
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ISessionStorageService sessionStorage
+@inject NavigationManager Navigation
+@inject PlayerService PlayerService
+@inject MailService MailService
+@inject AttendanceService AttendanceService
+@inject FriendService FriendService
+@using AntDesign
+@inject MessageService _message
+
+<CascadingValue Value="this">
+    <div class="page">
+        <header class="top-row px-4">
+            @if (!string.IsNullOrEmpty(sessionStorageId))
+            {
+                <span class="user-email">Welcome, @sessionStorageId!</span>
+            }
+        </header>
+        @if (!IsHomePage && !IsRegisterPage)
+        {
+            <div class="content-wrapper">
+                <div class="player-info">
+                    <div class="player-info-text">
+                        <h3>플레이어 정보</h3>
+                        <!-- Player Information Here -->
+                        <div>닉네임: @nickName</div>
+                        <div>게임 머니: @gameMoney</div>
+                        <div>다이아몬드: @diamond</div>
+                        <div>경험치: @exp</div>
+                        <div>레벨: @level</div>
+                        <div>승리: @win</div>
+                        <div>패배: @lose</div>
+                        <div>무승부: @draw</div>
+                    </div>
+                </div>
+                @if (OverlayContent != null)
+                {
+                    <div class="overlay-content">
+                        @OverlayContent
+                    </div>
+                }
+                <div class="main-content @(OverlayContent != null ? "with-overlay" : "")">
+                    @Body
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="content-wrapper">
+                <div class="main-content">
+                    @Body
+                </div>
+            </div>
+        }
+
+        @if (!IsHomePage && !IsRegisterPage)
+        {
+            <footer class="bottomappbar">
+                <div class="bottom-navbar">
+                    <button class="nav-button" @onclick="ToggleMailbox">우편함</button>
+                    <button class="nav-button" @onclick="ToggleItems">아이템</button>
+                    <button class="nav-button" @onclick="ToggleAttendance">출석부</button>
+                    <button class="nav-button" @onclick="ToggleFriend">친구</button>
+                    <button class="nav-button" @onclick="ToggleShop">상점</button>
+                </div>
+            </footer>
+        }
+    </div>
+</CascadingValue>
+
+@code {
+    private bool isAuthenticated = false;
+    private string username = string.Empty;
+    private string sessionStorageId = string.Empty;
+    private string nickName = string.Empty;
+    private long gameMoney;
+    private long diamond;
+    private int exp;
+    private int level;
+    private int win;
+    private int lose;
+    private int draw;
+    private RenderFragment? OverlayContent;
+    private bool IsHomePage => Navigation.Uri.EndsWith("/");
+    private bool IsRegisterPage => Navigation.Uri.EndsWith("/register");
+    private string userId = string.Empty;
+    private List<PlayerItem> playerItems;
+    private List<MailDetail> mailboxItems;
+    private MailDetail? selectedMail;
+    private AttendanceInfo? attendanceInfo;
+    private List<Friend> friends;
+    private List<FriendRequest> friendRequests;
+    private string newFriendId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        sessionStorageId = await sessionStorage.GetItemAsync<string>("sessionUserId") ?? string.Empty;
+        nickName = await sessionStorage.GetItemAsync<string>("sessionNickName") ?? string.Empty;
+        gameMoney = await sessionStorage.GetItemAsync<long>("sessionGameMoney");
+        diamond = await sessionStorage.GetItemAsync<long>("sessionDiamond");
+        exp = await sessionStorage.GetItemAsync<int>("sessionExp");
+        level = await sessionStorage.GetItemAsync<int>("sessionLevel");
+        win = await sessionStorage.GetItemAsync<int>("sessionWin");
+        lose = await sessionStorage.GetItemAsync<int>("sessionLose");
+        draw = await sessionStorage.GetItemAsync<int>("sessionDraw");
+        await UpdatePlayerBasicInfo();
+    }
+
+    public async Task ForceReload()
+    {
+        await UpdatePlayerBasicInfo();
+        StateHasChanged();
+    }
+
+    private async Task UpdatePlayerBasicInfo()
+    {
+        var playerId = sessionStorageId;
+        if (!string.IsNullOrEmpty(playerId))
+        {
+            var characterInfo = await PlayerService.GetPlayerBasicInfoAsync(playerId);
+            if (characterInfo != null && characterInfo.Result == ErrorCode.None)
+            {
+                nickName = characterInfo.PlayerBasicInfo.NickName;
+                gameMoney = characterInfo.PlayerBasicInfo.GameMoney;
+                diamond = characterInfo.PlayerBasicInfo.Diamond;
+                exp = characterInfo.PlayerBasicInfo.Exp;
+                level = characterInfo.PlayerBasicInfo.Level;
+                win = characterInfo.PlayerBasicInfo.Win;
+                lose = characterInfo.PlayerBasicInfo.Lose;
+                draw = characterInfo.PlayerBasicInfo.Draw;
+            }
+            await sessionStorage.SetItemAsync("sessionNickName", nickName);
+            await sessionStorage.SetItemAsync("sessionGameMoney", gameMoney);
+            await sessionStorage.SetItemAsync("sessionDiamond", diamond);
+            await sessionStorage.SetItemAsync("sessionExp", exp);
+            await sessionStorage.SetItemAsync("sessionLevel", level);
+            await sessionStorage.SetItemAsync("sessionWin", win);
+            await sessionStorage.SetItemAsync("sessionLose", lose);
+            await sessionStorage.SetItemAsync("sessionDraw", draw);
+        }
+    }
+
+    private async Task ToggleOverlayContent(RenderFragment? content)
+    {
+        if (OverlayContent == content)
+        {
+            OverlayContent = null;
+        }
+        else
+        {
+            OverlayContent = content;
+        }
+        await InvokeAsync(StateHasChanged); // UI 업데이트 보장
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //// 우편함
+    private async Task ToggleMailbox()
+    {
+        if (OverlayContent != null)
+        {
+            OverlayContent = null;
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+
+        await LoadMailbox(); // 메일박스 목록 불러오기
+
+        await InvokeAsync(StateHasChanged); // UI 업데이트 보장
+    }
+
+    private async Task LoadMailbox()
+    {
+        var playerId = sessionStorageId;
+        var response = await MailService.GetMailboxAsync(playerId, 1); // 페이지 번호를 1로 하드코딩
+
+        if (response.Result == ErrorCode.None)
+        {
+            mailboxItems = response.MailIds.Select((id, index) => new MailDetail
+                {
+                    MailId = id,
+                    Title = response.Titles[index],
+                    ItemCode = response.ItemCodes[index],
+                    SendDate = response.SendDates[index],
+                    ReceiveYn = response.ReceiveYns[index]
+                }).ToList();
+        }
+        else
+        {
+            mailboxItems = new List<MailDetail>(); // 오류 시 빈 리스트 반환
+        }
+
+        OverlayContent = builder =>
+        {
+            builder.OpenElement(0, "table");
+            builder.AddAttribute(1, "class", "table");
+            builder.OpenElement(2, "thead");
+            builder.OpenElement(3, "tr");
+            builder.OpenElement(4, "th");
+            builder.AddContent(5, "Title");
+            builder.CloseElement();
+            builder.OpenElement(6, "th");
+            builder.AddContent(7, "Item");
+            builder.CloseElement();
+            builder.OpenElement(8, "th");
+            builder.AddContent(9, "Date");
+            builder.CloseElement();
+            builder.OpenElement(10, "th");
+            builder.AddContent(11, "Actions");
+            builder.CloseElement();
+            builder.CloseElement();
+            builder.CloseElement();
+            builder.OpenElement(12, "tbody");
+            foreach (var mail in mailboxItems)
+            {
+                builder.OpenElement(13, "tr");
+                builder.OpenElement(14, "td");
+                builder.AddContent(15, mail.Title);
+                builder.CloseElement();
+                builder.OpenElement(16, "td");
+                builder.AddContent(17, MasterData.ItemCodeToNameMap.ContainsKey(mail.ItemCode) ? MasterData.ItemCodeToNameMap[mail.ItemCode] : "Unknown Item");
+                builder.CloseElement();
+                builder.OpenElement(18, "td");
+                builder.AddContent(19, mail.SendDate.ToString("yyyy-MM-dd"));
+                builder.CloseElement();
+                builder.OpenElement(20, "td");
+                builder.OpenElement(21, "button");
+                builder.AddAttribute(22, "class", "btn btn-primary");
+                builder.AddAttribute(23, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, () => ReadMail(mail.MailId)));
+                builder.AddContent(24, "View");
+                builder.CloseElement();
+                builder.CloseElement();
+                builder.CloseElement();
+            }
+            builder.CloseElement();
+            builder.CloseElement();
+        };
+    }
+
+    private async Task ReadMail(long mailId)
+    {
+        var playerId = sessionStorageId;
+        var response = await MailService.ReadMailAsync(playerId, mailId);
+
+        if (response.Result == ErrorCode.None && response.MailId == mailId)
+        {
+            selectedMail = new MailDetail
+                {
+                    MailId = response.MailId,
+                    Title = response.Title,
+                    Content = response.Content,
+                    ItemCode = response.ItemCode,
+                    ItemCnt = response.ItemCnt,
+                    SendDate = response.SendDate ?? DateTime.MinValue,
+                    ExpireDate = response.ExpireDate ?? DateTime.MinValue,
+                    ReceiveDate = response.ReceiveDate,
+                    ReceiveYn = response.ReceiveYn
+                };
+        }
+        else
+        {
+            selectedMail = null;
+        }
+
+        OverlayContent = builder =>
+        {
+            if (selectedMail != null)
+            {
+                builder.OpenElement(0, "div");
+                builder.OpenElement(1, "h3");
+                builder.AddContent(2, selectedMail.Title);
+                builder.CloseElement();
+                builder.OpenElement(3, "p");
+                builder.AddContent(4, selectedMail.Content);
+                builder.CloseElement();
+                builder.OpenElement(5, "p");
+                builder.AddContent(6, "Item: ");
+                if (MasterData.ItemCodeToNameMap.ContainsKey(selectedMail.ItemCode))
+                {
+                    builder.AddContent(7, MasterData.ItemCodeToNameMap[selectedMail.ItemCode]);
+                }
+                else
+                {
+                    builder.AddContent(7, "Unknown Item");
+                }
+                builder.CloseElement();
+                builder.OpenElement(8, "p");
+                builder.AddContent(9, "Count: ");
+                builder.AddContent(10, selectedMail.ItemCnt);
+                builder.CloseElement();
+                builder.OpenElement(11, "p");
+                builder.AddContent(12, $"Sent: {selectedMail.SendDate:yyyy-MM-dd}");
+                builder.CloseElement();
+                builder.OpenElement(13, "p");
+                builder.AddContent(14, $"Expires: {selectedMail.ExpireDate:yyyy-MM-dd}");
+                builder.CloseElement();
+                if (selectedMail.ReceiveYn == 0)
+                {
+                    builder.OpenElement(15, "button");
+                    builder.AddAttribute(16, "class", "btn btn-success");
+                    builder.AddAttribute(17, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, () => ReceiveMailItem(selectedMail.MailId)));
+                    builder.AddContent(18, "Receive");
+                    builder.CloseElement();
+                }
+                else
+                {
+                    builder.OpenElement(19, "p");
+                    builder.AddContent(20, "Already received.");
+                    builder.CloseElement();
+                }
+                builder.OpenElement(21, "button");
+                builder.AddAttribute(22, "class", "btn btn-danger");
+                builder.AddAttribute(23, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, () => DeleteMail(selectedMail.MailId)));
+                builder.AddContent(24, "Delete");
+                builder.CloseElement();
+                builder.OpenElement(25, "button");
+                builder.AddAttribute(26, "class", "btn btn-secondary");
+                builder.AddAttribute(27, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, LoadMailbox)); // 목록 다시 불러오기
+                builder.AddContent(28, "Back to List");
+                builder.CloseElement();
+                builder.CloseElement();
+            }
+        };
+
+        await InvokeAsync(StateHasChanged); // UI 업데이트 보장
+    }
+
+    private async Task ReceiveMailItem(long mailId)
+    {
+        var playerId = sessionStorageId;
+        var response = await MailService.ReceiveMailItemAsync(playerId, mailId);
+
+        if (response == null)
+        {
+            Console.WriteLine("Response is null. Failed to receive mail item.");
+            await _message.Error("아이템 수령 실패");
+            return;
+        }
+
+        if (response.Result == ErrorCode.None)
+        {
+            await ReadMail(mailId);
+            Console.WriteLine("Mail item received successfully.");
+            await _message.Success("아이템 수령 성공");
+        }
+        else
+        {
+            Console.WriteLine("Failed to receive mail item.");
+            await _message.Error("아이템 수령 실패");
+        }
+    }
+
+    private async Task DeleteMail(long mailId)
+    {
+        var playerId = sessionStorageId;
+        var response = await MailService.DeleteMailAsync(playerId, mailId);
+
+        if (response == null)
+        {
+            Console.WriteLine("Response is null. Failed to delete mail.");
+            await _message.Error("우편 삭제 실패");
+            return;
+        }
+
+        if (response.Result == ErrorCode.FailToDeleteMailItemNotReceived)
+        {
+            Console.WriteLine("Failed to delete mail. Item Not Received");
+            await _message.Warning("수령하지 않은 아이템이 있습니다!");
+        }
+
+        if (response.Result == ErrorCode.None)
+        {
+            await LoadMailbox();
+            Console.WriteLine("Mail deleted successfully.");
+            await _message.Success("우편 삭제 성공");
+        }
+        else
+        {
+            Console.WriteLine("Failed to delete mail.");
+            await _message.Error("우편 삭제 실패");
+        }
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    //// 아이템
+    private async Task ToggleItems()
+    {
+        if (OverlayContent != null)
+        {
+            OverlayContent = null;
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+
+        var playerId = sessionStorageId;
+        var response = await PlayerService.GetPlayerItemsAsync(playerId, 1); // 페이지 번호를 1로 하드코딩
+
+        if (response.Result == ErrorCode.None)
+        {
+            playerItems = response.PlayerItemCode.Select((code, index) => new PlayerItem
+                {
+                    PlayerItemCode = code,
+                    ItemCode = response.ItemCode[index],
+                    ItemCnt = response.ItemCnt[index]
+                }).ToList();
+        }
+        else
+        {
+            playerItems = new List<PlayerItem>(); // 오류 시 빈 리스트 반환
+        }
+
+        OverlayContent = builder =>
+        {
+            builder.OpenElement(0, "table");
+            builder.AddAttribute(1, "class", "table");
+            builder.OpenElement(2, "thead");
+            builder.OpenElement(3, "tr");
+            builder.OpenElement(4, "th");
+            builder.AddContent(5, "Player Item Code");
+            builder.CloseElement();
+            builder.OpenElement(6, "th");
+            builder.AddContent(7, "Item Name");
+            builder.CloseElement();
+            builder.OpenElement(8, "th");
+            builder.AddContent(9, "Item Count");
+            builder.CloseElement();
+            builder.CloseElement();
+            builder.CloseElement();
+            builder.OpenElement(10, "tbody");
+            foreach (var item in playerItems)
+            {
+                builder.OpenElement(11, "tr");
+                builder.OpenElement(12, "td");
+                builder.AddContent(13, item.PlayerItemCode);
+                builder.CloseElement();
+                builder.OpenElement(14, "td");
+                builder.AddContent(15, MasterData.ItemCodeToNameMap.ContainsKey(item.ItemCode) ? MasterData.ItemCodeToNameMap[item.ItemCode] : "Unknown Item");
+                builder.CloseElement();
+                builder.OpenElement(16, "td");
+                builder.AddContent(17, item.ItemCnt);
+                builder.CloseElement();
+                builder.CloseElement();
+            }
+            builder.CloseElement();
+            builder.CloseElement();
+        };
+
+        await InvokeAsync(StateHasChanged); // UI 업데이트 보장
+    }
+
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    //// 출석부
+    private async Task ToggleAttendance()
+    {
+        if (OverlayContent != null)
+        {
+            OverlayContent = null;
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+
+        await LoadAttendanceInfo(); // 출석 정보 불러오기
+
+        await InvokeAsync(StateHasChanged); // UI 업데이트 보장
+    }
+
+    private async Task LoadAttendanceInfo()
+    {
+        var playerId = sessionStorageId;
+        var response = await AttendanceService.GetAttendanceInfoAsync(playerId);
+
+        if (response.Result == ErrorCode.None)
+        {
+            attendanceInfo = new AttendanceInfo
+                {
+                    AttendanceCnt = response.AttendanceCnt,
+                    RecentAttendanceDate = response.RecentAttendanceDate
+                };
+        }
+        else
+        {
+            attendanceInfo = null;
+        }
+
+        OverlayContent = builder =>
+        {
+            builder.OpenElement(0, "div");
+            builder.OpenElement(1, "h3");
+            builder.AddContent(2, "출석부");
+            builder.CloseElement();
+            if (attendanceInfo != null)
+            {
+                builder.OpenElement(3, "p");
+                builder.AddContent(4, $"이번 달 출석 횟수: {attendanceInfo.AttendanceCnt}");
+                builder.CloseElement();
+                builder.OpenElement(5, "p");
+                builder.AddContent(6, $"최근 출석 날짜: {attendanceInfo.RecentAttendanceDate?.ToString("yyyy-MM-dd") ?? "출석 기록 없음"}");
+                builder.CloseElement();
+                if (attendanceInfo.RecentAttendanceDate?.Date != DateTime.Today)
+                {
+                    builder.OpenElement(7, "button");
+                    builder.AddAttribute(8, "class", "btn btn-primary");
+                    builder.AddAttribute(9, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, CheckAttendance));
+                    builder.AddContent(10, "출석 체크");
+                    builder.CloseElement();
+                }
+                else
+                {
+                    builder.OpenElement(11, "p");
+                    builder.AddContent(12, "오늘 출석 완료!");
+                    builder.CloseElement();
+                }
+            }
+            else
+            {
+                builder.OpenElement(13, "p");
+                builder.AddContent(14, "출석 정보를 불러오지 못했습니다.");
+                builder.CloseElement();
+            }
+            builder.CloseElement();
+        };
+    }
+
+    private async Task CheckAttendance()
+    {
+        var playerId = sessionStorageId;
+        var response = await AttendanceService.CheckAttendanceAsync(playerId);
+
+        if (response.Result == ErrorCode.None)
+        {
+            Console.WriteLine("Attendance checked successfully.");
+            await _message.Success("출석 체크 성공");
+        }
+        else if (response.Result == ErrorCode.AttendanceCheckFailAlreadyChecked)
+        {
+            Console.WriteLine("Attendance already checked today.");
+            await _message.Warning("오늘 이미 출석 체크를 완료했습니다.");
+        }
+        else
+        {
+            Console.WriteLine("Failed to check attendance.");
+            await _message.Error("출석 체크 실패");
+        }
+
+        await LoadAttendanceInfo(); // 출석 정보 새로고침
+        await InvokeAsync(StateHasChanged); // UI 업데이트 보장
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //// 친구
+    private async Task ToggleFriend()
+    {
+        if (OverlayContent != null)
+        {
+            OverlayContent = null;
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+
+        await LoadFriends(); // 친구 목록 및 친구 요청 목록 불러오기
+
+        await InvokeAsync(StateHasChanged); // UI 업데이트 보장
+    }
+
+    private async Task LoadFriends()
+    {
+        var playerId = sessionStorageId;
+        var friendResponse = await FriendService.GetFriendListAsync(playerId);
+        var requestResponse = await FriendService.GetFriendRequestListAsync(playerId);
+
+        if (friendResponse.Result == ErrorCode.None)
+        {
+            friends = friendResponse.FriendNickNames.Select((name, index) => new Friend
+                {
+                    FriendNickName = name,
+                    CreateDt = friendResponse.CreateDt[index]
+                }).ToList();
+        }
+        else
+        {
+            friends = new List<Friend>();
+        }
+
+        if (requestResponse.Result == ErrorCode.None)
+        {
+            friendRequests = requestResponse.ReqFriendNickNames.Select((name, index) => new FriendRequest
+                {
+                    SendPlayerNickname = name,
+                    SendPlayerUid = requestResponse.ReqFriendUid[index],
+                    RequestState = requestResponse.State[index],
+                    CreateDt = requestResponse.CreateDt[index]
+                }).ToList();
+        }
+        else
+        {
+            friendRequests = new List<FriendRequest>();
+        }
+
+        OverlayContent = builder =>
+        {
+            builder.OpenElement(0, "div");
+
+            // 친구 목록 섹션
+            builder.OpenElement(1, "h3");
+            builder.AddContent(2, "친구");
+            builder.CloseElement(); // h3 닫기
+
+            builder.OpenElement(3, "button");
+            builder.AddAttribute(4, "class", "btn btn-primary");
+            builder.AddAttribute(5, "style", "float:right;");
+            builder.AddAttribute(6, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, ShowFriendRequestForm));
+            builder.AddContent(7, "친구 요청하기");
+            builder.CloseElement(); // button 닫기
+
+            builder.OpenElement(8, "div");
+            builder.OpenElement(9, "h4");
+            builder.AddContent(10, "친구 목록");
+            builder.CloseElement(); // h4 닫기
+            if (friends == null || !friends.Any())
+            {
+                builder.OpenElement(11, "p");
+                builder.AddContent(12, "아직 친구가 없습니다");
+                builder.CloseElement(); // p 닫기
+            }
+            else
+            {
+                builder.OpenElement(13, "table");
+                builder.AddAttribute(14, "class", "table");
+                builder.OpenElement(15, "thead");
+                builder.OpenElement(16, "tr");
+                builder.OpenElement(17, "th");
+                builder.AddContent(18, "이름");
+                builder.CloseElement(); // th 닫기
+                builder.OpenElement(19, "th");
+                builder.AddContent(20, "친구가 된 날짜");
+                builder.CloseElement(); // th 닫기
+                builder.CloseElement(); // tr 닫기
+                builder.CloseElement(); // thead 닫기
+                builder.OpenElement(21, "tbody");
+                foreach (var friend in friends)
+                {
+                    builder.OpenElement(22, "tr");
+                    builder.OpenElement(23, "td");
+                    builder.AddContent(24, friend.FriendNickName);
+                    builder.CloseElement(); // td 닫기
+                    builder.OpenElement(25, "td");
+                    builder.AddContent(26, friend.CreateDt.ToString("yyyy-MM-dd"));
+                    builder.CloseElement(); // td 닫기
+                    builder.CloseElement(); // tr 닫기
+                }
+                builder.CloseElement(); // tbody 닫기
+                builder.CloseElement(); // table 닫기
+            }
+            builder.CloseElement(); // div 닫기
+
+            // 친구 요청 목록 섹션
+            builder.OpenElement(27, "div");
+            builder.OpenElement(28, "h4");
+            builder.AddContent(29, "");
+            builder.CloseElement(); // h4 닫기
+            if (friendRequests == null || !friendRequests.Any())
+            {
+                builder.OpenElement(30, "p");
+                builder.AddContent(31, "친구 요청이 없습니다");
+                builder.CloseElement(); // p 닫기
+            }
+            else
+            {
+                builder.OpenElement(32, "table");
+                builder.AddAttribute(33, "class", "table");
+                builder.OpenElement(34, "thead");
+                builder.OpenElement(35, "tr");
+                builder.OpenElement(36, "th");
+                builder.AddContent(37, "이름");
+                builder.CloseElement(); // th 닫기
+                builder.OpenElement(38, "th");
+                builder.AddContent(39, "요청 날짜");
+                builder.CloseElement(); // th 닫기
+                builder.OpenElement(40, "th");
+                builder.AddContent(41, "상태");
+                builder.CloseElement(); // th 닫기
+                builder.CloseElement(); // tr 닫기
+                builder.CloseElement(); // thead 닫기
+                builder.OpenElement(42, "tbody");
+                foreach (var request in friendRequests.Where(r => r.RequestState == 0))
+                {
+                    builder.OpenElement(43, "tr");
+                    builder.OpenElement(44, "td");
+                    builder.AddContent(45, request.SendPlayerNickname);
+                    builder.CloseElement(); // td 닫기
+                    builder.OpenElement(46, "td");
+                    builder.AddContent(47, request.CreateDt.ToString("yyyy-MM-dd"));
+                    builder.CloseElement(); // td 닫기
+                    builder.OpenElement(48, "td");
+                    builder.OpenElement(49, "button");
+                    builder.AddAttribute(50, "class", "btn btn-success");
+                    builder.AddAttribute(51, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, () => AcceptFriend(request.SendPlayerUid)));
+                    builder.AddContent(52, "수락");
+                    builder.CloseElement(); // button 닫기
+                    builder.CloseElement(); // td 닫기
+                    builder.CloseElement(); // tr 닫기
+                }
+                builder.CloseElement(); // tbody 닫기
+                builder.CloseElement(); // table 닫기
+            }
+            builder.CloseElement(); // div 닫기
+
+            builder.CloseElement(); // div 닫기
+        };
+    }
+
+    private void ShowFriendRequestForm()
+    {
+        OverlayContent = builder =>
+        {
+            builder.OpenElement(0, "div");
+            builder.OpenElement(1, "h3");
+            builder.AddContent(2, "친구 요청하기");
+            builder.CloseElement();
+            builder.OpenElement(3, "p");
+            builder.AddContent(4, "친구 ID를 입력하세요");
+            builder.CloseElement();
+            builder.OpenElement(5, "input");
+            builder.AddAttribute(6, "type", "text");
+            builder.AddAttribute(7, "value", newFriendId);
+            builder.AddAttribute(8, "oninput", EventCallback.Factory.Create<ChangeEventArgs>(this, e => newFriendId = e.Value.ToString()));
+            builder.CloseElement();
+            builder.OpenElement(9, "button");
+            builder.AddAttribute(10, "class", "btn btn-primary");
+            builder.AddAttribute(11, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, SendFriendRequest));
+            builder.AddContent(12, "요청");
+            builder.CloseElement();
+            builder.OpenElement(13, "button");
+            builder.AddAttribute(14, "class", "btn btn-secondary");
+            builder.AddAttribute(15, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, async () => await LoadFriends()));
+            builder.AddContent(16, "뒤로가기");
+            builder.CloseElement();
+            builder.CloseElement();
+        };
+
+        InvokeAsync(StateHasChanged); // UI 업데이트 보장
+    }
+
+    private async Task SendFriendRequest()
+    {
+        var playerId = sessionStorageId;
+        var response = await FriendService.RequestFriendAsync(playerId, newFriendId);
+
+        if (response.Result == ErrorCode.None)
+        {
+            await _message.Success("친구 요청 성공");
+            newFriendId = string.Empty;
+            await LoadFriends();
+        }
+        else
+        {
+            await _message.Error("친구 요청 실패");
+        }
+    }
+
+    private async Task AcceptFriend(long friendPlayerUid)
+    {
+        var playerId = sessionStorageId;
+        var response = await FriendService.AcceptFriendAsync(playerId, friendPlayerUid);
+
+        if (response.Result == ErrorCode.None)
+        {
+            await _message.Success("친구 요청 수락 성공");
+            await LoadFriends();
+        }
+        else
+        {
+            await _message.Error("친구 요청 수락 실패");
+        }
+    }
+
+    
+
+    ////////////////////////////////////////////////////////////////////////////
+    //// 상점
+    private void ToggleShop()
+    {
+        ToggleOverlayContent(builder =>
+        {
+            builder.AddContent(0, "상점 내용");
+            builder.AddContent(1, "추후 공개 예정입니다 ^ㅁ^");
+        });
+    }
+}
+
+<style>
+    .table th, .table td {
+        color: white;
+    }
+</style>

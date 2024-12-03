@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Components
+@using System
+
+<FluentStack 
+	VerticalAlignment="@VerticalAlignment.Center"
+	HorizontalAlignment="@HorizontalAlignment.Center"
+	Orientation="Orientation.Vertical" class="omok-board" HorizontalGap="0" VerticalGap="0"
+	Style="background-image: url('/images/game/board.png');
+					padding: 1px;
+					width: 628px;
+					height: 628px;	
+					background-size: 628px 628px;
+					background-repeat: no-repeat;
+					background-position: fixed;
+					background-color: transparent;
+					display:inline-block"
+
+>
+	@if (GameData != null && GameData.Length > 0)
+	{
+		@for (int posY = 0; posY < BoardSize; posY++)
+		{
+			int currentPosY = posY;
+				<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="1" VerticalGap="1">
+				@for (int posX = 0; posX < BoardSize; posX++)
+				{
+					int currentPosX = posX;
+					OmokStone cellValue = GetCellValue(currentPosX, currentPosY);
+
+					<OmokCell CellValue="cellValue" OnCellClick="() => OnCellClicked(currentPosX, currentPosY)" />
+				}
+				</FluentStack>
+		}
+	}
+	else
+	{
+					<p>Loading game data...</p>
+	}
+</FluentStack>
+
+@code {
+
+	[Parameter]
+	public byte[]? GameData { get; set; }
+
+	[Parameter]
+	public EventCallback<(int X, int Y)> OnCellClick { get; set; }
+
+	private const int BoardSize = 15;
+
+	private void OnCellClicked(int posX, int posY)
+	{
+		OnCellClick.InvokeAsync((posX, posY));
+	}
+
+	private OmokStone GetCellValue(int posX, int posY)
+	{
+		if (GameData == null)
+		{
+			return OmokStone.Empty;
+		}
+
+		return OmokGame.GetStone(GameData, posX, posY);
+	}
+}

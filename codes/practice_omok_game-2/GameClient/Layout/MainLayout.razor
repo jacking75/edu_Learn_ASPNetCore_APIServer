@@ -1,0 +1,66 @@
+﻿@inherits LayoutComponentBase;
+
+@using Microsoft.AspNetCore.Components.Authorization;
+
+<AuthorizeView>
+	<Authorized>
+		<div style="background-image: url('/images/background_v2.png');
+					background-size:  cover;
+					background-repeat: no-repeat;
+					background-position: top center;
+					background-attachment: fixed;
+					background-color: transparent;
+					overflow:hidden; 
+					padding:0;
+				margin:0;
+">		
+
+					<FluentBodyContent Class="body-content" Style="background-image: url('/images/tree_v2.png');
+					background-size: auto 100%;
+					background-repeat: no-repeat;
+					background-position: right bottom;
+					background-color: transparent;
+					maring: 0; padding 0; overflow:hidden;
+
+">		
+						<ErrorBoundary>
+							<ChildContent>
+								<div class="content" style="overflow:hidden">
+									@Body
+								</div>
+								<LoadingOverlay />
+							</ChildContent>
+							<ErrorContent Context="ex">
+								<div class="blazor-error-boundary">@ex.Message</div>
+							</ErrorContent>
+						</ErrorBoundary>
+					</FluentBodyContent>
+			<img src="images/background_v3.png" alt=""
+				 style="position: fixed; bottom: 0; width: 100%; max-width: 100vw ">
+			<img src="images/background_v4.png" alt=""
+				 style="position: fixed; bottom: 0; width: 100%; max-width: 100vw ">
+			<img src="images/leaf.png" alt=""
+				 style="position: fixed; bottom: 0; width: 100%; max-width: 100vw ">
+		</div>
+	</Authorized>
+	<NotAuthorized>
+		<FluentBodyContent Class="body-content">
+			<ErrorBoundary>
+				<ChildContent>
+					<div class="content" 
+						style="overflow:hidden"
+					 >
+						@Body
+					</div>
+					<LoadingOverlay/>
+				</ChildContent>
+				<ErrorContent Context="ex">
+					<div class="blazor-error-boundary">@ex.Message</div>
+				</ErrorContent>
+			</ErrorBoundary>
+		</FluentBodyContent>
+	</NotAuthorized>
+
+</AuthorizeView>
+
+<FluentToastProvider MaxToastCount="5" />

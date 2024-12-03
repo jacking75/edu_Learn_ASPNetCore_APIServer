@@ -1,0 +1,11 @@
+﻿@inject NavigationManager NavigationManager
+@inject CookieStateProvider CookieStateProvider
+
+@code {
+	protected override async Task OnInitializedAsync()
+	{
+		await CookieStateProvider.LogoutAsync();
+		NavigationManager.NavigateTo("Login");
+	}
+}
+

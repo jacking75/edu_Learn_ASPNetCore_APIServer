@@ -1,0 +1,33 @@
+﻿@inject MailStateProvider MailStateProvider
+
+
+<FluentStack Orientation="Orientation.Vertical" Width="150"
+			 Style="
+					height: 330px;
+					background-color:transparent;
+					position: fixed;
+					left:0;
+					top: 15%;
+					z-index: 1000;
+">
+	<Icon Source="/images/icons/profile.png" Size="100" OnClick=@(()=>ShowMenu.InvokeAsync(MenuType.Profile)) />
+	<FluentStack Orientation="@Orientation.Horizontal" VerticalAlignment="@VerticalAlignment.Top">
+		<Icon Source="/images/icons/mail.png" Size="100" OnClick=@(()=>ShowMenu.InvokeAsync(MenuType.Mail)) />
+
+		@if (@MailStateProvider.UnreadMailCount > 0)
+		{
+			<h1 style="position: fixed; color:red; left: 20px;">
+				@MailStateProvider.UnreadMailCount
+			</h1>
+		}
+
+	</FluentStack>
+	<Icon Source="/images/icons/inventory.png" Size="100" OnClick=@(()=>ShowMenu.InvokeAsync(MenuType.Inventory)) />
+	<Icon Source="/images/icons/attendance.png" Size="100" OnClick=@(()=>ShowMenu.InvokeAsync(MenuType.Attendance)) />
+</FluentStack>
+
+
+@code {
+	[Parameter]
+	public EventCallback<MenuType> ShowMenu { get; set; }
+}

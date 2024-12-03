@@ -1,0 +1,42 @@
+﻿<FluentStack Orientation="@Orientation.Vertical" Style="height: 600px; width: 450px; overflow-y: auto; overflow-x:hidden" HorizontalAlignment="@HorizontalAlignment.Center">	
+	<FluentStack Orientation="@Orientation.Horizontal" >
+		<h1 onclick=@(() => ChangeMailType(MailType.System)) style="cursor:pointer;color:#4a1d0f;">
+			System
+		</h1>
+		<h1 onclick=@(() => ChangeMailType(MailType.User)) style="cursor:pointer;color:#4a1d0f;">
+			User
+		</h1>
+	</FluentStack>
+
+	@if (_currentList != null && _currentList.Any())
+	{
+		@foreach (var mail in _currentList)
+		{
+			<MailItem Mail="mail" 
+				OnDelete="() => DeleteMail(mail.MailUid)" 
+				OnRead="() => ReadMail(mail.MailUid)"
+				OnReceive="() => ReceiveMail(mail.MailUid)"/>
+		}
+	}
+	else
+	{
+		<h1 style="text-align: center; color:white;">No mails available</h1>
+	}
+	<FluentSpacer />
+	<FluentStack Orientation="@Orientation.Horizontal">
+	</FluentStack>
+	<Popup IsOpen="@IsMailOpened()" OnClose="@CloseMail" Title="@(_selectedMail != null ? _selectedMail.MailInfo.Title : string.Empty)">
+		@if (_selectedMail != null)
+		{
+			<FluentStack Orientation="@Orientation.Vertical" Style="width: 450px; height: 100%">
+				<FluentStack Orientation="@Orientation.Horizontal" HorizontalAlignment="@HorizontalAlignment.Start">
+					<img src="images/ui/back.png" @onclick="@CloseMail" width="50"/>
+					<FluentSpacer/>
+				</FluentStack>
+				<FluentStack Style="width: 100%; height: 100%; background-color:bisque; border-radius:8px;">
+					<p style="text-align: center; color:#8a7169;">@_selectedMail.MailInfo.Content</p>
+				</FluentStack>
+			</FluentStack>
+		}
+	</Popup>
+</FluentStack>

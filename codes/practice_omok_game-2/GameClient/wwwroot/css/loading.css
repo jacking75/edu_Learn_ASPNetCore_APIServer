@@ -1,0 +1,50 @@
+﻿/* Loading screen styles */
+#loading-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url("images/background_v1.png") no-repeat center center fixed;
+	background-size: 100% auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	z-index: 9999;
+}
+
+/* Logo styles */
+#loading-logo {
+	width: 200px; /* Adjust the size as needed */
+	height: auto;
+	margin-bottom: 20px; /* Space between logo and progress indicator */
+}
+
+/* Progress bar styles */
+#progress-container {
+	width: 80%;
+	max-width: 600px;
+	background-color: #ddd;
+	border-radius: 10px;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+#progress-bar {
+	width: 100%;
+	height: 20px;
+}
+
+#progress-fill {
+	height: 100%;
+	width: var(--blazor-load-percentage, 0%);
+	background-color: #e68392;
+	transition: width 0.2s;
+}
+
+@media only screen and (max-width: 1200px) {
+	#hide-sm {
+		display: none;
+	}
+}

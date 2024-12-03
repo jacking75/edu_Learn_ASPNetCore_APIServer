@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OmokClient</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="OmokClient.styles.css" rel="stylesheet" />
+    <!--<link href="styles.css" rel="stylesheet" />--> <!-- Ensure this line is correct -->
+    <!--<link href="Styles.css" rel="stylesheet" />--> <!-- Ensure this line is correct -->
+    <!--<link href="OmokBoardLayout.razor.css" rel="stylesheet" />--> <!-- Ensure this line is correct -->
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/material-base.css">
+    <!--<link rel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">-->
+</head>
+
+<body>
+    <div id="app">
+        <svg class="loading-progress" id="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text" id="loading-progress-text">Loading...</div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var path = window.location.pathname;
+            if (path === '/omok') {
+                document.getElementById('loading-progress').style.display = 'none';
+                document.getElementById('loading-progress-text').style.display = 'none';
+            }
+        });
+
+        // 페이지 이동 시에도 로딩 화면 제어
+        Blazor.start().then(() => {
+            var path = window.location.pathname;
+            if (path === '/omok') {
+                document.getElementById('loading-progress').style.display = 'none';
+                document.getElementById('loading-progress-text').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

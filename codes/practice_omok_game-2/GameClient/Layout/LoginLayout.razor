@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase;
+
+<FluentBodyContent Class="body-content">
+	<ErrorBoundary>
+		<ChildContent>
+			<div class="content" 
+				style="overflow:hidden"
+			 >
+				@Body
+			</div>
+			<LoadingOverlay/>
+		</ChildContent>
+		<ErrorContent Context="ex">
+			<div class="blazor-error-boundary">@ex.Message</div>
+		</ErrorContent>
+	</ErrorBoundary>
+</FluentBodyContent>
+
+ <FluentToastProvider MaxToastCount="5" />
+<FluentDialogProvider />

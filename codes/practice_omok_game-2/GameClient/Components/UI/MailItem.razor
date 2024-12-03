@@ -1,0 +1,107 @@
+﻿@if (Mail != null)
+{
+
+	<ItemComponent IsDisabled="Mail.StatusCode == MailStatusCode.Expired">
+		<FluentStack Orientation="@Orientation.Horizontal"
+					 VerticalAlignment="@VerticalAlignment.Center"
+					 Style="height:80px;">
+
+			<FluentStack Orientation="@Orientation.Horizontal" Width="80%"
+						 HorizontalAlignment="@HorizontalAlignment.Start"
+						 VerticalAlignment="@VerticalAlignment.Center">
+				@if (Mail.StatusCode == MailStatusCode.Unread)
+				{
+					<span style="font-size: 28px;
+							color:#4a1d0f;
+							font-family: 'Cherry Bomb One', system-ui;"
+						  @onclick="@ReadMailAsync">
+						@Mail.Title
+					</span>
+
+				}
+				else
+				{
+					<span style="font-size: 28px;
+							color:#8a7169;
+							font-family: 'Cherry Bomb One', system-ui;"
+						  @onclick="@ReadMailAsync">
+						@Mail.Title
+					</span>
+				}
+				<p style="cursor:pointer;
+						-webkit-text-stroke-width: 1px;
+						-webkit-text-stroke-color: white;
+						color:#8a7169;
+						font-style: normal; font-size: 16px;">
+					@(CalculateDaysRemaining(Mail.ExpireDateTime)) Days
+				</p>
+			</FluentStack>
+			<FluentStack Orientation="@Orientation.Horizontal" Width="20%"
+						 VerticalAlignment="@VerticalAlignment.Center"
+						 HorizontalAlignment="@HorizontalAlignment.End">
+
+
+				@if (Mail.RewardCode > 0)
+				{
+					@if (Mail.StatusCode == MailStatusCode.Received)
+					{
+						<img class="menu-icon"
+							 src="images/icons/mail.png"
+							 style="filter:grayscale(1)"
+							 width="40" />
+					}
+					else
+					{
+						<img class="menu-icon"
+							 src="images/icons/mail.png"
+							 width="40"
+							 style=" cursor:pointer;"
+							 @onclick="@ReceiveMailAsync" />
+					}
+				}
+				<img class="menu-icon"
+					 src="images/ui/close.png"
+					 style="top:0; right:0; cursor:pointer;" width="40" @onclick="@DeleteMailAsync" />
+			</FluentStack>
+		</FluentStack>
+	</ItemComponent>
+
+}
+
+@code {
+	[Parameter]
+	public MailInfo? Mail { get; set; }
+
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	[Parameter]
+	public EventCallback OnRead { get; set; }
+
+	[Parameter]
+	public EventCallback OnReceive { get; set; }
+
+	[Parameter]
+	public EventCallback OnDelete { get; set; }
+
+	private int CalculateDaysRemaining(DateTime expireDateTime)
+	{
+		var remainingTime = expireDateTime - DateTime.UtcNow;
+		return Math.Max(remainingTime.Days, 0);
+	}
+
+	private async Task ReadMailAsync()
+	{
+		await OnRead.InvokeAsync();
+	}
+
+	private async Task ReceiveMailAsync()
+	{
+		await OnReceive.InvokeAsync();
+	}
+
+	private async Task DeleteMailAsync()
+	{
+		await OnDelete.InvokeAsync();
+	}
+}

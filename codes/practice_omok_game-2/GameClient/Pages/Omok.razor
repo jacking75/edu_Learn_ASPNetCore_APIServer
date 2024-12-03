@@ -1,0 +1,35 @@
+﻿@page "/omok"
+
+@using GameClient.Components.Game
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
+
+<PageTitle>Omok</PageTitle>
+
+<AuthorizeView>
+	<Authorized>
+		<FluentBodyContent>
+			<FluentStack Orientation="@Orientation.Horizontal"
+						 VerticalAlignment="@VerticalAlignment.Center"
+						 HorizontalAlignment="@HorizontalAlignment.Center" Style="height:100%;">
+				<OmokPanel UserInfo="((CookieStateProvider)AuthenticationStateProvider).AuthenticatedUser" IsMyTurn="GameStateProvider.IsMyTurn(GetUid()) && GameStateProvider.GameStart" />
+				<FluentStack VerticalAlignment="@VerticalAlignment.Center"
+							 HorizontalAlignment="@HorizontalAlignment.Center"
+							 Orientation="@Orientation.Vertical"
+							 Style="height:100%;"
+							 Width="50%">
+					<OmokBoard GameData="this.GameStateProvider.Game" OnCellClick="@HandleCellClick" />
+				</FluentStack>
+				<OmokPanel UserInfo="Opponent" IsMyTurn="!GameStateProvider.IsMyTurn(GetUid()) && GameStateProvider.GameStart" />
+			</FluentStack>
+
+		</FluentBodyContent>
+		<PopupShort IsOpen="_isGameComplete" OnClose="@HandleExitGame">
+			Game Is Complete
+		</PopupShort>
+	</Authorized>
+	<NotAuthorized>
+		<RedirectToLogin />
+	</NotAuthorized>
+</AuthorizeView>
+

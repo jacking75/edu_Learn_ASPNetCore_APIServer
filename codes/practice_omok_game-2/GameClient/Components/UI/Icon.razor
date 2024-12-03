@@ -1,0 +1,25 @@
+﻿
+
+<div class="menu-icon" @onclick="@_onclick">
+	<img class="menu-icon"  src="@Source" alt="@Alt" height="@Size"/>
+</div>
+
+@code {
+
+	[Parameter]
+	public EventCallback OnClick { get; set; }
+
+	[Parameter]
+	public string Source { get; set; }
+
+	[Parameter]
+	public string Alt { get; set; } = "";
+
+	[Parameter]
+	public int Size { get; set; }
+
+	private void _onclick()
+	{
+		OnClick.InvokeAsync();
+	}
+}

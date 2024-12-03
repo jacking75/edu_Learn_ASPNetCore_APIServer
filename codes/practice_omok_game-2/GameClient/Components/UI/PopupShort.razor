@@ -1,0 +1,36 @@
+﻿
+<FluentOverlay @bind-Visible=@(@IsOpen)
+			   Opacity="0"
+			   Alignment="Align.Center"
+			   Justification="JustifyContent.Center"
+			   OnClose="@OnClose"
+			   Interactive=true
+			   InteractiveExceptId="popup"
+			   Dismissable=@IsDissmissable>
+	<div id="popup" style="height: 200px; width:800px;
+				background: url('images/ui/popup_short.svg') no-repeat;
+				background-size:100% auto;
+				background-position: top center;
+">
+		<FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center">
+			<h1 style="text-align: center; padding-top: 20px; color:white;">
+				@ChildContent
+			</h1>
+		</FluentStack>
+	</div>
+</FluentOverlay>
+
+@code
+{
+	[Parameter]
+	public bool IsOpen { get; set; } = true;
+
+	[Parameter]
+	public EventCallback OnClose { get; set; }
+
+	[Parameter]
+	public bool IsDissmissable { get; set; } = true;
+
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+}

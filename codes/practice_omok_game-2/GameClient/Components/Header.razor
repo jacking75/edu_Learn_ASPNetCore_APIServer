@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization;
+@inject CookieStateProvider CookieStateProvider
+@inject NavigationManager NavigationManager
+
+
+
+<FluentStack Orientation="@Orientation.Horizontal" VerticalAlignment="@VerticalAlignment.Center" Style="position:fixed; height:48px" >
+	<LogoWithText/>
+	<FluentSpacer/>
+	<AuthorizeView>
+		<Authorized>
+			<ProfileMenu/>
+			<FluentButton OnClick="HandleLogout">Logout</FluentButton>
+		</Authorized>
+		<NotAuthorized>
+			<FluentNavLink Href="/login">Login</FluentNavLink>
+			<FluentNavLink Href="/register">Register</FluentNavLink>
+		</NotAuthorized>
+	</AuthorizeView>
+</FluentStack>
+
+
+
+@code {
+	protected async Task HandleLogout()
+	{
+		await CookieStateProvider.LogoutAsync();
+		NavigationManager.NavigateTo("Login", true);
+	}
+}

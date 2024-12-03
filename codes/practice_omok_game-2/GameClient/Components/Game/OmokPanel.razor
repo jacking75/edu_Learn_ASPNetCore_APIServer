@@ -1,0 +1,91 @@
+﻿<FluentStack Orientation="@Orientation.Vertical"
+			 VerticalAlignment="@VerticalAlignment.Center"
+			 HorizontalAlignment="@HorizontalAlignment.Center"
+			 Width="25%" Style="height:100%;">
+
+	<FluentStack Orientation="@Orientation.Vertical"
+				 HorizontalAlignment="@HorizontalAlignment.Center">
+		@if(IsMyProfile)
+		{
+
+			<img src="/images/profile.png" width="180" style=@(IsMyTurn ? "" : "filter:grayscale(1)") />
+		}
+		else
+		{
+			<img src="/images/opponent.png" width="180" style=@(IsMyTurn ? "" : "filter:grayscale(1)") />
+		})
+	</FluentStack>
+	<FluentStack Orientation="@Orientation.Vertical" VerticalAlignment="@VerticalAlignment.Center"
+	HorizontalAlignment="@HorizontalAlignment.Center"
+	>
+		<div style=" width:200px; border-radius: 16px;
+						background: #9e5649;">
+			<h1 style="text-align: center; color:white;"> @UserInfo?.Nickname</h1>
+		</div>
+		@if (IsMyTurn)
+		{
+			<span class="fredoka" style="font-size: 26px;">@RemainingTime seconds</span>
+		}
+		else
+		{
+			<span class="fredoka" style="font-size: 26px;">Waiting</span>
+		}
+	</FluentStack>
+</FluentStack>
+
+
+@code
+{
+	[Parameter]
+	public UserInfo? UserInfo { get; set; }
+
+	[Parameter]
+	public bool IsMyTurn { get; set; } = false;
+
+	[Parameter]
+	public bool IsMyProfile { get; set; } = false;
+
+	private PeriodicTimer? timer;
+	private int RemainingTime = (int)OmokGame.TurnExpiry / 1000;
+
+	public async Task Start()
+	{
+		if (timer == null)
+		{
+			timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+
+			RemainingTime = (int)OmokGame.TurnExpiry / 1000;
+
+			using (timer)
+			{
+				while (await timer.WaitForNextTickAsync())
+				{
+					if (RemainingTime == 0)
+					{
+						break;
+					}
+					RemainingTime--;
+					StateHasChanged();	
+				}
+			}
+		}
+	}
+
+	protected override void OnParametersSet()
+	{
+		if (IsMyTurn)
+		{
+			_ = Task.Run(Start);
+		}
+		else
+		{
+			DisposeTimer();
+		}
+	}
+
+	private void DisposeTimer()
+	{
+		timer?.Dispose();
+		timer = null;
+	}
+}

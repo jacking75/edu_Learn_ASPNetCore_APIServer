@@ -1,0 +1,65 @@
+﻿<FluentGrid Id="inventory" Style="height: 600px; width: 450px; margin:auto" Spacing="1" Justify="JustifyContent.Center">
+	@if (_list != null && _list.Any())
+	{
+		@foreach (var item in _list)
+		{
+			<FluentGridItem>
+				<div style="background-color: #85442425;
+				border-radius: 6px;
+				width:60px;
+				height:60px;
+				border-style: dashed;
+				border-color:white;
+				border-width: 2px;
+
+		">
+					<GameItem Item="@GetItem(item.ItemId)" ItemCount="item.ItemCount" 
+							  OnClick="() => OnClickItem(item)" />
+				</div>
+			</FluentGridItem>
+		}
+		@if (_list.Count % 6 > 0)
+		{
+			@for (int i = 0; i < (6 - (_list.Count % 6)); i++)
+			{
+				<FluentGridItem>
+									<div style="background-color: #85442425;
+				border-radius: 6px;
+				width:60px;
+				height:60px;
+				border-style: dashed;
+				border-color:white;
+				border-width: 2px;
+
+		">
+					<GameItem />
+					</div>
+				</FluentGridItem>
+			}
+		}
+
+		@for (int i = 0; i < 6 - (int)(_list.Count / 6); i++)
+		{
+			@for (int j = 0; j < 6; j++)
+			{
+				<FluentGridItem>
+					<div style="background-color: #85442425;
+					border-radius: 6px;
+					width:60px;
+					height:60px;
+					border-style: dashed;
+					border-color:white;
+					border-width: 2px;
+
+					">
+						<GameItem />
+					</div>
+				</FluentGridItem>
+			}
+		}
+	}
+	else
+	{
+		<h1 style="text-align: center; color:white;">No items available</h1>
+	}
+</FluentGrid>
