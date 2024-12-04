@@ -231,6 +231,12 @@
       
 <br>   
   
+## 실습  
+- 팜 게임 만들기: `api_server_training_tany_farm` 디렉토리
+  
+
+<br>   
+
 ## C# 학습 자료
 - 학습에는 LinqPad라는 툴을 사용하면 편리하다
     - [2019-03_LinqPad](https://docs.google.com/presentation/d/1THcgeub4cNRJdFCxHatpxkPR0AhYJay55P5xxZ1sgtE/edit?usp=sharing )
