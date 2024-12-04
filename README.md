@@ -233,6 +233,7 @@
   
 ## 실습  
 - 팜 게임 만들기: `api_server_training_tany_farm` 디렉토리
+- 수집형 RPG 게임 만들기: `api_server_training_dungeon_farming` 디렉토리
   
 
 <br>   

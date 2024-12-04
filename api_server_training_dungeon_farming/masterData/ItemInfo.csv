@@ -1,0 +1,7 @@
+﻿item_code,item_name,item_type_code,item_sale_price,item_purchase_price,item_useful_level,item_attack_power,item_defensive_power,item_magic,max_enhence_count
+1,돈,5,0,0,0,0,0,0,0
+2,작은 칼,1,10,20,1,10,5,1,10
+3,도금 칼,1,100,200,5,29,12,10,10
+4,나무 방패,2,7,15,1,3,10,1,10
+5,보통 모자,3,5,8,1,1,1,1,10
+6,포션,4,3,6,1,0,0,0,0

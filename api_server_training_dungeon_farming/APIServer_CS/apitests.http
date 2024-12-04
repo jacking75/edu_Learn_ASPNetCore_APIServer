@@ -1,0 +1,204 @@
+# Modern .NET and Cloud development  API development inner-loop  
+# https://devblogs.microsoft.com/visualstudio/visual-studio-2022-17-5-released/#api
+  
+# CreateAccount
+POST http://127.0.0.1:11500/CreateAccount
+Content-Type: application/json
+
+{
+    "Email": "Test5@com2us.com",
+    "Password": "TestPassword"
+}
+
+###
+
+# Login
+POST http://127.0.0.1:11500/Login
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "Password": "TestPassword",
+    "AppVersion": 1,
+    "MasterDataVersion": 1
+}
+
+###
+
+# GetMailList
+POST http://127.0.0.1:11500/GetMailList
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "dxo9yi8a627oals9nlaj7b58w",
+    "OpenPage": 1
+}
+
+###
+
+# ReceiveMail
+POST http://127.0.0.1:11500/ReceiveMail
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "dxo9yi8a627oals9nlaj7b58w",
+    "MailId": 6
+}
+
+###
+
+# AttendanceCheck
+POST http://127.0.0.1:11500/AttendanceCheck
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "dxo9yi8a627oals9nlaj7b58w"
+}
+
+###
+
+# GetAttendanceBook
+POST http://127.0.0.1:11500/GetAttendanceBook
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "dxo9yi8a627oals9nlaj7b58w"
+}
+
+###
+
+# ReceiveInAppProduct
+POST http://127.0.0.1:11500/ReceiveInAppProduct
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "dxo9yi8a627oals9nlaj7b58w",
+    "PID": 2,
+    "Receipt": "dxo9yi8a627oals9nlaj7b58w"
+}
+
+###
+
+# EnhanceItem
+POST http://127.0.0.1:11500/EnhanceItem
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "q0e5id0lamofgs34rmhj06dgv",
+    "InventoryItemId": 13
+}
+
+###
+
+# GetCompleteStageList
+POST http://127.0.0.1:11500/GetCompleteStageList
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "dxo9yi8a627oals9nlaj7b58w"
+}
+
+###
+
+# EnterStage
+POST http://127.0.0.1:11500/EnterStage
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "t75zwfo4kzinja9aw8goq1hu7",
+    "StageCode": 2
+}
+
+###
+
+# FarmingItem
+POST http://127.0.0.1:11500/FarmingItem
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "t75zwfo4kzinja9aw8goq1hu7",
+    "StageCode": 2,
+    "ItemCode": 3
+}
+
+###
+
+# SlayEnemy
+POST http://127.0.0.1:11500/SlayEnemy
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "t75zwfo4kzinja9aw8goq1hu7",
+    "StageCode": 1,
+    "EnemyCode": 101
+}
+
+###
+
+# CompleteStage
+POST http://127.0.0.1:11500/CompleteStage
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "t75zwfo4kzinja9aw8goq1hu7",
+    "StageCode": 1
+}
+
+###
+
+# ChangeChannel
+POST http://127.0.0.1:11500/ChangeChannel
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "wi4p22dxxbwe9rivvjt656ek9",
+    "ChannelNumber": 1
+}
+
+###
+
+# SendChat
+POST http://127.0.0.1:11500/SendChat
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "zj0ngu1o4b4j9sf92v5ncrsn0",
+    "Message": "Test"
+}
+
+###
+
+# GetLatestChat
+POST http://127.0.0.1:11500/GetLatestChat
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "zj0ngu1o4b4j9sf92v5ncrsn0",
+    "MessageId": ""
+}
+
+###
+
+# GetChatHistory
+POST http://127.0.0.1:11500/GetChatHistory
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "AuthToken": "zj0ngu1o4b4j9sf92v5ncrsn0",
+    "MessageId": ""
+}
