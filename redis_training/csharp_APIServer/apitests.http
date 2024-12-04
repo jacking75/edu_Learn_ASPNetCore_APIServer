@@ -1,0 +1,27 @@
+# Modern .NET and Cloud development  API development inner-loop  
+# https://devblogs.microsoft.com/visualstudio/visual-studio-2022-17-5-released/#api
+  
+# CreateAccount
+POST http://127.0.0.1:11500/CreateAccount
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "Password": "TestPassword"
+}
+
+###
+
+# Login
+POST http://127.0.0.1:11500/Login
+Content-Type: application/json
+
+{
+    "Email": "Test@com2us.com",
+    "Password": "TestPassword",
+    "AppVersion": 1,
+    "MasterDataVersion": 1
+}
+
+###
+
