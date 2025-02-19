@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using APIServer.Services;
 using Microsoft.Extensions.Configuration;
+using ZLogger;
 using HiveAPIServer.Services;
 
 
@@ -13,25 +14,24 @@ namespace APIServer.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class LoginController : ControllerBase
+public class VerifyTokenController : ControllerBase
 {
-    readonly ILogger<LoginController> _logger;
+    readonly ILogger<VerifyTokenController> _logger;
     readonly IAuthService _authService;
-    
-    public LoginController(ILogger<LoginController> logger, IAuthService authService)
+
+    public VerifyTokenController(ILogger<VerifyTokenController> logger, IAuthService authService)
     {
         _logger = logger;
         _authService = authService;
     }
 
     [HttpPost]
-    public async Task<LoginHiveResponse> Login([FromBody] LoginHiveRequest request)
+    public async Task<VerifyTokenResponse> VerifyToken([FromBody] VerifyTokenRequest request) 
     {
-        LoginHiveResponse response = new();
+        VerifyTokenResponse response = new();
 
-        (response.Result, response.PlayerId, response.HiveToken) = await _authService.Login(request.UserID, request.Password);
-          
+        response.Result = await _authService.VerifyToken(request.PlayerId, request.HiveToken);
+
         return response;
-
     }
 }

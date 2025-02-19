@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 using APIServer.Repository;
+using HiveAPIServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ IConfiguration configuration = builder.Configuration;
 builder.Services.Configure<DbConfig>(configuration.GetSection(nameof(DbConfig)));
 
 builder.Services.AddTransient<IHiveDb, HiveDb>();
+builder.Services.AddTransient<IAuthService, AuthService>();
 
 builder.Services.AddControllers();
 

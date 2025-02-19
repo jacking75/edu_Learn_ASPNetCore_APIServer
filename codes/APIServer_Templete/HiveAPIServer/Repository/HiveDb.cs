@@ -35,42 +35,42 @@ namespace APIServer.Repository
             Close();
         }
 
-        public async Task<ErrorCode> CreateAccountAsync(string email, string pw)
+        public async Task<ErrorCode> CreateAccount(string userID, string pw)
         {
             try
             {
                 var saltValue = Security.SaltString();
                 var hashingPassword = Security.MakeHashingPassWord(saltValue, pw);
 
-                var count = await _queryFactory.Query("account_info").InsertAsync(new HdbAccountInfo
+                var count = await _queryFactory.Query("account").InsertAsync(new HiveDBAccount
                 {
-                    player_id = 0,
-                    email = email,
+                    user_id = userID,
                     salt_value = saltValue,
                     pw = hashingPassword,
                     create_dt = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
+                    recent_login_dt = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
                 });
 
                 _logger.ZLogDebug(
-                $"[CreateAccount] email: {email}, salt_value : {saltValue}, hashed_pw:{hashingPassword}");
+                $"[CreateAccount] email: {userID}, salt_value : {saltValue}, hashed_pw:{hashingPassword}");
 
                 return count != 1 ? ErrorCode.CreateAccountFailInsert : ErrorCode.None;
             }
             catch (Exception ex)
             {
                 _logger.ZLogError(
-                $"[AccoutDb.CreateAccount] ErrorCode: {ErrorCode.CreateAccountFailException}");
+                $"[HiveDb.CreateAccount] ErrorCode: {ErrorCode.CreateAccountFailException}, {ex}");
                 return ErrorCode.CreateAccountFailException;
             }
         }
 
-        public async Task<(ErrorCode, Int64)> VerifyUser(string email, string pw)
+        public async Task<(ErrorCode, Int64)> VerifyUser(string userID, string pw)
         {
             try
             {
-                Model.DAO.HdbAccountInfo userInfo = await _queryFactory.Query("account_info")
-                                        .Where("Email", email)
-                                        .FirstOrDefaultAsync<Model.DAO.HdbAccountInfo>();
+                Model.DAO.HiveDBAccount userInfo = await _queryFactory.Query("account")
+                                        .Where("user_id", userID)
+                                        .FirstOrDefaultAsync<Model.DAO.HiveDBAccount>();
                 
                 if (userInfo is null)
                 {
@@ -85,8 +85,10 @@ namespace APIServer.Repository
 
                 return (ErrorCode.None, userInfo.player_id);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                _logger.ZLogError(
+                $"[HiveDb.VerifyUser] ErrorCode: {ErrorCode.LoginFailException}, {ex}");
                 return (ErrorCode.LoginFailException, 0);
             }
         }

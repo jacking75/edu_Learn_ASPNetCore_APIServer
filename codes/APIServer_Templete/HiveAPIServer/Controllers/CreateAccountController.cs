@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using APIServer.Model.DTO;
-using APIServer.Repository;
+using HiveAPIServer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using ZLogger;
 
 
 namespace APIServer.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CreateHiveAccount : ControllerBase
+public class CreateAccountController : ControllerBase
 {
-    readonly ILogger<CreateHiveAccount> _logger;
-    readonly IHiveDb _hiveDb;
+    readonly ILogger<CreateAccountController> _logger;
+    readonly IAuthService _authService;
 
-    public CreateHiveAccount(ILogger<CreateHiveAccount> logger, IHiveDb hiveDb)
+    public CreateAccountController(ILogger<CreateAccountController> logger, IAuthService authService)
     {
         _logger = logger;
-        _hiveDb = hiveDb;
+        _authService = authService;
     }
 
     [HttpPost]
@@ -30,7 +25,7 @@ public class CreateHiveAccount : ControllerBase
     {
         CreateHiveAccountResponse response = new();
 
-        response.Result = await _hiveDb.CreateAccountAsync(request.UserID, request.Password);
+        response.Result = await _authService.CreateAccount(request.UserID, request.Password);
 
         return response;
     }

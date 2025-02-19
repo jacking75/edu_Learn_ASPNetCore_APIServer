@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APIServer.Model.DTO
 {
-    public class VerifyTokenBody
+    public class VerifyTokenRequest
     {
         [Required]
         public string HiveToken { get; set; }

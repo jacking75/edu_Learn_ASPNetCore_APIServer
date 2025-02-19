@@ -8,17 +8,17 @@
 ## account_info 테이블
 하이브 계정 정보를 가지고 있는 테이블
 ```sql
--- 테이블 생성 SQL - account_info
-CREATE TABLE account_info
+-- 테이블 생성 SQL - account
+CREATE TABLE account
 (
     `player_id`         BIGINT          NOT NULL    AUTO_INCREMENT COMMENT '플레이어 아이디',
-    `email`             VARCHAR(50)     NOT NULL    COMMENT '이메일',
+    `user_id`             VARCHAR(50)     NOT NULL    COMMENT '유저아이디. 내용은 이메일',
     `salt_value`        VARCHAR(100)    NOT NULL    COMMENT '암호화 값',
     `pw`                VARCHAR(100)    NOT NULL    COMMENT '해싱된 비밀번호',
     `create_dt`         DATETIME        NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성 일시',
     `recent_login_dt`   DATETIME        NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '최근 로그인 일시',
      PRIMARY KEY (player_id),
-     UNIQUE KEY (email)
+     UNIQUE KEY (user_id)
 )
 ```
 
