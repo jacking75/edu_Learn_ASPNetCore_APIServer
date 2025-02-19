@@ -18,6 +18,7 @@ public class CreateHiveAccount : ControllerBase
 {
     readonly ILogger<CreateHiveAccount> _logger;
     readonly IHiveDb _hiveDb;
+
     public CreateHiveAccount(ILogger<CreateHiveAccount> logger, IHiveDb hiveDb)
     {
         _logger = logger;
