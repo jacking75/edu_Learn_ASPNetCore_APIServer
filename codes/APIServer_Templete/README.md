@@ -1,24 +1,8 @@
 # API 서버 템플릿
 이것을 기반으로 원하는 API 서버를 개발하면 빠르게 개발할 수 있다.  
 단 필요 없는 코드와 파일은 싹 지워야 한다.  
- 
- 
-# 참고할 정보 
-  
-## ASP.NET Core에서 DTO를 모델 안에 넣는 것은 일반적으로 권장되지 않는다
-from ChatGPT  
-ASP.NET Core에서 DTO를 모델 안에 넣는 것은 일반적으로 권장되지 않는다. 대신, DTO는 모델과 분리하여 사용하는 것이 좋습니다. 여기에 몇 가지 이유가 있습니다:  
-  
-1. 분리된 책임: 모델은 데이터베이스와 상호 작용하고 비즈니스 로직을 포함해야 합니다. 반면 DTO는 클라이언트와 통신하는 데 사용됩니다. 이 두 가지 책임을 분리하여 코드를 더 깔끔하게 유지할 수 있습니다.
-2. DTO의 목적: DTO는 데이터를 전송하기 위한 용도로 사용됩니다. 클라이언트에게 필요한 데이터만 포함하도록 설계되어 있습니다. 모델은 데이터베이스 엔터티를 나타내며, 비즈니스 로직과 데이터를 포함합니다.
-3. AutoMapper 사용: AutoMapper를 사용하여 모델과 DTO 간의 매핑을 자동화할 수 있습니다. 이를 통해 코드 중복을 줄이고 변환 작업을 간소화할 수 있습니다1.
-  
-예를 들어, 모델과 DTO를 분리하고 AutoMapper를 사용하여 매핑을 설정할 수 있습니다. DTO는 클라이언트와 통신할 때 사용되며, 모델은 데이터베이스와 상호 작용할 때 사용됩니다. 이렇게 하면 코드를 더 깔끔하게 유지하고 책임을 분리할 수 있습니다.    
-    
-## ASP.NET Core에서 DAO를 모델 안에 넣는 것은 일반적으로 권장되지 않는다
-      
-	 
-	 
+   
+    	 
 # TODO-LIST
 개발할 것을 계획하고, 해야할 것을 세분화 하여 TODO 리스트를 만든다.   
 개발이 진행되면 완료한 항목은 체크한다. 또 필요하면 새롭게 추가한다.  
@@ -113,7 +97,71 @@ Content-Type: application/json
     "playerId": 7,
     "hiveToken": "efaee4517404318a8d14f6053767ff74dcf9aw30910b9116dafd3fa4ce408a45"
 }
-```
+```    
+  
+---  
+# 시퀸스 다이얼그램
+   
+## 새로운 유저의 계정 생성
+
+```mermaid
+sequenceDiagram
+	actor User
+	participant Game Server
+	participant Hive Server
+	participant DB
+
+	User->> Hive Server: 로그인 요청
+	Hive Server ->> User : 고유번호와 토큰 전달
+
+	User ->> Game Server : 고유번호와 토큰을 통해 가입 요청
+	Game Server ->> Hive Server : 고유번호와 토큰의 유효성 검증 요청
+	Hive Server -->> Game Server : 유효성 검증
+	alt 검증 실패
+	Game Server -->> User : 계정 생성 실패 응답
+	end
+	
+	Game Server ->> DB : 고유번호를 통해 데이터 조회
+	DB -->> Game Server : 데이터 조회 결과
+	alt 이미 계정 존재
+	Game Server -->> User : 계정 생성 실패 응답
+	end
+
+	Game Server ->> DB : 기본 데이터 생성
+	alt 기본 데이터 생성 실패
+	Game Server ->> DB : RollBack
+	Game Server -->> User : 계정 생성 실패 응답
+	end
+
+	Game Server -->> User : 계정 생성 성공 응답
+
+```  
   
   
----
+# 유저의 로그인
+```mermaid
+sequenceDiagram
+	actor User
+	participant Game Server
+	participant Hive Server
+	participant DB
+
+	User->> Hive Server: 로그인 요청
+	Hive Server -->> User : 고유번호와 토큰 전달
+
+	User ->> Game Server : 고유번호와 토큰을 통해 로그인 요청
+	Game Server -->> Hive Server : 고유번호와 토큰의 유효성 검증 요청
+	Hive Server ->> Game Server : 유효성 검증
+	alt 검증 실패
+	Game Server -->> User : 로그인 실패 응답
+	end
+	
+	Game Server ->> DB : 고유번호를 통해 유저 데이터 요청
+	DB -->> Game Server : 유저 데이터 로드
+	alt 존재하지 않는 유저
+	Game Server -->> User : 로그인 실패 응답
+	end
+	Game Server -->> Game Server : 토큰을 Redis에 저장
+	Game Server -->> User : 로그인 성공 응답
+```   
+
