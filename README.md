@@ -175,8 +175,9 @@ IHttpClientFactory는 ASP.NET Core에서 HTTP 클라이언트를 관리하는 �
 요약하자면, IHttpClientFactory는 성능, 메모리 관리, 구성 가능성 및 테스트 용이성 측면에서 HTTP 클라이언트를 효율적으로 관리하는 데 도움이 됩니다.  
   
 ### 동시 요청을 많이 보내고 싶을 때   
-ASP.NET Core Web API 서버에서 `HttpClientFactory`를 사용하여 다른 서버에 많은 요청을 동시에 보내야 하는 경우, 다음과 같은 사항들을 고려해야 합니다.  
----  
+ASP.NET Core Web API 서버에서 `HttpClientFactory`를 사용하여 다른 서버에 많은 요청을 동시에 보내야 하는 경우, 다음과 같은 사항들을 고려해야 합니다.    
+  
+---    
 
 #### 1. 기본 연결 제한 (MaxConnectionsPerServer) 조정  
 .NET의 기본 `SocketsHttpHandler`에는 서버당 최대 동시 연결 수가 제한되어 있습니다. 기본값은 일반적으로 2로 설정되어 있어, 많은 요청을 동시에 보낼 경우 병목현상이 발생할 수 있습니다. 이를 해결하기 위해 **MaxConnectionsPerServer** 값을 늘려야 합니다.  
