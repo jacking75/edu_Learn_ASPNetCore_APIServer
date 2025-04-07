@@ -1,7 +1,7 @@
 # ASP.Net Core Web API Game Server 학습
 - 닷넷에서 API Server용 게임서버 개발을 위해 학습을 하기 위한 것이다.
-- [ASP.NET Core 7.0의 새로운 기능](https://learn.microsoft.com/ko-kr/aspnet/core/release-notes/aspnetcore-7.0?view=aspnetcore-7.0  )  
-- [Announcing ASP.NET Core in .NET 7](https://devblogs.microsoft.com/dotnet/announcing-asp-net-core-in-dotnet-7/  )  
+- [닷넷 빌드와 실행](./dotnet_build.md )
+- [ASP.NET Core](https://learn.microsoft.com/ko-kr/aspnet/core  )  
 - [C# 비동기 프로그래밍 정리](https://docs.google.com/document/d/e/2PACX-1vRHRbQjeoJH9lXalTClFBuB-D41v9TaBTPc_TeUS-yKhPZTJa2dWjpv_Rib863b_disjspqymOjgKwq/pub )
 - [(YOUTUBE) VisualAcademy](https://www.youtube.com/@VisualAcademy/videos )
 - [practical-aspnetcore](https://github.com/dodyg/practical-aspnetcore) ASP.NET Core의 다양한 샘플 코드를 볼 수 있다.  
@@ -30,11 +30,16 @@
 - [코드에서 DB 트랜잭션 하기](./how_to_db_transaction.md )
     
     
-### 로그 라이브러리 ZLogger
+### 로그  
+  
+#### 로그 라이브러리 ZLogger
 .NET 에서 로그 라이브러리로 ZLogger를 추천한다.  
 사용 방법은 `ZLogger` 디렉토리를 보기 바란다.    
-    
-    
+   
+#### 로그 라이브러리 SeriLog  
+[SeriLog 사용](./Serilog.md )     
+       
+       
 ### 2022년 인턴 사원이 만든 학습 자료
 `학습자료_2022년_인턴` 이라는 디렉토리에 2022년 인턴 사원으로 근무한 분이 만든 학습 자료가 있다.    
 이 자료들을 순서대로 한번 보기 바란다.  
