@@ -1,10 +1,10 @@
-﻿using APIServer.Models;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Models;
+using GameAPIServer.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace APIServer.Repository.Interfaces;
+namespace GameAPIServer.Repository.Interfaces;
 
 public interface IMemoryDb
 {

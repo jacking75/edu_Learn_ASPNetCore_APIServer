@@ -1,9 +1,8 @@
-﻿using APIServer.Models;
-using APIServer.Repository.Interfaces;
-using APIServer.Services;
+﻿using GameAPIServer.Models;
 using CloudStructures;
 using CloudStructures.Structures;
-using GameAPIServer.DTO;
+using GameAPIServer.Models.DTO;
+using GameAPIServer.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -11,7 +10,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace APIServer.Repository;
+
+namespace GameAPIServer.Repository;
 
 public class MemoryDb : IMemoryDb
 {

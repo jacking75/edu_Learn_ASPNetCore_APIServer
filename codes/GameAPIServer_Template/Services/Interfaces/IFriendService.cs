@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using GameAPIServer.DAO;
+using GameAPIServer.Models.DAO;
 
-namespace APIServer.Servicies.Interfaces;
+namespace GameAPIServer.Servicies.Interfaces;
 
 public interface IFriendService
 {

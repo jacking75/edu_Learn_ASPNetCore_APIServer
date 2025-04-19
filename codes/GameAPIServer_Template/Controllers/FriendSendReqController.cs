@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class FriendSendReqController : ControllerBase
     /// 상대방에게 친구 요청을 보냅니다.
     /// </summary>
     [HttpPost]
-    public async Task<SendFriendReqResponse> SendFriendReq([FromHeader] HeaderDTO header, SendFriendReqRequest request)
+    public async Task<SendFriendReqResponse> SendFriendReq([FromHeader] Header header, SendFriendReqRequest request)
     {
         SendFriendReqResponse response = new();
 

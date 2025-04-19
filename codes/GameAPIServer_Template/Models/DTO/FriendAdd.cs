@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GameAPIServer.DTO;
+namespace GameAPIServer.Models.DTO;
 
 public class SendFriendReqRequest
 {
@@ -9,7 +9,7 @@ public class SendFriendReqRequest
 }
 
 
-public class SendFriendReqResponse : ErrorCodeDTO
+public class SendFriendReqResponse : ErrorCode
 {
 }
 

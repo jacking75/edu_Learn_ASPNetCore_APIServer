@@ -1,8 +1,8 @@
-﻿using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using System.Threading.Tasks;
 
-namespace APIServer.Servicies;
+namespace GameAPIServer.Servicies;
 
 public class DataLoadService : IDataLoadService
 {

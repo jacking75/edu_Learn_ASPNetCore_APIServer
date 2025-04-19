@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using APIServer.Models;
-using APIServer.Repository.Interfaces;
-using GameAPIServer.DAO;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Models;
+using GameAPIServer.Models.DAO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
 
-namespace APIServer.Services;
+namespace GameAPIServer.Repository;
+
 public partial class GameDb : IGameDb
 {
     readonly ILogger<GameDb> _logger;

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace APIServer.Services;
+namespace GameAPIServer;
 
 public class Security
 {

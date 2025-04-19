@@ -1,4 +1,4 @@
-﻿namespace APIServer.Repository;
+﻿namespace GameAPIServer.Repository;
 
 public class RediskeyExpireTime
 {

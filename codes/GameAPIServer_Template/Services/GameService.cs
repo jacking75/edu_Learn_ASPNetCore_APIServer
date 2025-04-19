@@ -1,14 +1,14 @@
-﻿using APIServer.Repository.Interfaces;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DAO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DAO;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using ZLogger;
+using GameAPIServer.Repository.Interfaces;
 
-namespace APIServer.Servicies;
+namespace GameAPIServer.Servicies;
 
 public class GameService :IGameService
 {

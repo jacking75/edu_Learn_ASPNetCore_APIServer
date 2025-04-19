@@ -1,5 +1,5 @@
-﻿using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;

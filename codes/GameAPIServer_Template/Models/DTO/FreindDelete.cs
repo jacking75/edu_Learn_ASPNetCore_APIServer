@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GameAPIServer.DTO;
+namespace GameAPIServer.Models.DTO;
 
 public class FriendDeleteRequest
 {
@@ -9,7 +9,7 @@ public class FriendDeleteRequest
 }
 
 
-public class FriendDeleteResponse : ErrorCodeDTO
+public class FriendDeleteResponse : ErrorCode
 {
 }
 

@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class MailDeleteController : ControllerBase
     /// 메일함에서 메일을 삭제합니다.
     /// </summary>
     [HttpPost]
-    public async Task<MailDeleteResponse> DeleteMail([FromHeader] HeaderDTO header, MailDeleteRequest request)
+    public async Task<MailDeleteResponse> DeleteMail([FromHeader] Header header, MailDeleteRequest request)
     {
         MailDeleteResponse response = new();
 

@@ -1,12 +1,13 @@
-﻿using APIServer.Models;
-using APIServer.Repository.Interfaces;
+﻿using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using GameAPIServer.Repository;
 
-namespace APIServer.Middleware;
+namespace GameAPIServer.Middleware;
 
 public class CheckUserAuthAndLoadUserData
 {
@@ -60,7 +61,7 @@ public class CheckUserAuthAndLoadUserData
         }
 
         //이번 api 호출 끝날 때까지 redis키 잠금 만약 이미 잠겨있다면 에러
-        var userLockKey = Services.MemoryDbKeyMaker.MakeUserLockKey(userInfo.Uid.ToString());
+        var userLockKey = MemoryDbKeyMaker.MakeUserLockKey(userInfo.Uid.ToString());
         if (await SetLockAndIsFailThenSendError(context, userLockKey))
         {
             return;

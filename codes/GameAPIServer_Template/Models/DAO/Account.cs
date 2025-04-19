@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace APIServer.DAO;
+namespace GameAPIServer.Models.DAO;
 
 
 public class Account

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Threading.Tasks;
-using APIServer.Repository.Interfaces;
-using GameAPIServer.DAO;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Models.DAO;
 using SqlKata.Execution;
 using ZLogger;
 
-namespace APIServer.Services;
+namespace GameAPIServer.Repository;
 
 public partial class GameDb : IGameDb
 {
@@ -48,7 +48,7 @@ public partial class GameDb : IGameDb
         {
             var userInfo = await _queryFactory.Query("account")
                                     .Where("user_id", userID)
-                                    .FirstOrDefaultAsync<DAO.Account>();
+                                    .FirstOrDefaultAsync<Account>();
 
             if (userInfo is null)
             {

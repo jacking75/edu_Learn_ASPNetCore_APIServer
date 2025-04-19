@@ -1,18 +1,13 @@
-﻿using APIServer.Repository.Interfaces;
-using APIServer.Services;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DAO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DAO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using SqlKata.Execution;
 using System;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Reflection;
 using System.Threading.Tasks;
 using ZLogger;
+using GameAPIServer.Repository.Interfaces;
 
-namespace APIServer.Servicies;
+namespace GameAPIServer.Servicies;
 
 public class AuthService : IAuthService
 {

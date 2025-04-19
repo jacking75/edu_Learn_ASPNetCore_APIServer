@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class SocialDataLoadController : ControllerBase
     /// 게임에 필요한 소셜 정보(친구 정보, 메일 정보)를 조회합니다.
     /// </summary>
     [HttpPost]
-    public async Task<SocialDataLoadResponse> LoadSocialData([FromHeader] HeaderDTO header)
+    public async Task<SocialDataLoadResponse> LoadSocialData([FromHeader] Header header)
     {
         SocialDataLoadResponse response = new();
 

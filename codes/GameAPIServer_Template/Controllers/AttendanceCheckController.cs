@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Models.DTO;
+using GameAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class AttendanceCheckController : ControllerBase
     /// 출석 체크를 하고 받은 보상을 반환합니다.
     /// </summary>
     [HttpPost]
-    public async Task<AttendanceCheckResponse> CheckAttendance([FromHeader] HeaderDTO header)
+    public async Task<AttendanceCheckResponse> CheckAttendance([FromHeader] Header header)
     {
         AttendanceCheckResponse response = new();
                               

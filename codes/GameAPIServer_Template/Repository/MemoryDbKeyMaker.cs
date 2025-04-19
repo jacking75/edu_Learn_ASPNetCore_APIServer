@@ -1,4 +1,4 @@
-﻿namespace APIServer.Services;
+﻿namespace GameAPIServer.Repository;
 
 public class MemoryDbKeyMaker
 {
