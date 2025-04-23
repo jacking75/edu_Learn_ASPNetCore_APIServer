@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
+using MySqlConnector;
+using SqlKata.Execution;
+
 using GameAPIServer.Repository.Interfaces;
 using GameAPIServer.Models;
 using GameAPIServer.Models.DAO;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MySqlConnector;
-using SqlKata.Execution;
+
 
 namespace GameAPIServer.Repository;
 
