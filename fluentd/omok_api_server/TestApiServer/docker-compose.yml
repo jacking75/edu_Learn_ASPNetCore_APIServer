@@ -1,0 +1,76 @@
+version: "3.4"
+
+services:
+  fluentd-forwarder:
+    image: sha2us/fluentd-forwarder
+    build:
+      context: ./FluentD/Forwarder
+    container_name: fluentd-forwarder
+    networks:
+      - backend
+    ports:
+      - "24224:24224"
+
+  fluentd-aggregator:
+    image: sha2us/fluentd-aggregator
+    build:
+      context: ./FluentD/Aggregator
+    container_name: fluentd-aggregator
+    depends_on:
+      - db
+    networks:
+      - backend
+    ports:
+      - "24225:24224"
+
+  server:
+    image: sha2us/server
+    build:
+      context: ./TestApiServer
+    container_name: server
+    depends_on:
+      - db
+      - redis
+      - fluentd-forwarder
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8000
+      - ASPNETCORE_URLS=http://*:8000
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: "localhost:24224"
+        fluentd-async-connect: "true"
+        tag: server.log
+
+  db:
+    image: sha2us/database
+    build:
+      context: ./Database
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: comsooyoung!1
+      MYSQL_DATABASE: gamedb
+      MYSQL_USER: shanabunny
+      MYSQL_PASSWORD: comsooyoung!1
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

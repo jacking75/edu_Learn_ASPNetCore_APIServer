@@ -1,0 +1,23 @@
+﻿@inject LoadingStateProvider LoadingStateProvider
+
+
+<FluentOverlay @bind-Visible=@(this.LoadingStateProvider.IsLoading)
+			   Opacity="0"
+			   Alignment="Align.Center"
+			   Justification="JustifyContent.Center"
+			   Dismissable="false"
+		>
+	<img src="images/loading.png" class="rotate" width="100" />
+</FluentOverlay>
+
+@code {
+	protected override void OnInitialized()
+	{
+		LoadingStateProvider.OnChange += StateHasChanged;
+	}
+
+	public void Dispose()
+	{
+		LoadingStateProvider.OnChange -= StateHasChanged;
+	}
+}

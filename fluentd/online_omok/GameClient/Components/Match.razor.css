@@ -1,0 +1,50 @@
+﻿
+.match {
+    z-index: 100;
+}
+.state {
+    height: 50px;
+    width: 120px;
+    background-image: url('images/ui/button.png');
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: 100% 100%;
+    left: 10%;
+}
+
+.state-text {
+    margin: auto;
+    text-align: center;
+}
+
+.pink-button {
+    min-height: 300px;
+    min-width: 300px;
+    background-image: url('images/ui/pink.png');
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: cover;
+    top: 10%;
+    left: 10%;
+    cursor: pointer;
+    display: flex;
+}
+
+.squishy {
+    transition: transform 0.1s;
+}
+
+    .squishy:hover {
+        transform: scale(1.1);
+    }
+    
+
+span {
+    vertical-align: middle;
+    margin: auto;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}

@@ -1,0 +1,13 @@
+﻿
+
+<div class="match">
+	<div class="squishy pink-button" @onclick="@HandleMatchRequest">
+		<span>Start</span>
+	</div>
+	<PopupShort IsOpen="@IsMatched" OnClose="@AcceptGame">
+		Match Completed!
+	</PopupShort>
+</div>
+
+
+

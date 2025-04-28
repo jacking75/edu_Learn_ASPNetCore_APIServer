@@ -1,0 +1,29 @@
+{
+  "profiles": {
+    "API Server": {
+      "commandName": "Project",
+      "launchUrl": "Login",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://0.0.0.0:9000;"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_HTTP_PORTS": "9000"
+      },
+      "publishAllPorts": true
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:11502",
+      "sslPort": 44384
+    }
+  }
+}

@@ -1,0 +1,49 @@
+﻿@using GameShared.DTO;
+
+<FluentStack HorizontalAlignment="@HorizontalAlignment.Center" VerticalAlignment="@VerticalAlignment.Center" Style="height:100%">
+	@if (ItemCount > 0 && Item != null)
+	{
+			<div
+				 class="game-item"
+				 style="
+				background-image: url('images/items/@Item.ItemImage');
+				width: 50px;
+				height: 50px;
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;"
+				 @onclick="@OnClickAsync">
+				<h1 style="float:right;
+				color:#4a1d0f; text-align:right;
+				vertical-align:bottom;
+				-webkit-text-stroke-width: 1px;
+				-webkit-text-stroke-color: white;">
+				@ItemCount
+				</h1>
+			</div>
+	}
+	else
+	{
+			<div style="
+				background: transparent;
+				width: 50px;
+				height: 50px;">
+			</div>
+	}
+</FluentStack>
+
+@code {
+	[Parameter]
+	public Item? Item { get; set; }
+
+	[Parameter]
+	public int ItemCount { get; set; } = 0;
+
+	[Parameter]
+	public EventCallback OnClick { get; set; }
+
+	private async Task OnClickAsync()
+	{
+		await OnClick.InvokeAsync();
+	}
+}

@@ -1,0 +1,180 @@
+version: "3.5"
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./Prometheus/alert.rules.yml:/etc/prometheus/alert.rules.yml
+      - ./Prometheus/record.rules.yml:/etc/prometheus/record.rules.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      - backend
+    restart: always
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.rootfs=/rootfs"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
+    networks:
+      - backend
+    ports:
+      - "9100:9100"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3030:3000"
+    volumes:
+      - ./Grafana/datasources:/etc/grafana/provisioning/datasources/
+      - ./Grafana/dashboards:/var/lib/grafana/dashboards/
+      - ./Grafana/provisioning:/etc/grafana/provisioning/dashboards/
+    depends_on:
+      - prometheus
+    networks:
+      - backend
+    restart: always
+
+  # fluentd-forwarder-1:
+  #   image: sha2us/forwarder
+  #   container_name: fluentd-forwarder-1
+  #   depends_on:
+  #     - fluentd-aggregator
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - "24227:24224"
+
+  # fluentd-forwarder-2:s
+  #   image: sha2us/forwarder
+  #   container_name: fluentd-forwarder-2
+  #   depends_on:
+  #     - fluentd-aggregator
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - "24226:24224"
+
+  # fluentd-aggregator:
+  #   image: sha2us/aggregator
+  #   container_name: fluentd-aggregator
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - "24225:24224"
+
+  # cadvisor:
+  #   image: google/cadvisor:latest
+  #   container_name: cadvisor
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:ro
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #   ports:
+  #     - "8090:8080"
+  #   networks:
+  #     - backend
+  #   restart: always
+
+  gameserver:
+    restart: always
+    image: sha2us/gameserver
+    container_name: gameserver
+    depends_on:
+      - db
+      - redis
+      # - fluentd-forwarder-1
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8000
+      - ASPNETCORE_URLS=http://*:8000
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    networks:
+      - backend
+    # logging:
+    #   driver: fluentd
+    #   options:
+    #     fluentd-address: "localhost:24227"
+    #     fluentd-async-connect: "true"
+    #     tag: server.game
+
+  hiveserver:
+    image: sha2us/hiveserver
+    container_name: hiveserver
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - backend
+
+  matchserver:
+    image: sha2us/matchserver
+    container_name: matchserver
+    depends_on:
+      - redis
+      # - fluentd-forwarder-2
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=9000
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - backend
+    # logging:
+    #   driver: fluentd
+    #   options:
+    #     fluentd-address: "localhost:24226"
+    #     fluentd-async-connect: "true"
+    #     tag: server.match
+
+  db:
+    image: sha2us/database
+    build:
+      context: ./Database
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: comsooyoung!1
+      MYSQL_USER: shanabunny
+      MYSQL_PASSWORD: comsooyoung!1
+      MYSQL_DATABASE: masterdb
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

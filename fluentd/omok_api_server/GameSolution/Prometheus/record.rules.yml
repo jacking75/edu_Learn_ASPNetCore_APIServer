@@ -1,0 +1,6 @@
+groups:
+  - name: http_requests_per_minute
+    interval: 1m
+    rules:
+      - record: job:http_requests_per_minute:rate
+        expr: sum(increase(http_requests_total[1m])) by (endpoint)

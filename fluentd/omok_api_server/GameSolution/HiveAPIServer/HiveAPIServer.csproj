@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <UserSecretsId>de696a6b-0590-4a13-89db-4d6619c60846</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <OutputPath>..\00_ServerBin\HiveAPIServer\</OutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <OutputPath>..\00_ServerBin\HiveAPIServer\</OutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="log\**" />
+      <Content Remove="log\**" />
+      <EmbeddedResource Remove="log\**" />
+      <None Remove="log\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+        <PackageReference Include="System.Net.Security" Version="4.3.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GameShared\GameShared.csproj" />
+      <ProjectReference Include="..\ServerShared\ServerShared.csproj" />
+    </ItemGroup>
+    
+
+</Project>

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="cloudstructures" Version="3.3.0" />
+    <PackageReference Include="microsoft.aspnetcore.mvc" Version="2.2.0" />
+    <PackageReference Include="MySqlConnector" Version="2.3.7" />
+    <PackageReference Include="prometheus-net" Version="8.2.1" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.1" />
+    <PackageReference Include="prometheus-net.DotNetRuntime" Version="4.4.1" />
+    <PackageReference Include="sqlkata" Version="2.4.0" />
+    <PackageReference Include="sqlkata.execution" Version="2.4.0" />
+    <PackageReference Include="stackexchange.redis" Version="2.8.16" />
+    <PackageReference Include="zlogger" Version="2.5.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameShared\GameShared.csproj" />
+  </ItemGroup>
+
+</Project>

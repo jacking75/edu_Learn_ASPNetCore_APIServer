@@ -1,0 +1,21 @@
+﻿		<div class="menu-item"
+			 style="width:400px;
+				padding-left: 16px;
+				border-radius: 16px;
+				border-style: dashed;
+				border-color:white;
+				border-width: 2px;
+				background-image: linear-gradient(to right, #ffecd280 0%, #fcb69f80 100%);
+				background-size: 100% auto;">
+
+	@ChildContent
+		</div>
+
+@code {
+
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+
+	[Parameter]
+	public bool IsDisabled { get; set; } = false;
+}

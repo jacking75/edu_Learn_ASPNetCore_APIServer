@@ -1,0 +1,51 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+
+<PageTitle>Home</PageTitle>
+
+<AuthorizeView>
+	<Authorized>
+		<FluentStack VerticalAlignment="@VerticalAlignment.Center"
+					 HorizontalAlignment="@HorizontalAlignment.Center"
+					 Orientation="@Orientation.Vertical"
+					 Style="height:100%; min-height:100vh; min-width:100vw">
+			<Roulette />
+			<Match/>
+			
+			@if (_currentMenu == MenuType.Profile)
+			{
+				<PopupProfile IsOpen=@IsOpen() OnClose=@CloseMenu Title="@_currentMenu.ToString()">
+					<Profile />
+				</PopupProfile>
+			}
+			else
+			{
+				<Popup IsOpen=@IsOpen() OnClose=@CloseMenu Title="@_currentMenu.ToString()">
+					@switch (_currentMenu)
+					{
+						case MenuType.Profile:
+							<Profile />
+							break;
+						case MenuType.Mail:
+							<MailList />
+							break;
+						case MenuType.Inventory:
+							<Inventory />
+							break;
+						case MenuType.Attendance:
+							<AttendanceList />
+							break;
+						default:
+							<div></div>
+							break;
+					}
+				</Popup>
+			}
+			<MenuList ShowMenu="@ShowMenu" />
+		</FluentStack>
+	</Authorized>
+
+	<NotAuthorized>
+		<RedirectToLogin />
+	</NotAuthorized>
+</AuthorizeView>

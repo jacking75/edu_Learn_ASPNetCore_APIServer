@@ -1,0 +1,46 @@
+﻿@page "/register"
+
+<PageTitle>Register</PageTitle>
+
+<FluentBodyContent Style="overflow: hidden; max-width: 100vw; margin:0; padding:0;">
+	<div class="wrapper">
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+		<div class="bubble"><span class="dot"></span></div>
+	</div>
+
+	<FluentStack VerticalAlignment="@VerticalAlignment.Center" HorizontalAlignment="@HorizontalAlignment.Center" Orientation="@Orientation.Vertical"
+				 Style="overflow: hidden; height: 100%">
+		<Logo />
+		<FluentStack Orientation="@Orientation.Vertical" VerticalAlignment="@VerticalAlignment.Center" HorizontalAlignment="@HorizontalAlignment.Center" Style="
+					overflow:hidden; width:450px;
+					">
+			<FluentTextField Placeholder="Email"
+							 Appearance="FluentInputAppearance.Filled" Label="Email" @bind-Value="User.Email" Style="width: 100%; min-width: 400px" Id="Email" />
+
+			<FluentTextField Placeholder="Password"
+							 Appearance="FluentInputAppearance.Filled" Label="Password" @bind-Value="User.Password" Type="Password" Style="width: 100%; min-width: 400px" Id="Password" />
+
+			<FluentStack Orientation="@Orientation.Horizontal" HorizontalAlignment="@HorizontalAlignment.Center"
+						 VerticalAlignment="@VerticalAlignment.Center" Style="width:400px">
+
+				<FluentButton OnClick="@HandleRegisterAsync">
+					<span class="fredoka menu-icon" style="font-size: 24px; margin:auto;">Register</span>
+				</FluentButton>
+			</FluentStack>
+		</FluentStack>
+	</FluentStack>
+
+</FluentBodyContent>

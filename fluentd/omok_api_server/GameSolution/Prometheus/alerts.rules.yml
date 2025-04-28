@@ -1,0 +1,19 @@
+groups:
+  - name: example_alerts
+    rules:
+      - alert: HighRequestRate
+        expr: rate(http_requests_total{job="web_server"}[5m]) > 100
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: High request rate on web server
+          description: "{{ $labels.instance }} has high request rate (>100 req/min) for the last 5 minutes."
+      - alert: HighCPULoad
+        expr: (sum by (instance) (avg by (mode, instance) (rate(node_cpu_seconds_total{mode!="idle"}[2m]))) > 0.8) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: High CPU load detected  (instance {{ $labels.instance }})
+          description: "{{ $labels.instance }} has CPU load >0.8 for the last 5 minutes."

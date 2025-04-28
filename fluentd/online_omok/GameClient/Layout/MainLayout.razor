@@ -1,0 +1,62 @@
+﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+
+<AuthorizeView>
+	<Authorized>
+		<FluentBodyContent Class="body-content">
+			<div class="wrapper">
+			
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+					<div class="bubble"></div>
+		
+				<ErrorBoundary>
+					<ChildContent>
+						<div class="content">
+							@Body
+						</div>
+					</ChildContent>
+					<ErrorContent Context="ex">
+						<div class="blazor-error-boundary">@ex.Message</div>
+					</ErrorContent>
+				</ErrorBoundary>
+				<div class="layer-img floating">
+					  <img src="/images/layer_v2.png"/>
+				</div>
+@*              <img class="layer-img" src="/images/layer_v3.png"/>
+				<img class="layer-img" src="/images/layer_v4.png"/>
+				<img class="layer-img" src="/images/layer_v5.png"/> *@
+	  </div>
+		</FluentBodyContent>
+	</Authorized>
+
+	<NotAuthorized>
+		<FluentBodyContent Class="body-content">
+			<ErrorBoundary>
+				<ChildContent>
+					<div class="content">
+						@Body
+					</div>
+				</ChildContent>
+				<ErrorContent Context="ex">
+					<div class="blazor-error-boundary">@ex.Message</div>
+				</ErrorContent>
+			</ErrorBoundary>
+		</FluentBodyContent>
+	</NotAuthorized>
+</AuthorizeView>
+
+<LoadingOverlay/>
+<FluentToastProvider MaxToastCount="7" />

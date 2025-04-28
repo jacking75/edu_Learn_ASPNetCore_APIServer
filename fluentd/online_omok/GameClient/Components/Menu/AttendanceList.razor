@@ -1,0 +1,62 @@
+﻿
+<FluentStack Orientation="@Orientation.Vertical"
+			 VerticalGap="4" HorizontalGap="0"
+Style="height: 600px; width: 450px; overflow-y: auto;
+overflow-x:hidden" HorizontalAlignment="@HorizontalAlignment.Center">
+	@if (Attendance != null)
+	{
+		@foreach (var detail in Attendance.AttendanceRewards)
+		{
+			<ItemComponent>
+				<FluentStack Orientation="@Orientation.Horizontal" VerticalGap="0" HorizontalGap="1"
+				
+			VerticalAlignment="@VerticalAlignment.Center"
+				>
+					<FluentStack Orientation="@Orientation.Horizontal" Width="35%">
+						<h1 style="font-size: 24px; color:#4a1d0f;">DAY @detail.AttendanceCount</h1>
+						<FluentSpacer />
+
+					</FluentStack>
+					<FluentStack Orientation="@Orientation.Horizontal"
+								 Width="35%"
+								 Style="overflow-x: auto;overflow-y:hidden; white-space: nowrap; border-radius: 16px;background: #a36a58;">
+						@foreach (var item in DataLoadService.GetItemsFromRewardCode(detail.RewardCode))
+						{
+							<div style="
+								border-radius: 6px;
+								width:60px;
+								height:60px;
+
+											">
+								<GameItem ItemCount="@item.Item2" Item="@item.Item1" />
+							</div>
+						}
+					</FluentStack> 
+					<FluentStack Orientation="@Orientation.Horizontal" Width="30%"
+					HorizontalAlignment="@HorizontalAlignment.Center"
+					>
+						@if (detail.AttendanceCount < AttendanceCount + 1)
+						{
+							<img height="40" src="images/ui/get_button.png" style="filter:grayscale(1)" />
+						}
+						else if (detail.AttendanceCount == AttendanceCount + 1)
+						{
+							<img height="40" src="images/ui/get_button.png" style="cursor:pointer" @onclick=@AttendAsync/>
+						}
+						else
+						{
+							<img height="40" src=" images/ui/lock_button.png" />
+						}
+					</FluentStack>
+
+				</FluentStack>
+
+			</ItemComponent>
+		}
+	}
+	else
+	{
+		<h1 style="text-align: center; color:white;">No attendance available</h1>
+	}
+
+</FluentStack>

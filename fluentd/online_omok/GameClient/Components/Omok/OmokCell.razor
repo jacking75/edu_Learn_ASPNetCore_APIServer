@@ -1,0 +1,31 @@
+﻿<div class="omok-cell" style="height: 50px !important; width: 50px !important;" 
+	@onclick="() => OnCellClicked()">
+	@RenderCellContent(CellValue)	
+</div>
+
+
+@code {
+	[Parameter]
+	public EventCallback OnCellClick { get; set; }
+
+	[Parameter]
+	public OmokStone CellValue { get; set; }
+
+	private readonly int CellSize = 50;
+
+	private void OnCellClicked()
+	{
+		OnCellClick.InvokeAsync();
+	}
+
+	private RenderFragment RenderCellContent(OmokStone cellValue)
+	{
+		RenderFragment content = cellValue switch
+		{
+			OmokStone.Black => @<img src="images/omok/black.png" alt="" height="@CellSize" width="@CellSize"/>,
+			OmokStone.White => @<img src="images/omok/white.png" alt=""  height="@CellSize" width="@CellSize"/>,
+			_ => @<div class="empty-cell"></div> // Empty cell
+		};
+		return content;
+	}
+}

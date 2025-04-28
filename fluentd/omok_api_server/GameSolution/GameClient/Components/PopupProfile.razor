@@ -1,0 +1,52 @@
+﻿<FluentOverlay @bind-Visible=@(@IsOpen)
+			   Opacity="0"
+			   Alignment="Align.Center"
+			   Justification="JustifyContent.Center"
+			   OnClose="@OnClose"
+			   Interactive=true
+			   InteractiveExceptId="popup">
+	<div id="popup" style="height: 800px; width:600px;
+				background: url('images/ui/popup_v2.svg') no-repeat;
+				background-size:auto 100%;
+				background-position: center;
+">
+		<FluentStack Orientation="Orientation.Vertical"
+					 VerticalGap="2"
+					 HorizontalGap="2"
+					 HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center">
+			<div style="height: 150px; width:600px;
+						margin-top: -16px;
+						background: url('images/ui/popup_topping_v2.svg') no-repeat;
+						background-position: center;
+						background-size:100%;">
+				<img src="images/ui/close_white.png"
+					 style="float: right; padding-right: 16px; cursor:pointer;"
+					 @onclick="@OnClose"
+					 width="50" />
+				<h1 style="text-align: center; padding-top: 20px; color:#4a1d0f;
+						font-family: 'Fredoka',  system-ui;
+						font-optical-sizing: auto;
+						font-weight: 600;
+						font-size: 36px;">
+					@Title
+				</h1>
+			</div>
+			@ChildContent
+		</FluentStack>
+	</div>
+</FluentOverlay>
+
+@code
+{
+	[Parameter]
+	public string Title { get; set; } = "Title";
+
+	[Parameter]
+	public bool IsOpen { get; set; } = true;
+
+	[Parameter]
+	public EventCallback OnClose { get; set; }
+
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+}

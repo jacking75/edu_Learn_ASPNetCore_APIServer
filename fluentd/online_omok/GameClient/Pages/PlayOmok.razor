@@ -1,0 +1,22 @@
+﻿@page "/playomok"
+
+		<FluentBodyContent Style="min-height: 100vh">
+			<FluentStack Orientation="@Orientation.Horizontal"
+						 VerticalAlignment="@VerticalAlignment.Center"
+						 HorizontalAlignment="@HorizontalAlignment.Center" Style="height:100%;">
+				
+				<FluentStack VerticalAlignment="@VerticalAlignment.Center"
+							 HorizontalAlignment="@HorizontalAlignment.Center"
+							 Orientation="@Orientation.Vertical"
+							 Style="height:100%;"
+							 Width="50%">
+							 i
+					<OmokBoard 
+						GameData="OmokStateProvider.OmokData" OnCellClick="@HandleCellClick" />
+				</FluentStack>
+				
+			</FluentStack>
+		</FluentBodyContent>
+		<PopupShort IsOpen="_isGameComplete" OnClose="@HandleExitGame">
+			Game Is Complete
+		</PopupShort>
