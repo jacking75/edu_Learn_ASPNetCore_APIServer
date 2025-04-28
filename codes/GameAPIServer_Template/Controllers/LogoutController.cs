@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using APIServer.DTO;
-using APIServer.Repository.Interfaces;
-using GameAPIServer.DTO;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ZLogger;
@@ -26,7 +25,7 @@ public class LogoutController : ControllerBase
     /// 해당 유저의 토큰을 Redis에서 삭제합니다.
     /// </summary>
     [HttpPost]
-    public async Task<LogoutResponse> DeleteUserToken([FromHeader] HeaderDTO request)
+    public async Task<LogoutResponse> DeleteUserToken([FromHeader] Header request)
     {
         LogoutResponse response = new();
         var errorCode = await _memoryDb.DelUserAuthAsync(request.Uid);

@@ -1,9 +1,9 @@
-﻿using GameAPIServer.DAO;
+﻿using GameAPIServer.Models.DAO;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace APIServer.Servicies.Interfaces;
+namespace GameAPIServer.Servicies.Interfaces;
 
 public interface IGameService
 {

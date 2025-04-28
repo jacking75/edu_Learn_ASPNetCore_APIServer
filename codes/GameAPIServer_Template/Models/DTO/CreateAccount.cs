@@ -1,10 +1,9 @@
-﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace GameAPIServer.DTO;
+namespace GameAPIServer.Models.DTO;
 
-public class LoginRequest
+public class CreateHiveAccountRequest
 {
     [Required]
     [MinLength(1, ErrorMessage = "EMAIL CANNOT BE EMPTY")]
@@ -19,11 +18,9 @@ public class LoginRequest
     public string Password { get; set; }
 }
 
-public class LoginResponse
-{
-    [Required] public ErrorCode Result { get; set; } = ErrorCode.None;
-    [Required] public string AuthToken { get; set; } = "";
-    [Required] public long Uid { get; set; } = 0;
 
-    public DataLoadUserInfo userData { get; set; }
+public class CreateHiveAccountResponse
+{
+    [Required]
+    public global::ErrorCode Result { get; set; } = global::ErrorCode.None;
 }

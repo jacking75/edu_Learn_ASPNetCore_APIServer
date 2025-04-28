@@ -1,9 +1,8 @@
 using System.IO;
-using APIServer.Repository;
-using APIServer.Repository.Interfaces;
-using APIServer.Services;
-using APIServer.Servicies;
-using APIServer.Servicies.Interfaces;
+using GameAPIServer.Repository;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Servicies;
+using GameAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,8 +41,8 @@ if(!await app.Services.GetService<IMasterDb>().Load())
 //log setting
 ILoggerFactory loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 
-app.UseMiddleware<APIServer.Middleware.VersionCheck>();
-app.UseMiddleware<APIServer.Middleware.CheckUserAuthAndLoadUserData>();
+app.UseMiddleware<GameAPIServer.Middleware.VersionCheck>();
+app.UseMiddleware<GameAPIServer.Middleware.CheckUserAuthAndLoadUserData>();
 
 app.UseRouting();
 

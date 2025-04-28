@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class FriendAcceptController : ControllerBase
     /// 요청이 왔는지, 이미 친구 인지 확인 후 친구 요청을 수락합니다.
     /// </summary>
     [HttpPost]
-    public async Task<FriendAcceptResponse> AcceptFriend([FromHeader] HeaderDTO header, FriendAcceptRequest request)
+    public async Task<FriendAcceptResponse> AcceptFriend([FromHeader] Header header, FriendAcceptRequest request)
     {
         FriendAcceptResponse response = new();
         

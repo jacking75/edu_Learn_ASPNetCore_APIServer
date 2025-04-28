@@ -1,18 +1,19 @@
-﻿using APIServer.Repository.Interfaces;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DAO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DAO;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
+using GameAPIServer.Repository.Interfaces;
 
-namespace APIServer.Servicies;
+namespace GameAPIServer.Servicies;
 
 public class FriendService : IFriendService
 {
     readonly ILogger<FriendService> _logger;
     readonly IGameDb _gameDb;
+
     public FriendService(ILogger<FriendService> logger, IGameDb gameDb)
     {
         _gameDb = gameDb;

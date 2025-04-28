@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class MailListController : ControllerBase
     /// 유저의 메일 목록 정보를 가져옵니다.
     /// </summary>
     [HttpPost]
-    public async Task<MailboxInfoResponse> GetMailList([FromHeader] HeaderDTO header)
+    public async Task<MailboxInfoResponse> GetMailList([FromHeader] Header header)
     {
         MailboxInfoResponse response = new();
 

@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -24,7 +23,7 @@ public class FriendDeleteController : ControllerBase
     /// 서로 친구를 삭제합니다.
     /// </summary>
     [HttpPost]
-    public async Task<FriendDeleteResponse> DeleteFriend([FromHeader] HeaderDTO header, FriendDeleteRequest request)
+    public async Task<FriendDeleteResponse> DeleteFriend([FromHeader] Header header, FriendDeleteRequest request)
     {
         FriendDeleteResponse response = new();
 

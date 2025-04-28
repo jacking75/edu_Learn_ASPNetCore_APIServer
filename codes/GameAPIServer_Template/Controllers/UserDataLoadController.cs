@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class UserDataLoadController : ControllerBase
     /// 게임에 필요한 유저 정보(유저의 정보(점수,재화), 출석 정보)를 조회합니다.
     /// </summary>
     [HttpPost]
-    public async Task<UserDataLoadResponse> LoadUserData([FromHeader] HeaderDTO header)
+    public async Task<UserDataLoadResponse> LoadUserData([FromHeader] Header header)
     {
         UserDataLoadResponse response = new();
 

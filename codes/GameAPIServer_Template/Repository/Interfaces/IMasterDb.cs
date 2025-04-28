@@ -1,8 +1,8 @@
-﻿using APIServer.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using GameAPIServer.Models;
 
-namespace APIServer.Repository.Interfaces;
+namespace GameAPIServer.Repository.Interfaces;
 
 public interface IMasterDb
 {

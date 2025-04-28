@@ -1,14 +1,14 @@
-﻿using APIServer.Models;
-using APIServer.Repository.Interfaces;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Models;
+using GameAPIServer.Models.DTO;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace APIServer.Servicies;
+namespace GameAPIServer.Servicies;
 
 public class MailService : IMailService
 {

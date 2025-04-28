@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Repository.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class UserRankController : ControllerBase
     /// 자신의 등수를 가져옵니다.
     /// </summary>
     [HttpPost]
-    public async Task<UserRankResponse> GetUserRank([FromHeader] HeaderDTO request)
+    public async Task<UserRankResponse> GetUserRank([FromHeader] Header request)
     {
         var response = new UserRankResponse();
 

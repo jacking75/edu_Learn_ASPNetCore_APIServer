@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class GameDataLoadController : ControllerBase
     /// 게임에 필요한 아이템 정보(보유한 게임, 캐릭터, 스킨, 코스튬, 푸드)를 조회합니다.
     /// </summary>
     [HttpPost]
-    public async Task<GameDataLoadResponse> LoadGameData([FromHeader] HeaderDTO header)
+    public async Task<GameDataLoadResponse> LoadGameData([FromHeader] Header header)
     {
         GameDataLoadResponse response = new();
 

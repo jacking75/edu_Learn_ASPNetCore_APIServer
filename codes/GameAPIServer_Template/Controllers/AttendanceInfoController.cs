@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class AttendanceInfoController : ControllerBase
     /// 유저의 출석 정보(누적 출석일, 최근 출석 일시)를 전달합니다.
     /// </summary>
     [HttpPost]
-    public async Task<AttendanceInfoResponse> GetAttendanceInfo([FromHeader] HeaderDTO header)
+    public async Task<AttendanceInfoResponse> GetAttendanceInfo([FromHeader] Header header)
     {
         AttendanceInfoResponse response = new();
 

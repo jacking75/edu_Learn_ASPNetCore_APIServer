@@ -1,11 +1,11 @@
-﻿using APIServer.Models;
-using GameAPIServer.DAO;
+﻿using GameAPIServer.Models;
+using GameAPIServer.Models.DAO;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace APIServer.Repository.Interfaces;
+namespace GameAPIServer.Repository.Interfaces;
 
 public interface IGameDb
 {

@@ -1,6 +1,5 @@
-﻿using APIServer.DTO;
-using APIServer.Servicies.Interfaces;
-using GameAPIServer.DTO;
+﻿using GameAPIServer.Servicies.Interfaces;
+using GameAPIServer.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ public class FriendListController : ControllerBase
     /// 보낸 친구 요청, 받은 친구 요청, 친구 목록을 조회합니다.
     /// </summary>
     [HttpPost]
-    public async Task<FriendListResponse> GetFriendList([FromHeader] HeaderDTO header)
+    public async Task<FriendListResponse> GetFriendList([FromHeader] Header header)
     {
         FriendListResponse response = new();
 

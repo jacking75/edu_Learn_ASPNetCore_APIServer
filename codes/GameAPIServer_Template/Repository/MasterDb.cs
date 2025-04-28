@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using APIServer.Models;
-using APIServer.Repository.Interfaces;
-using APIServer.Services;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
 using ZLogger;
 
-namespace APIServer.Repository;
+namespace GameAPIServer.Repository;
 
 public class MasterDb : IMasterDb
 {

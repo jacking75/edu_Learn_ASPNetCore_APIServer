@@ -357,9 +357,119 @@ services.AddHttpClient("MyClient")
 │       └── Services
 │           └── TodoServiceTests.cs
 └── dotnet-todo-web-api.sln	
-</pre>  
+</pre>   
   
+### Models 안에 DAO. DTO 정의  
+DAO, DTO를 Models 안에 정의하는 방식도 있다.  
+  
+ASP.NET Core의 Model 네임스페이스에서는 주로 다음과 같은 요소들을 정의한다  
+1. 엔티티 클래스 - 데이터베이스 테이블에 매핑되는 클래스들
+2. 뷰 모델(ViewModel) - 뷰에 데이터를 전달하기 위한 클래스
+3. 데이터 전송 객체(DTO) - 계층 간 데이터 전달을 위한 객체
+4. 사용자 입력 검증을 위한 어노테이션/속성
+5. 비즈니스 로직을 포함하는 도메인 모델  
+  
+예를 들어, 간단한 사용자 모델은 다음과 같이 정의할 수 있다:  
+
+```csharp
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace YourApplication.Models
+{
+    public class User
+    {
+        public int Id { get; set; }
+        
+        [Required]
+        [StringLength(50)]
+        public string Name { get; set; }
+        
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+        
+        public DateTime CreatedAt { get; set; }
+    }
+}
+```
+
+ASP.NET Core MVC 패턴에서 Model은 애플리케이션의 데이터와 비즈니스 로직을 담당하는 중요한 부분이다. 데이터베이스와 상호작용하고 데이터의 유효성을 검증하며, 비즈니스 규칙을 구현하는 역할을 한다.        
+  
+1. **Models 폴더 구조화 방법**:
+   ```
+   Models/
+   ├── Entities/        (데이터베이스 엔티티 클래스)
+   ├── DTOs/            (데이터 전송 객체)
+   ├── ViewModels/      (뷰에 사용되는 모델)
+   └── Repository/      (Spring의 DAO와 유사한 역할)
+   ```
+  
+2. **엔티티 클래스 예시**:
+   ```csharp
+   namespace YourApplication.Models.Entities
+   {
+       public class User
+       {
+           public int Id { get; set; }
+           public string Name { get; set; }
+           public string Email { get; set; }
+           // 데이터베이스 테이블에 해당하는 속성들
+       }
+   }
+   ```
+
+3. **DTO 예시**:
+   ```csharp
+   namespace YourApplication.Models.DTOs
+   {
+       public class UserDTO
+       {
+           public int Id { get; set; }
+           public string Name { get; set; }
+           public string Email { get; set; }
+           // 클라이언트에 전송할 데이터만 포함
+       }
+   }
+   ```
+
+4. **ViewModel 예시**:
+   ```csharp
+   namespace YourApplication.Models.ViewModels
+   {
+       public class UserViewModel
+       {
+           public string Name { get; set; }
+           public string Email { get; set; }
+           public List<string> Roles { get; set; }
+           // 화면 표시에 필요한 추가 정보 포함
+       }
+   }
+   ```
+
+5. **Repository 인터페이스 예시**:
+   ```csharp
+   namespace YourApplication.Models.Repository
+   {
+       public interface IUserRepository
+       {
+           User GetById(int id);
+           IEnumerable<User> GetAll();
+           void Add(User user);
+           void Update(User user);
+           void Delete(int id);
+       }
+   }
+   ```
+  
+ASP.NET Core에서는 Spring과 같은 엄격한 DAO/DTO 패턴을 강제하지는 않지만, 대규모 프로젝트에서는 위와 같이 명확히 분리하는 것이 유지보수에 도움이 된다.   
+  
+Repository 패턴은 ASP.NET Core에서 Spring의 DAO와 유사한 역할을 하며, 데이터 액세스 로직을 캡슐화한다. 실제 구현은 보통 `Services` 또는 `Data` 폴더에 두는 경우가 많다.    
       
+	  
 <br>   
   
 ## 실습  
