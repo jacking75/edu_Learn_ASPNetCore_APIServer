@@ -1,0 +1,34 @@
+﻿global:
+  scrape_interval: 15s  # 기본 스크레이프 간격을 15초로 설정
+  # evaluation_interval: 15s
+
+# Alertmanager configuration
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets:
+        # - localhost:9093 ## 
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+# rule_files:
+  # - "alert.rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+    - job_name: 'gameserver'
+      static_configs:
+        - targets: ['gameserver:8080']  # GameServer의 /metrics 엔드포인트 # prometheus_grafana-gameserver-1
+    - job_name: 'hiveserver'
+      static_configs:
+        - targets: ['hiveserver:8080']  # HiveServer의 /metrics 엔드포인트
+    - job_name: 'matchserver'
+      static_configs:
+        - targets: ['matchserver:8080']  # MatchServer의 /metrics 엔드포인트
+    # - job_name: 'prometheus'  # Prometheus 자신을 모니터링하는 기본 설정
+    #   static_configs:
+    #   - targets: ['localhost:9090']  # Prometheus 웹 UI를 스크랩
+
+    - job_name: 'node'  # Node Exporter 모니터링 설정
+      static_configs:
+      - targets: ['localhost:9100'] # Node Exporter 로컬에서 실행하도록 수정 ['localhost:9100'] 
+      #  - targets: ['nodeexporter:9100'] # Docker Compose의 서비스 이름으로 접근
+      #  - targets: ['172.17.0.4:9100']  # Node Exporter의 엔드포인트 (docker 네트워크 주소 -> 추후 docker compose를 통해 같은 네트워크에 위치시키도록 수정)
