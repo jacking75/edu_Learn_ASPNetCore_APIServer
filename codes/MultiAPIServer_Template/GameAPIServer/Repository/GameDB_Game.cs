@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using MatchAPIServer.Models.GameDB;
-using MatchAPIServer.Repository.Interfaces;
+using GameAPIServer.Models.GameDB;
+using GameAPIServer.Repository.Interfaces;
 using SqlKata.Execution;
 
-namespace MatchAPIServer.Services;
+namespace GameAPIServer.Repository;
 
 public partial class GameDb : IGameDb
 {

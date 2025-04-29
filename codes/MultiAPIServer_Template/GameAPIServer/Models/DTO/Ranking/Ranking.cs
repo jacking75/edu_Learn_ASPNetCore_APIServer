@@ -1,9 +1,9 @@
-﻿using MatchAPIServer.Models;
+﻿using GameAPIServer.Models;
 using CloudStructures.Structures;
 using System;
 using System.Collections.Generic;
 
-namespace MatchAPIServer.DTO.Ranking
+namespace GameAPIServer.DTO.Ranking
 {
     public class RankingResponse : ErrorCodeDTO
     {

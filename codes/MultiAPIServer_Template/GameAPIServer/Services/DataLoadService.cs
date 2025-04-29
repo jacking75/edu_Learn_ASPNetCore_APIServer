@@ -1,8 +1,8 @@
-﻿using MatchAPIServer.DTO.DataLoad;
-using MatchAPIServer.Servicies.Interfaces;
+﻿using GameAPIServer.DTO.DataLoad;
+using GameAPIServer.Servicies.Interfaces;
 using System.Threading.Tasks;
 
-namespace MatchAPIServer.Servicies;
+namespace GameAPIServer.Servicies;
 
 public class DataLoadService : IDataLoadService
 {

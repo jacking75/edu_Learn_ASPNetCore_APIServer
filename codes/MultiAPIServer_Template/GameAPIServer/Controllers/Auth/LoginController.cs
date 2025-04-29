@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
-using MatchAPIServer.DTO.Auth;
-using MatchAPIServer.Repository.Interfaces;
-using MatchAPIServer.Services;
-using MatchAPIServer.Servicies.Interfaces;
+using GameAPIServer.DTO.Auth;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Services;
+using GameAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ZLogger;
 
-namespace MatchAPIServer.Controllers.Auth;
+namespace GameAPIServer.Controllers.Auth;
 
 [ApiController]
 [Route("[controller]")]

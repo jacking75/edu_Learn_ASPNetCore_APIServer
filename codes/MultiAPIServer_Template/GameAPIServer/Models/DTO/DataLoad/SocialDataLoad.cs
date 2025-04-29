@@ -1,7 +1,7 @@
-﻿using MatchAPIServer.Models.GameDB;
+﻿using GameAPIServer.Models.GameDB;
 using System.Collections.Generic;
 
-namespace MatchAPIServer.DTO.DataLoad
+namespace GameAPIServer.DTO.DataLoad
 {
     public class SocialDataLoadResponse : ErrorCodeDTO
     {

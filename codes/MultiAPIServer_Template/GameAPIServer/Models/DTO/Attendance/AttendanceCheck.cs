@@ -1,7 +1,7 @@
-﻿using MatchAPIServer.Models;
+﻿using GameAPIServer.Models;
 using System.Collections.Generic;
 
-namespace MatchAPIServer.DTO.Attendance
+namespace GameAPIServer.DTO.Attendance
 {
     public class AttendanceCheckResponse : ErrorCodeDTO
     {

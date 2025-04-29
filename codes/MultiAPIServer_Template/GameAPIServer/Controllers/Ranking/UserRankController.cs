@@ -1,12 +1,12 @@
-﻿using MatchAPIServer.DTO;
-using MatchAPIServer.DTO.Ranking;
-using MatchAPIServer.Repository.Interfaces;
+﻿using GameAPIServer.DTO;
+using GameAPIServer.DTO.Ranking;
+using GameAPIServer.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace MatchAPIServer.Controllers.Ranking;
+namespace GameAPIServer.Controllers.Ranking;
 
 [ApiController]
 [Route("[controller]")]

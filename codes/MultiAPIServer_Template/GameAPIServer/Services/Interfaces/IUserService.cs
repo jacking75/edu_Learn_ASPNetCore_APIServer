@@ -1,8 +1,8 @@
-﻿using MatchAPIServer.DTO.User;
-using MatchAPIServer.Models.GameDB;
+﻿using GameAPIServer.DTO.User;
+using GameAPIServer.Models.GameDB;
 using System.Threading.Tasks;
 
-namespace MatchAPIServer.Servicies.Interfaces
+namespace GameAPIServer.Servicies.Interfaces
 {
     public interface IUserService
     {

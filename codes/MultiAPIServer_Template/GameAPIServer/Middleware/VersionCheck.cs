@@ -1,10 +1,10 @@
-﻿using MatchAPIServer.Repository.Interfaces;
+﻿using GameAPIServer.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace MatchAPIServer.Middleware;
+namespace GameAPIServer.Middleware;
 
 
 public class VersionCheck

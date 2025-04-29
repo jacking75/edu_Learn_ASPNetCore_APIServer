@@ -1,14 +1,14 @@
-﻿using MatchAPIServer.DTO.DataLoad;
-using MatchAPIServer.Models;
-using MatchAPIServer.Repository.Interfaces;
-using MatchAPIServer.Servicies.Interfaces;
+﻿using GameAPIServer.DTO.DataLoad;
+using GameAPIServer.Models;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace MatchAPIServer.Servicies;
+namespace GameAPIServer.Servicies;
 
 public class MailService : IMailService
 {

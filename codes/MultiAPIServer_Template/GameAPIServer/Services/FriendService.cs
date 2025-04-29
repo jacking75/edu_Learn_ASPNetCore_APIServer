@@ -1,13 +1,13 @@
-﻿using MatchAPIServer.Models.GameDB;
-using MatchAPIServer.Repository.Interfaces;
-using MatchAPIServer.Servicies.Interfaces;
+﻿using GameAPIServer.Models.GameDB;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace MatchAPIServer.Servicies;
+namespace GameAPIServer.Servicies;
 
 public class FriendService : IFriendService
 {

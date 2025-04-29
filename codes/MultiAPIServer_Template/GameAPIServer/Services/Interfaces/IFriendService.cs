@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using MatchAPIServer.Models.GameDB;
+using GameAPIServer.Models.GameDB;
 
-namespace MatchAPIServer.Servicies.Interfaces;
+namespace GameAPIServer.Servicies.Interfaces;
 
 public interface IFriendService
 {

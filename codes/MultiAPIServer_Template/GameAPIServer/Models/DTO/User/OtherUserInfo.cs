@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace MatchAPIServer.DTO.User
+namespace GameAPIServer.DTO.User
 {
     public class OtherUserInfoRequest
     {

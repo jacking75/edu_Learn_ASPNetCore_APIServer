@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System;
 
-namespace MatchAPIServer.Servicies.Interfaces;
+namespace GameAPIServer.Servicies.Interfaces;
 
 public interface IAuthService
 {

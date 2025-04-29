@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using MatchAPIServer.Models;
-using MatchAPIServer.Models.GameDB;
-using MatchAPIServer.Repository.Interfaces;
+using GameAPIServer.Models;
+using GameAPIServer.Models.GameDB;
+using GameAPIServer.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
 
-namespace MatchAPIServer.Services;
+namespace GameAPIServer.Repository;
 public partial class GameDb : IGameDb
 {
     readonly ILogger<GameDb> _logger;

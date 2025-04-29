@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MatchAPIServer.DTO.Friend;
+namespace GameAPIServer.DTO.Friend;
 
 public class FriendDeleteRequest
 {

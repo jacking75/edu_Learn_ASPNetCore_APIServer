@@ -1,11 +1,11 @@
-﻿using MatchAPIServer.Models;
-using MatchAPIServer.Models.GameDB;
+﻿using GameAPIServer.Models;
+using GameAPIServer.Models.GameDB;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace MatchAPIServer.Repository.Interfaces;
+namespace GameAPIServer.Repository.Interfaces;
 
 public interface IGameDb
 {

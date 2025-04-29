@@ -1,4 +1,4 @@
-﻿namespace MatchAPIServer.DTO.Auth;
+﻿namespace GameAPIServer.DTO.Auth;
 
 public class LogoutResponse : ErrorCodeDTO
 {

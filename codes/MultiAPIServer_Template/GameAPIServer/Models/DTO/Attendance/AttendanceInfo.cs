@@ -1,6 +1,6 @@
-﻿using MatchAPIServer.Models.GameDB;
+﻿using GameAPIServer.Models.GameDB;
 
-namespace MatchAPIServer.DTO.Attendance;
+namespace GameAPIServer.DTO.Attendance;
 
 public class AttendanceInfoResponse : ErrorCodeDTO
 {

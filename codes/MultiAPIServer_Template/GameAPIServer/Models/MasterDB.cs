@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MatchAPIServer.Models
+namespace GameAPIServer.Models
 {
     public class AttendanceRewardData : RewardData
     {

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using MatchAPIServer.Models;
-using MatchAPIServer.Repository.Interfaces;
-using MatchAPIServer.Services;
+using GameAPIServer.Models;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
 using ZLogger;
 
-namespace MatchAPIServer.Repository;
+namespace GameAPIServer.Repository;
 
 public class MasterDb : IMasterDb
 {

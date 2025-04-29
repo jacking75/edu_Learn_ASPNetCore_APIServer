@@ -1,9 +1,9 @@
-﻿using MatchAPIServer.Models;
+﻿using GameAPIServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MatchAPIServer.DTO.Mail
+namespace GameAPIServer.DTO.Mail
 {
 
     public class MailReceiveRequest

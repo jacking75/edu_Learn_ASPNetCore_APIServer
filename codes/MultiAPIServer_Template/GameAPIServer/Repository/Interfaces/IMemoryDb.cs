@@ -1,10 +1,10 @@
-﻿using MatchAPIServer.DTO.Ranking;
-using MatchAPIServer.Models;
+﻿using GameAPIServer.DTO.Ranking;
+using GameAPIServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MatchAPIServer.Repository.Interfaces;
+namespace GameAPIServer.Repository.Interfaces;
 
 public interface IMemoryDb
 {

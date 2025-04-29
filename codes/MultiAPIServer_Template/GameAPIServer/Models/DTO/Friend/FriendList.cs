@@ -1,9 +1,9 @@
-﻿using MatchAPIServer.Models.GameDB;
+﻿using GameAPIServer.Models.GameDB;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MatchAPIServer.DTO.Friend;
+namespace GameAPIServer.DTO.Friend;
 
 public class FriendListResponse : ErrorCodeDTO
 {

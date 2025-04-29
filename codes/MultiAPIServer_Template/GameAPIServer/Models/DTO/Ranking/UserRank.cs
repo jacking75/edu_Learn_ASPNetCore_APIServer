@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MatchAPIServer.DTO.Ranking
+namespace GameAPIServer.DTO.Ranking
 {
     public class UserRankResponse : ErrorCodeDTO
     {

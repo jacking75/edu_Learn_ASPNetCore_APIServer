@@ -1,9 +1,9 @@
-﻿using MatchAPIServer.DTO.DataLoad;
+﻿using GameAPIServer.DTO.DataLoad;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace MatchAPIServer.DTO.Auth;
+namespace GameAPIServer.DTO.Auth;
 
 public class LoginRequest
 {

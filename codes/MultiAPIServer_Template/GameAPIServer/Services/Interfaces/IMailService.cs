@@ -1,9 +1,9 @@
-﻿using MatchAPIServer.DTO.DataLoad;
-using MatchAPIServer.Models;
+﻿using GameAPIServer.DTO.DataLoad;
+using GameAPIServer.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MatchAPIServer.Servicies.Interfaces
+namespace GameAPIServer.Servicies.Interfaces
 {
     public interface IMailService
     {

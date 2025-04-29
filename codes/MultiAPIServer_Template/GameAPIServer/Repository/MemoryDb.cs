@@ -1,7 +1,7 @@
-﻿using MatchAPIServer.DTO.Ranking;
-using MatchAPIServer.Models;
-using MatchAPIServer.Repository.Interfaces;
-using MatchAPIServer.Services;
+﻿using GameAPIServer.DTO.Ranking;
+using GameAPIServer.Models;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Services;
 using CloudStructures;
 using CloudStructures.Structures;
 using Microsoft.Extensions.Logging;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace MatchAPIServer.Repository;
+namespace GameAPIServer.Repository;
 
 public class MemoryDb : IMemoryDb
 {

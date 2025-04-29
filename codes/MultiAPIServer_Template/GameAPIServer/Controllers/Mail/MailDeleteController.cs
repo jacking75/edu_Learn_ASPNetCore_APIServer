@@ -1,12 +1,12 @@
-﻿using MatchAPIServer.DTO;
-using MatchAPIServer.DTO.Mail;
-using MatchAPIServer.Servicies.Interfaces;
+﻿using GameAPIServer.DTO;
+using GameAPIServer.DTO.Mail;
+using GameAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace MatchAPIServer.Controllers.Mail;
+namespace GameAPIServer.Controllers.Mail;
 
 [ApiController]
 [Route("[controller]")]

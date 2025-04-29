@@ -1,8 +1,8 @@
-﻿using MatchAPIServer.DTO.DataLoad;
+﻿using GameAPIServer.DTO.DataLoad;
 
 using System.Collections.Generic;
 
-namespace MatchAPIServer.DTO.Mail
+namespace GameAPIServer.DTO.Mail
 {
     public class MailboxInfoResponse : ErrorCodeDTO
     {

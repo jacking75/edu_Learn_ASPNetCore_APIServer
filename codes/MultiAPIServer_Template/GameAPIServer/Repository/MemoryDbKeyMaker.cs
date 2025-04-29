@@ -1,4 +1,4 @@
-﻿namespace MatchAPIServer.Services;
+﻿namespace GameAPIServer.Services;
 
 public class MemoryDbKeyMaker
 {

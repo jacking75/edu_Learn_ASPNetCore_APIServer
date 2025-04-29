@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MatchAPIServer.DTO
+namespace GameAPIServer.DTO
 {
     public class HeaderDTO
     {

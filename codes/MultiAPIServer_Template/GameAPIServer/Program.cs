@@ -1,9 +1,9 @@
 using System.IO;
-using MatchAPIServer.Repository;
-using MatchAPIServer.Repository.Interfaces;
-using MatchAPIServer.Services;
-using MatchAPIServer.Servicies;
-using MatchAPIServer.Servicies.Interfaces;
+using GameAPIServer.Repository;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Services;
+using GameAPIServer.Servicies;
+using GameAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,8 +42,8 @@ if(!await app.Services.GetService<IMasterDb>().Load())
 //log setting
 ILoggerFactory loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 
-app.UseMiddleware<MatchAPIServer.Middleware.VersionCheck>();
-app.UseMiddleware<MatchAPIServer.Middleware.CheckUserAuthAndLoadUserData>();
+app.UseMiddleware<GameAPIServer.Middleware.VersionCheck>();
+app.UseMiddleware<GameAPIServer.Middleware.CheckUserAuthAndLoadUserData>();
 
 app.UseRouting();
 

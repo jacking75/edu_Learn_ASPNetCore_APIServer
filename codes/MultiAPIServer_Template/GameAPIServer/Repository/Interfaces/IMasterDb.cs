@@ -1,8 +1,8 @@
-﻿using MatchAPIServer.Models;
+﻿using GameAPIServer.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MatchAPIServer.Repository.Interfaces;
+namespace GameAPIServer.Repository.Interfaces;
 
 public interface IMasterDb
 {

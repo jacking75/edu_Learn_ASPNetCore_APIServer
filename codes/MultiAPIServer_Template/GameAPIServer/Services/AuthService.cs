@@ -1,7 +1,7 @@
-﻿using MatchAPIServer.Models.GameDB;
-using MatchAPIServer.Repository.Interfaces;
-using MatchAPIServer.Services;
-using MatchAPIServer.Servicies.Interfaces;
+﻿using GameAPIServer.Models.GameDB;
+using GameAPIServer.Repository.Interfaces;
+using GameAPIServer.Services;
+using GameAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,7 +10,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace MatchAPIServer.Servicies;
+namespace GameAPIServer.Servicies;
 
 public class AuthService : IAuthService
 {

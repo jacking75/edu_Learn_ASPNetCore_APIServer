@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MatchAPIServer.Models.GameDB
+namespace GameAPIServer.Models.GameDB
 {
     public class GdbUserInfo
     {

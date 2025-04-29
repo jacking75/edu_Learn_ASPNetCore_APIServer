@@ -1,9 +1,9 @@
-﻿using MatchAPIServer.Models;
-using MatchAPIServer.Models.GameDB;
+﻿using GameAPIServer.Models;
+using GameAPIServer.Models.GameDB;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MatchAPIServer.Servicies.Interfaces
+namespace GameAPIServer.Servicies.Interfaces
 {
     public interface IAttendanceService
     {
