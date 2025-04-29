@@ -1,12 +1,12 @@
-﻿using APIServer.DTO;
-using APIServer.DTO.Attendance;
-using APIServer.Servicies.Interfaces;
+﻿using HiveAPIServer.DTO;
+using HiveAPIServer.DTO.Attendance;
+using HiveAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace APIServer.Controllers.Attendance;
+namespace HiveAPIServer.Controllers.Attendance;
 
 [ApiController]
 [Route("[controller]")]

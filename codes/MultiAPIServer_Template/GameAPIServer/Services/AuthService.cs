@@ -1,7 +1,7 @@
-﻿using APIServer.Models.GameDB;
-using APIServer.Repository.Interfaces;
-using APIServer.Services;
-using APIServer.Servicies.Interfaces;
+﻿using HiveAPIServer.Models.GameDB;
+using HiveAPIServer.Repository.Interfaces;
+using HiveAPIServer.Services;
+using HiveAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,7 +10,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace APIServer.Servicies;
+namespace HiveAPIServer.Servicies;
 
 public class AuthService : IAuthService
 {

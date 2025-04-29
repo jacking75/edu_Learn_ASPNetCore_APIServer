@@ -1,4 +1,4 @@
-﻿namespace APIServer.Repository;
+﻿namespace HiveAPIServer.Repository;
 
 public class RediskeyExpireTime
 {

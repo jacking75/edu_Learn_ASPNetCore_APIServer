@@ -1,6 +1,6 @@
-﻿using APIServer.Controllers;
-using APIServer.Repository;
-using APIServer.Services;
+﻿using HiveAPIServer.Controllers;
+using HiveAPIServer.Repository;
+using HiveAPIServer.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;

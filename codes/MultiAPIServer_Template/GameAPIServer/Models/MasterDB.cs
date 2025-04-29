@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace APIServer.Models
+namespace HiveAPIServer.Models
 {
     public class AttendanceRewardData : RewardData
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace APIServer.DTO
+namespace HiveAPIServer.DTO
 {
     public class HeaderDTO
     {

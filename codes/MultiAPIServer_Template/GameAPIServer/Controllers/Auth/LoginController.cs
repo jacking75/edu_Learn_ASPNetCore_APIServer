@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
-using APIServer.DTO.Auth;
-using APIServer.Repository.Interfaces;
-using APIServer.Services;
-using APIServer.Servicies.Interfaces;
+using HiveAPIServer.DTO.Auth;
+using HiveAPIServer.Repository.Interfaces;
+using HiveAPIServer.Services;
+using HiveAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ZLogger;
 
-namespace APIServer.Controllers.Auth;
+namespace HiveAPIServer.Controllers.Auth;
 
 [ApiController]
 [Route("[controller]")]

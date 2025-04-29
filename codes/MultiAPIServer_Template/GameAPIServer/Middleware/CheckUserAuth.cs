@@ -1,12 +1,12 @@
-﻿using APIServer.Models;
-using APIServer.Repository.Interfaces;
+﻿using HiveAPIServer.Models;
+using HiveAPIServer.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace APIServer.Middleware;
+namespace HiveAPIServer.Middleware;
 
 public class CheckUserAuthAndLoadUserData
 {

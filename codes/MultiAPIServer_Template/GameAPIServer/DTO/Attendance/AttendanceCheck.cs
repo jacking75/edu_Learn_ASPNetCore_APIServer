@@ -1,7 +1,7 @@
-﻿using APIServer.Models;
+﻿using HiveAPIServer.Models;
 using System.Collections.Generic;
 
-namespace APIServer.DTO.Attendance
+namespace HiveAPIServer.DTO.Attendance
 {
     public class AttendanceCheckResponse : ErrorCodeDTO
     {

@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using APIServer.Model.DTO;
+using HiveAPIServer.Model.DTO;
 using HiveAPIServer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 
-namespace APIServer.Controllers;
+namespace HiveAPIServer.Controllers;
 
 [ApiController]
 [Route("[controller]")]

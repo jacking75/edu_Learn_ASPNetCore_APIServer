@@ -1,13 +1,13 @@
-﻿using APIServer.DTO.User;
-using APIServer.Models.GameDB;
-using APIServer.Repository.Interfaces;
-using APIServer.Servicies.Interfaces;
+﻿using HiveAPIServer.DTO.User;
+using HiveAPIServer.Models.GameDB;
+using HiveAPIServer.Repository.Interfaces;
+using HiveAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace APIServer.Servicies
+namespace HiveAPIServer.Servicies
 {
     public class UserService : IUserService
     {

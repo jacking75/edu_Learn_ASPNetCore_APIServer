@@ -1,8 +1,8 @@
-﻿using APIServer.DTO.User;
-using APIServer.Models.GameDB;
+﻿using HiveAPIServer.DTO.User;
+using HiveAPIServer.Models.GameDB;
 using System.Threading.Tasks;
 
-namespace APIServer.Servicies.Interfaces
+namespace HiveAPIServer.Servicies.Interfaces
 {
     public interface IUserService
     {

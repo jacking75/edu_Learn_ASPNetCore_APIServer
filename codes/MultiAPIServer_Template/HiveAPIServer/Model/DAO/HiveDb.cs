@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace APIServer.Model.DAO;
+namespace HiveAPIServer.Model.DAO;
 
-//HiveDB의 객체는 객체 이름 앞에 Hdb를 붙인다.
 
 public class HiveDBAccount
 {

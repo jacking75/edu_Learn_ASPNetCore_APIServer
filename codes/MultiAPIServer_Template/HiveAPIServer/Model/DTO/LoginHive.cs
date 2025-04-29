@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace APIServer.Model.DTO
+namespace HiveAPIServer.Model.DTO
 {
     public class LoginHiveRequest
     {

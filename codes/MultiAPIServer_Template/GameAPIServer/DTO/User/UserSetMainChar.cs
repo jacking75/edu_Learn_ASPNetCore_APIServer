@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace APIServer.DTO.User
+namespace HiveAPIServer.DTO.User
 {
     public class UserSetMainCharRequest
     {

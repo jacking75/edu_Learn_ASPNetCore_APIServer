@@ -1,9 +1,9 @@
-﻿using APIServer.Models;
+﻿using HiveAPIServer.Models;
 using CloudStructures.Structures;
 using System;
 using System.Collections.Generic;
 
-namespace APIServer.DTO.Ranking
+namespace HiveAPIServer.DTO.Ranking
 {
     public class RankingResponse : ErrorCodeDTO
     {

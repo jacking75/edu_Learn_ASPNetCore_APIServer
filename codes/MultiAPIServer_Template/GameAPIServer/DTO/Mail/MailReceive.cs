@@ -1,9 +1,9 @@
-﻿using APIServer.Models;
+﻿using HiveAPIServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace APIServer.DTO.Mail
+namespace HiveAPIServer.DTO.Mail
 {
 
     public class MailReceiveRequest

@@ -1,7 +1,7 @@
-﻿using APIServer.DTO.DataLoad;
+﻿using HiveAPIServer.DTO.DataLoad;
 using System.Threading.Tasks;
 
-namespace APIServer.Servicies.Interfaces
+namespace HiveAPIServer.Servicies.Interfaces
 {
     public interface IDataLoadService
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace APIServer.Models.GameDB
+namespace HiveAPIServer.Models.GameDB
 {
 
     public class GdbFriendInfo

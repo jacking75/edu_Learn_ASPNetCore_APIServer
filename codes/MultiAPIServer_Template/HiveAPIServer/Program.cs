@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Text.Json;
-using APIServer.Repository;
+using HiveAPIServer.Repository;
 using HiveAPIServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;

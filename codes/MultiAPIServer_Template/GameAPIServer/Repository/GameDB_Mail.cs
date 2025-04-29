@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using APIServer.Models.GameDB;
-using APIServer.Repository.Interfaces;
+using HiveAPIServer.Models.GameDB;
+using HiveAPIServer.Repository.Interfaces;
 using SqlKata.Execution;
 
-namespace APIServer.Services;
+namespace HiveAPIServer.Services;
 
 public partial class GameDb : IGameDb
 {

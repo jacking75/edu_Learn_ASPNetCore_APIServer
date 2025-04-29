@@ -1,8 +1,8 @@
-﻿using APIServer.DTO.DataLoad;
-using APIServer.Models;
-using APIServer.Models.GameDB;
-using APIServer.Repository.Interfaces;
-using APIServer.Servicies.Interfaces;
+﻿using HiveAPIServer.DTO.DataLoad;
+using HiveAPIServer.Models;
+using HiveAPIServer.Models.GameDB;
+using HiveAPIServer.Repository.Interfaces;
+using HiveAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace APIServer.Servicies
+namespace HiveAPIServer.Servicies
 {
     public class ItemService : IItemService
     {

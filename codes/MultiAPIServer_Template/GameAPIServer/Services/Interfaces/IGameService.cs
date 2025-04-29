@@ -1,9 +1,9 @@
-﻿using APIServer.Models.GameDB;
+﻿using HiveAPIServer.Models.GameDB;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace APIServer.Servicies.Interfaces;
+namespace HiveAPIServer.Servicies.Interfaces;
 
 public interface IGameService
 {

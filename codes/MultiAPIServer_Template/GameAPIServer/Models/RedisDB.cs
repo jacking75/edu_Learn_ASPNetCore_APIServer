@@ -1,4 +1,4 @@
-﻿namespace APIServer.Models;
+﻿namespace HiveAPIServer.Models;
 
 //RedisDB의 객체는 객체 이름 앞에 Rdb를 붙인다.
 

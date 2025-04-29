@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using APIServer.Models.GameDB;
+using HiveAPIServer.Models.GameDB;
 
-namespace APIServer.Servicies.Interfaces;
+namespace HiveAPIServer.Servicies.Interfaces;
 
 public interface IFriendService
 {

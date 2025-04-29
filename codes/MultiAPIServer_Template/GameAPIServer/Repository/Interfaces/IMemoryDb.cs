@@ -1,10 +1,10 @@
-﻿using APIServer.DTO.Ranking;
-using APIServer.Models;
+﻿using HiveAPIServer.DTO.Ranking;
+using HiveAPIServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace APIServer.Repository.Interfaces;
+namespace HiveAPIServer.Repository.Interfaces;
 
 public interface IMemoryDb
 {

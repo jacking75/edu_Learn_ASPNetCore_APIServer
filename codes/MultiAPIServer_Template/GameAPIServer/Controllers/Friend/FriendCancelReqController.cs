@@ -1,12 +1,12 @@
-﻿using APIServer.DTO;
-using APIServer.DTO.Friend;
-using APIServer.Servicies.Interfaces;
+﻿using HiveAPIServer.DTO;
+using HiveAPIServer.DTO.Friend;
+using HiveAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace APIServer.Controllers.Friend;
+namespace HiveAPIServer.Controllers.Friend;
 
 [ApiController]
 [Route("[controller]")]

@@ -1,8 +1,8 @@
-﻿using APIServer.Models;
+﻿using HiveAPIServer.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace APIServer.Repository.Interfaces;
+namespace HiveAPIServer.Repository.Interfaces;
 
 public interface IMasterDb
 {

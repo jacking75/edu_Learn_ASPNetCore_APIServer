@@ -1,9 +1,9 @@
 using System.IO;
-using APIServer.Repository;
-using APIServer.Repository.Interfaces;
-using APIServer.Services;
-using APIServer.Servicies;
-using APIServer.Servicies.Interfaces;
+using HiveAPIServer.Repository;
+using HiveAPIServer.Repository.Interfaces;
+using HiveAPIServer.Services;
+using HiveAPIServer.Servicies;
+using HiveAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,8 +42,8 @@ if(!await app.Services.GetService<IMasterDb>().Load())
 //log setting
 ILoggerFactory loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 
-app.UseMiddleware<APIServer.Middleware.VersionCheck>();
-app.UseMiddleware<APIServer.Middleware.CheckUserAuthAndLoadUserData>();
+app.UseMiddleware<HiveAPIServer.Middleware.VersionCheck>();
+app.UseMiddleware<HiveAPIServer.Middleware.CheckUserAuthAndLoadUserData>();
 
 app.UseRouting();
 

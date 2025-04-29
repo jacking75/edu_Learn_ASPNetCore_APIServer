@@ -1,7 +1,7 @@
-﻿using APIServer.Models.GameDB;
+﻿using HiveAPIServer.Models.GameDB;
 using System.Collections.Generic;
 
-namespace APIServer.DTO.DataLoad
+namespace HiveAPIServer.DTO.DataLoad
 {
     public class GameDataLoadResponse : ErrorCodeDTO
     {

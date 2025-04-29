@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using APIServer.Models;
-using APIServer.Models.GameDB;
-using APIServer.Repository.Interfaces;
+using HiveAPIServer.Models;
+using HiveAPIServer.Models.GameDB;
+using HiveAPIServer.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
 
-namespace APIServer.Services;
+namespace HiveAPIServer.Services;
 public partial class GameDb : IGameDb
 {
     readonly ILogger<GameDb> _logger;

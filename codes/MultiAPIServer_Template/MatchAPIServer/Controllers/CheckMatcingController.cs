@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
-using static APIServer.Controllers.CheckMatching;
+using static HiveAPIServer.Controllers.CheckMatching;
 
-namespace APIServer.Controllers;
+namespace HiveAPIServer.Controllers;
 
 [ApiController]
 [Route("[controller]")]

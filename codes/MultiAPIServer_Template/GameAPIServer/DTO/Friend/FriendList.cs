@@ -1,9 +1,9 @@
-﻿using APIServer.Models.GameDB;
+﻿using HiveAPIServer.Models.GameDB;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace APIServer.DTO.Friend;
+namespace HiveAPIServer.DTO.Friend;
 
 public class FriendListResponse : ErrorCodeDTO
 {

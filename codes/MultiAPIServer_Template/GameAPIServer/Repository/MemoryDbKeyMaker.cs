@@ -1,4 +1,4 @@
-﻿namespace APIServer.Services;
+﻿namespace HiveAPIServer.Services;
 
 public class MemoryDbKeyMaker
 {

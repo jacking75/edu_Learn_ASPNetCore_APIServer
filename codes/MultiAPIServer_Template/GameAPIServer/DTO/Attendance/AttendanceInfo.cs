@@ -1,6 +1,6 @@
-﻿using APIServer.Models.GameDB;
+﻿using HiveAPIServer.Models.GameDB;
 
-namespace APIServer.DTO.Attendance;
+namespace HiveAPIServer.DTO.Attendance;
 
 public class AttendanceInfoResponse : ErrorCodeDTO
 {
