@@ -1,10 +1,10 @@
-﻿using HiveAPIServer.Repository.Interfaces;
+﻿using MatchAPIServer.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HiveAPIServer.Middleware;
+namespace MatchAPIServer.Middleware;
 
 
 public class VersionCheck

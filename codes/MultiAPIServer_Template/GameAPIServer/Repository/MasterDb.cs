@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using HiveAPIServer.Models;
-using HiveAPIServer.Repository.Interfaces;
-using HiveAPIServer.Services;
+using MatchAPIServer.Models;
+using MatchAPIServer.Repository.Interfaces;
+using MatchAPIServer.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SqlKata.Execution;
 using ZLogger;
 
-namespace HiveAPIServer.Repository;
+namespace MatchAPIServer.Repository;
 
 public class MasterDb : IMasterDb
 {

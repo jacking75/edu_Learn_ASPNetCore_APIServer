@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HiveAPIServer.Models
+namespace MatchAPIServer.Models
 {
     public class AttendanceRewardData : RewardData
     {

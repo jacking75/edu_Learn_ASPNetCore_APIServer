@@ -1,9 +1,9 @@
-﻿using HiveAPIServer.Models;
+﻿using MatchAPIServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HiveAPIServer.DTO.Mail
+namespace MatchAPIServer.DTO.Mail
 {
 
     public class MailReceiveRequest

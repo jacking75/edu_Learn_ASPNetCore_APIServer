@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace HiveAPIServer.DTO.User
+namespace MatchAPIServer.DTO.User
 {
     public class OtherUserInfoRequest
     {

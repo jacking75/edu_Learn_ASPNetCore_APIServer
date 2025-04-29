@@ -1,4 +1,4 @@
-﻿namespace HiveAPIServer.DTO.Auth;
+﻿namespace MatchAPIServer.DTO.Auth;
 
 public class LogoutResponse : ErrorCodeDTO
 {

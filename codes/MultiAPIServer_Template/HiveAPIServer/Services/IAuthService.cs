@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System;
 
-namespace HiveAPIServer.Services;
+namespace MatchAPIServer.Services;
 
 public interface IAuthService
 {

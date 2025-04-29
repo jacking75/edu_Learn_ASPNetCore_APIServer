@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using ZLogger;
 
 
-namespace HiveAPIServer.Controllers;
+namespace MatchAPIServer.Controllers;
 
 [ApiController]
 [Route("[controller]")]

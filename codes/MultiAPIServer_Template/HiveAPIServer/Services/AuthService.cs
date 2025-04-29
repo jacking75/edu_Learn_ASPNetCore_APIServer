@@ -1,6 +1,6 @@
-﻿using HiveAPIServer.Controllers;
-using HiveAPIServer.Repository;
-using HiveAPIServer.Services;
+﻿using MatchAPIServer.Controllers;
+using MatchAPIServer.Repository;
+using MatchAPIServer.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,7 +9,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace HiveAPIServer.Services;
+namespace MatchAPIServer.Services;
 
 public class AuthService : IAuthService
 {

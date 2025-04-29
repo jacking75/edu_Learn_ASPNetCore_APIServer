@@ -1,14 +1,14 @@
-﻿using HiveAPIServer.DTO.DataLoad;
-using HiveAPIServer.Models;
-using HiveAPIServer.Repository.Interfaces;
-using HiveAPIServer.Servicies.Interfaces;
+﻿using MatchAPIServer.DTO.DataLoad;
+using MatchAPIServer.Models;
+using MatchAPIServer.Repository.Interfaces;
+using MatchAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace HiveAPIServer.Servicies;
+namespace MatchAPIServer.Servicies;
 
 public class MailService : IMailService
 {

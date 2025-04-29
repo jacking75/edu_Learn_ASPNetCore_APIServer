@@ -1,11 +1,11 @@
-﻿using HiveAPIServer.Models;
-using HiveAPIServer.Models.GameDB;
+﻿using MatchAPIServer.Models;
+using MatchAPIServer.Models.GameDB;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace HiveAPIServer.Repository.Interfaces;
+namespace MatchAPIServer.Repository.Interfaces;
 
 public interface IGameDb
 {

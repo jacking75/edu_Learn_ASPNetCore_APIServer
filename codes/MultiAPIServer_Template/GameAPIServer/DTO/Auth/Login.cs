@@ -1,9 +1,9 @@
-﻿using HiveAPIServer.DTO.DataLoad;
+﻿using MatchAPIServer.DTO.DataLoad;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace HiveAPIServer.DTO.Auth;
+namespace MatchAPIServer.DTO.Auth;
 
 public class LoginRequest
 {

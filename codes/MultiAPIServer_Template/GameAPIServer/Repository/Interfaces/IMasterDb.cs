@@ -1,8 +1,8 @@
-﻿using HiveAPIServer.Models;
+﻿using MatchAPIServer.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HiveAPIServer.Repository.Interfaces;
+namespace MatchAPIServer.Repository.Interfaces;
 
 public interface IMasterDb
 {

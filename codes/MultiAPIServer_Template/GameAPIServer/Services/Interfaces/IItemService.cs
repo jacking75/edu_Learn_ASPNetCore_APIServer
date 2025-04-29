@@ -1,10 +1,10 @@
-﻿using HiveAPIServer.DTO.DataLoad;
-using HiveAPIServer.Models;
-using HiveAPIServer.Models.GameDB;
+﻿using MatchAPIServer.DTO.DataLoad;
+using MatchAPIServer.Models;
+using MatchAPIServer.Models.GameDB;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HiveAPIServer.Servicies.Interfaces
+namespace MatchAPIServer.Servicies.Interfaces
 {
     public interface IItemService
     {

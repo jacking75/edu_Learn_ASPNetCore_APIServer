@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace HiveAPIServer.Services;
+namespace MatchAPIServer.Services;
 
 public class Security
 {

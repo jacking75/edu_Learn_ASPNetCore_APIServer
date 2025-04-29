@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HiveAPIServer.DTO.Mail
+namespace MatchAPIServer.DTO.Mail
 {
     public class MailDeleteRequest
     {

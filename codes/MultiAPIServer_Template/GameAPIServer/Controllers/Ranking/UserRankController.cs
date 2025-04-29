@@ -1,12 +1,12 @@
-﻿using HiveAPIServer.DTO;
-using HiveAPIServer.DTO.Ranking;
-using HiveAPIServer.Repository.Interfaces;
+﻿using MatchAPIServer.DTO;
+using MatchAPIServer.DTO.Ranking;
+using MatchAPIServer.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace HiveAPIServer.Controllers.Ranking;
+namespace MatchAPIServer.Controllers.Ranking;
 
 [ApiController]
 [Route("[controller]")]

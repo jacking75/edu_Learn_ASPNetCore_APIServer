@@ -1,4 +1,4 @@
-﻿namespace HiveAPIServer.Repository;
+﻿namespace MatchAPIServer.Repository;
 
 public class RediskeyExpireTime
 {

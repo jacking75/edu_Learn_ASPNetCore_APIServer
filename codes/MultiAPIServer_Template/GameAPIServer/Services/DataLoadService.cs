@@ -1,8 +1,8 @@
-﻿using HiveAPIServer.DTO.DataLoad;
-using HiveAPIServer.Servicies.Interfaces;
+﻿using MatchAPIServer.DTO.DataLoad;
+using MatchAPIServer.Servicies.Interfaces;
 using System.Threading.Tasks;
 
-namespace HiveAPIServer.Servicies;
+namespace MatchAPIServer.Servicies;
 
 public class DataLoadService : IDataLoadService
 {

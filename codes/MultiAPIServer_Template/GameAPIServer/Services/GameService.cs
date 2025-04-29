@@ -1,6 +1,6 @@
-﻿using HiveAPIServer.Models.GameDB;
-using HiveAPIServer.Repository.Interfaces;
-using HiveAPIServer.Servicies.Interfaces;
+﻿using MatchAPIServer.Models.GameDB;
+using MatchAPIServer.Repository.Interfaces;
+using MatchAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Data;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace HiveAPIServer.Servicies;
+namespace MatchAPIServer.Servicies;
 
 public class GameService :IGameService
 {

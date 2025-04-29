@@ -4,13 +4,13 @@ using Microsoft.Extensions.Options;
 using System.Data;
 using MySqlConnector;
 using SqlKata.Execution;
-using HiveAPIServer.Services;
+using MatchAPIServer.Services;
 using Microsoft.Extensions.Logging;
 using ZLogger;
-using HiveAPIServer.Model.DAO;
+using MatchAPIServer.Model.DAO;
 
 
-namespace HiveAPIServer.Repository;
+namespace MatchAPIServer.Repository;
 
 public class HiveDb : IHiveDb
 {

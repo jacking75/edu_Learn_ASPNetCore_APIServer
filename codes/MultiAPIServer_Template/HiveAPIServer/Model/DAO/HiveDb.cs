@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HiveAPIServer.Model.DAO;
+namespace MatchAPIServer.Model.DAO;
 
 
 public class HiveDBAccount

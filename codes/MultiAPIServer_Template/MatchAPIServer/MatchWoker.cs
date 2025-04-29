@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection.Metadata.Ecma335;
 
-namespace HiveAPIServer;
+namespace MatchAPIServer;
 
 public interface IMatchWoker : IDisposable
 {

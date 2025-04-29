@@ -1,7 +1,7 @@
-﻿using HiveAPIServer.Models.GameDB;
+﻿using MatchAPIServer.Models.GameDB;
 using System.Collections.Generic;
 
-namespace HiveAPIServer.DTO.DataLoad
+namespace MatchAPIServer.DTO.DataLoad
 {
     public class SocialDataLoadResponse : ErrorCodeDTO
     {

@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using System.Text.Json;
-using HiveAPIServer.Repository;
-using HiveAPIServer.Services;
+using MatchAPIServer.Repository;
+using MatchAPIServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HiveAPIServer.DTO.Ranking
+namespace MatchAPIServer.DTO.Ranking
 {
     public class UserRankResponse : ErrorCodeDTO
     {

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace HiveAPIServer.Model.DTO
+namespace MatchAPIServer.Model.DTO
 {
     public class CreateHiveAccountRequest
     {

@@ -1,8 +1,8 @@
-﻿using HiveAPIServer.DTO.DataLoad;
+﻿using MatchAPIServer.DTO.DataLoad;
 
 using System.Collections.Generic;
 
-namespace HiveAPIServer.DTO.Mail
+namespace MatchAPIServer.DTO.Mail
 {
     public class MailboxInfoResponse : ErrorCodeDTO
     {

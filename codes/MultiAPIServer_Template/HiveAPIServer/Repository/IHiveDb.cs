@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace HiveAPIServer.Repository;
+namespace MatchAPIServer.Repository;
 
 public interface IHiveDb : IDisposable
 {

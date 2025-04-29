@@ -1,12 +1,12 @@
-﻿using HiveAPIServer.DTO;
-using HiveAPIServer.DTO.Mail;
-using HiveAPIServer.Servicies.Interfaces;
+﻿using MatchAPIServer.DTO;
+using MatchAPIServer.DTO.Mail;
+using MatchAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace HiveAPIServer.Controllers.Mail;
+namespace MatchAPIServer.Controllers.Mail;
 
 [ApiController]
 [Route("[controller]")]

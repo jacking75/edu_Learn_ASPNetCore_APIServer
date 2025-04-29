@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HiveAPIServer.DTO.Friend;
+namespace MatchAPIServer.DTO.Friend;
 
 public class SendFriendReqRequest
 {

@@ -1,7 +1,7 @@
-﻿using HiveAPIServer.DTO.Ranking;
-using HiveAPIServer.Models;
-using HiveAPIServer.Repository.Interfaces;
-using HiveAPIServer.Services;
+﻿using MatchAPIServer.DTO.Ranking;
+using MatchAPIServer.Models;
+using MatchAPIServer.Repository.Interfaces;
+using MatchAPIServer.Services;
 using CloudStructures;
 using CloudStructures.Structures;
 using Microsoft.Extensions.Logging;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
 
-namespace HiveAPIServer.Repository;
+namespace MatchAPIServer.Repository;
 
 public class MemoryDb : IMemoryDb
 {

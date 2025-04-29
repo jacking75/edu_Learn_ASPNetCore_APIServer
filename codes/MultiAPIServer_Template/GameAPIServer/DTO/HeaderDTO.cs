@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HiveAPIServer.DTO
+namespace MatchAPIServer.DTO
 {
     public class HeaderDTO
     {

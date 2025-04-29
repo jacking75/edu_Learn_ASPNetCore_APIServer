@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using HiveAPIServer.Model.DTO;
-using HiveAPIServer.Services;
+using MatchAPIServer.Model.DTO;
+using MatchAPIServer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 
-namespace HiveAPIServer.Controllers;
+namespace MatchAPIServer.Controllers;
 
 [ApiController]
 [Route("[controller]")]

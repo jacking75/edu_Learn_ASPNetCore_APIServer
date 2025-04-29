@@ -1,9 +1,9 @@
-﻿using HiveAPIServer.DTO.DataLoad;
-using HiveAPIServer.Models;
+﻿using MatchAPIServer.DTO.DataLoad;
+using MatchAPIServer.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HiveAPIServer.Servicies.Interfaces
+namespace MatchAPIServer.Servicies.Interfaces
 {
     public interface IMailService
     {
