@@ -7,6 +7,8 @@
 - [practical-aspnetcore](https://github.com/dodyg/practical-aspnetcore) ASP.NET Core의 다양한 샘플 코드를 볼 수 있다.  
   
 **이 저장소에 있는 코드는 약간의 오류나 좋지 않은 코드는 일부러 놓아두고 있습니다. 학습하는 사람이 학습하면서 수정하는 것을 유도하고 있습니다. PR은 받지 않습니다.**        
+
+이 저장소의 내용을 DeepWiki로 만들었다. [2025년5월9일 제작한 위키](https://deepwiki.com/jacking75/edu_Learn_ASPNetCore_APIServer/1-overview)  영어로 되어 있다.  
     
 <br>     
 
