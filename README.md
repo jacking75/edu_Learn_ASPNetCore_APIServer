@@ -20,14 +20,15 @@
 - [(영상) Redis 야무지게 사용하기](https://forward.nhn.com/2021/sessions/16 )
 - [Redis 기능 학습하기](http://redisgate.kr/redis/introduction/redis_intro.php )
 - C# Redis 프로그래밍 학습
-    - [CloudStructures - Redis 라이브러리 - jacking75](https://jacking75.github.io/NET_lib_CloudStructures/ )
+    - [CloudStructures - Redis 라이브러리  소개- jacking75](https://jacking75.github.io/NET_lib_CloudStructures/ )
     - [CloudStructures를 이용한 C# Redis 프로그래밍](https://gist.github.com/jacking75/5f91f8cf975e0bf778508acdf79499c0 ) 
+	- [CloudStructures 라이브러리 사용 설명서](./redis_CloudStructures_Docs)
 - `redis_training` 디렉토리에 있는 것으로 redis 실습을 해보기 바란다
    
     
 ### MySQL 프로그래밍
 - [MySqlConnector 간단 정리](https://gist.github.com/jacking75/51a1c96f4efa1b7a27030a7410f39bc6 ) 
-- [프로그래밍 라이브러리는 SalKata 소개](https://docs.google.com/document/d/e/2PACX-1vTnRYJOXyOagNhTdhpkI_xOQX4DlMu0TRcC9Ehew6wraufgEtBuQiSdGpKzaEmRb-jfsLv43i0nBQsp/pub )
+- [DB 프로그래밍 라이브러리 SqlKata 소개](https://docs.google.com/document/d/e/2PACX-1vTnRYJOXyOagNhTdhpkI_xOQX4DlMu0TRcC9Ehew6wraufgEtBuQiSdGpKzaEmRb-jfsLv43i0nBQsp/pub )
     - [예제 프로그램: github_sqlkata_demo.zip](https://drive.google.com/file/d/1FBpB1zQ84LqGOA9WAJ6vk5S3453ekqDc/view?usp=sharing )
 - [코드에서 DB 트랜잭션 하기](./how_to_db_transaction.md )
     
@@ -39,38 +40,9 @@
 사용 방법은 `ZLogger` 디렉토리를 보기 바란다.    
    
 #### 로그 라이브러리 SeriLog  
-[SeriLog 사용](./Serilog.md )     
-       
-       
-### 2022년 인턴 사원이 만든 학습 자료
-`학습자료_2022년_인턴` 이라는 디렉토리에 2022년 인턴 사원으로 근무한 분이 만든 학습 자료가 있다.    
-이 자료들을 순서대로 한번 보기 바란다.  
-이것들을 본 후 실습을 하나씩 한다. 
-`03_Dapper`, `06연습 프로젝트 구현`은 따라서 실습을 할 필요는 없다.  그냥 보기만 한다.    
-   
-학습에서는 데이터 베이스 프로그래밍으로 `Dapper`를 사용하고 있는데 실제 실습에서는 `SqlKata`를 사용한다  
-[SqlKata 소개](https://docs.google.com/document/d/e/2PACX-1vTnRYJOXyOagNhTdhpkI_xOQX4DlMu0TRcC9Ehew6wraufgEtBuQiSdGpKzaEmRb-jfsLv43i0nBQsp/pub  )    
-[demo 프로그램](./codes/github_sqlkata_demo.zip)  `codes` 디렉토리에 있는 `github_sqlkata_demo.zip` 파일이다.     
-  
-      
-### 서버 캠퍼스 1기 수료생 정리 자료
-- https://sueshin.tistory.com/category/%EA%B0%9C%EC%9D%B8%EA%B3%B5%EB%B6%80/Web%20API%20%EA%B2%8C%EC%9E%84%20%EC%84%9C%EB%B2%84%20%EA%B3%B5%EB%B6%80
-- https://gist.github.com/jacking75/344fd3c8c16fc27fe51d4c983a3a6306
-- https://paper-tub-6ae.notion.site/0be4168f7f224f82a89110423e3943cb
-- [ASP.NET Core로 Web API 만들기](https://babebab.tistory.com/53 )
-- [워리할수있다 (tistory.com)](https://wallyyoucandoit.tistory.com/?page=1)
-- [Intro - WebAPI Server (gitbook.io)](https://dong-d.gitbook.io/webapi-server/)
-- [ASP (notion.site)](https://easy-cell-518.notion.site/ASP-0f310b9157de4cb683a5250c5eb9cc19 )
-- https://velog.io/@oak_cassia/%EC%84%9C%EB%B2%84%EC%BA%A0%ED%8D%BC%EC%8A%A4-1%EA%B8%B0-ASP.NET-Core
-- https://beathe.at/2023-04/ASP.NET-Core-GameServer
-    - [GitHub Com2usEduProject](https://github.com/beatheat/Com2usEduProject )
-   
-  
-### 서버 캠퍼스 1기 수료생 정리 자료
-`학습자료_2024_서버캠퍼스2기`  디렉토리를 보기 바란다  
-   
-  
-  
+[SeriLog 사용하기](./Serilog.md )     
+        
+         
 ### 문서 
 - [Web서비스의 서버구성과목적](https://docs.google.com/presentation/d/105NPfv7CPfgk0Iw_6vSB_oOavQZpes7-Wit5HuCm7oM/edit?usp=sharing )
 - [DAO, DTO, VO 란? 간단한 개념 정리](https://melonicedlatte.com/2021/07/24/231500.html )
@@ -133,9 +105,10 @@
   
   
 ## API Server 개발하기 
-- `code` 디렉토리의 `APIServer_Templete` 디렉토리에 있는 코드를 참고해서 만들기 바란다.
+- `code` 디렉토리의 `GameAPIServer_Template` 디렉토리에 있는 코드를 참고해서 만들기 바란다.
+    - `GameAPIServer_Template_Doc` 에 코드에 대한 설명 문서가 있으니 꼭 보기 바란다
 - 프로젝트는 새로 만들고 구조나 코드 등을 참고한다.    
-- `APIServer_Templete` 에 있는 코드 보다 더 좋은 코드를 만드는 것을 목표로 한다.  
+- `GameAPIServer_Template` 에 있는 코드 보다 더 좋은 코드를 만드는 것을 목표로 한다.  
       
     	
 ##  API 서버간 통신 때 HttpClientFactory 사용하기
@@ -473,12 +446,40 @@ Repository 패턴은 ASP.NET Core에서 Spring의 DAO와 유사한 역할을 하
       
 	  
 <br>   
+    
+## 참고 코드 
   
-## 실습  
 - 팜 게임 만들기: `api_server_training_tany_farm` 디렉토리
-- 수집형 RPG 게임 만들기: `api_server_training_dungeon_farming` 디렉토리
+- 수집형 RPG 게임 만들기: `api_server_training_dungeon_farming` 디렉토리   
+     
+### 2022년 인턴 사원이 만든 학습 자료
+`학습자료_2022년_인턴` 이라는 디렉토리에 2022년 인턴 사원으로 근무한 분이 만든 학습 자료가 있다.    
+이 자료들을 순서대로 한번 보기 바란다.  
+이것들을 본 후 실습을 하나씩 한다. 
+`03_Dapper`, `06연습 프로젝트 구현`은 따라서 실습을 할 필요는 없다.  그냥 보기만 한다.    
+   
+학습에서는 데이터 베이스 프로그래밍으로 `Dapper`를 사용하고 있는데 실제 실습에서는 `SqlKata`를 사용한다  
+[SqlKata 소개](https://docs.google.com/document/d/e/2PACX-1vTnRYJOXyOagNhTdhpkI_xOQX4DlMu0TRcC9Ehew6wraufgEtBuQiSdGpKzaEmRb-jfsLv43i0nBQsp/pub  )    
+[demo 프로그램](./codes/github_sqlkata_demo.zip)  `codes` 디렉토리에 있는 `github_sqlkata_demo.zip` 파일이다.     
   
-
+      
+### 서버 캠퍼스 1기 수료생 정리 자료
+- https://sueshin.tistory.com/category/%EA%B0%9C%EC%9D%B8%EA%B3%B5%EB%B6%80/Web%20API%20%EA%B2%8C%EC%9E%84%20%EC%84%9C%EB%B2%84%20%EA%B3%B5%EB%B6%80
+- https://gist.github.com/jacking75/344fd3c8c16fc27fe51d4c983a3a6306
+- https://paper-tub-6ae.notion.site/0be4168f7f224f82a89110423e3943cb
+- [ASP.NET Core로 Web API 만들기](https://babebab.tistory.com/53 )
+- [워리할수있다 (tistory.com)](https://wallyyoucandoit.tistory.com/?page=1)
+- [Intro - WebAPI Server (gitbook.io)](https://dong-d.gitbook.io/webapi-server/)
+- [ASP (notion.site)](https://easy-cell-518.notion.site/ASP-0f310b9157de4cb683a5250c5eb9cc19 )
+- https://velog.io/@oak_cassia/%EC%84%9C%EB%B2%84%EC%BA%A0%ED%8D%BC%EC%8A%A4-1%EA%B8%B0-ASP.NET-Core
+- https://beathe.at/2023-04/ASP.NET-Core-GameServer
+    - [GitHub Com2usEduProject](https://github.com/beatheat/Com2usEduProject )
+   
+  
+### 서버 캠퍼스 2기 수료생 정리 자료
+`학습자료_2024_서버캠퍼스2기`  디렉토리를 보기 바란다  
+  
+    
 <br>   
 
 ## C# 학습 자료
