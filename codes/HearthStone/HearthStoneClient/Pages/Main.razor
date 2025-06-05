@@ -1,0 +1,803 @@
+﻿@page "/main"
+<PageTitle>하스스톤</PageTitle>
+@using HearthStoneClient.Services
+@using HearthStoneWeb.Models.Game
+@using System.Net.Http.Json
+@using System.Text.Json
+@inject RequestService RequestService
+@inject StorageService StorageService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<!-- 보상 팝업창 추가 -->
+@if (showRewardPopup)
+{
+    <div class="reward-popup">
+        <div class="reward-popup-content">
+            <div class="reward-popup-header">
+                <h3>출석 보상</h3>
+                <button class="reward-popup-close" @onclick="CloseRewardPopup">×</button>
+            </div>
+            <div class="reward-popup-body">
+                <p>출석체크 완료! 다음 보상을 받았습니다:</p>
+                @if (receivedReward?.ItemList?.Count > 0)
+                {
+                    <div class="reward-items">
+                        <h4>아이템</h4>
+                        <ul>
+                            @foreach (var item in receivedReward.ItemList)
+                            {
+                                <li>@item.item_id × @item.item_cnt</li>
+                            }
+                        </ul>
+                    </div>
+                }
+                @if (receivedReward?.CurrencyList?.Count > 0)
+                {
+                    <div class="reward-currency">
+                        <h4>재화</h4>
+                        <ul>
+                            @foreach (var currency in receivedReward.CurrencyList)
+                            {
+                                <li>@currency.asset_name × @currency.asset_amount</li>
+                            }
+                        </ul>
+                    </div>
+                }
+                @if ((receivedReward?.ItemList == null || receivedReward.ItemList.Count == 0) &&
+             (receivedReward?.CurrencyList == null || receivedReward.CurrencyList.Count == 0))
+                {
+                    <p>받을 보상이 없습니다.</p>
+                }
+            </div>
+            <div class="reward-popup-footer">
+                <button class="reward-popup-confirm" @onclick="CloseRewardPopup">확인</button>
+            </div>
+        </div>
+    </div>
+}
+<!-- 덱 저장 팝업창 추가 -->
+@if (showDeckSavePopup)
+{
+    <div class="reward-popup">
+        <div class="reward-popup-content">
+            <div class="reward-popup-header">
+                <h3>덱 저장</h3>
+                <button class="reward-popup-close" @onclick="CloseDeckSavePopup">×</button>
+            </div>
+            <div class="reward-popup-body">
+                <p>@deckSaveMessage</p>
+            </div>
+            <div class="reward-popup-footer">
+                <button class="reward-popup-confirm" @onclick="CloseDeckSavePopup">확인</button>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- 가챠 결과 팝업창 -->
+@if (showGachaResultPopup)
+{
+    <div class="reward-popup">
+        <div class="reward-popup-content">
+            <div class="reward-popup-header">
+                <h3>가챠 결과</h3>
+                <button class="reward-popup-close" @onclick="CloseGachaResultPopup">×</button>
+            </div>
+            <div class="reward-popup-body">
+                <p>다음 아이템을 획득했습니다!</p>
+                @if (gachaResults?.Count > 0)
+                {
+                    <div class="reward-items">
+                        <h4>획득한 아이템</h4>
+                        <ul>
+                            @foreach (var item in gachaResults)
+                            {
+                                <li>@item.item_id × @item.item_cnt</li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <p>아이템을 획득하지 못했습니다.</p>
+                }
+            </div>
+            <div class="reward-popup-footer">
+                <button class="reward-popup-confirm" @onclick="CloseGachaResultPopup">확인</button>
+            </div>
+        </div>
+    </div>
+}
+<div class="hearthstone-container">
+    <!-- 헤더 영역 -->
+    <div class="header">
+        <div class="logo">
+            <h1>하스스톤</h1>
+        </div>
+        <div class="player-info">
+            <div class="player-portrait"></div>
+            <div class="player-name">@nickName</div>
+        </div>
+        <div class="resources">
+            <div class="resource gold">
+                <span class="resource-icon">💰</span>
+                <span class="resource-value">@GetAssetInfo("gold")</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="main-content">
+        <div class="menu-buttons">
+            <button class="menu-btn @(activeTab == "mail" ? "active" : "")" @onclick='() => SetActiveTab("mail")'>
+                <span class="menu-icon">✉️</span>
+                <span>우편함</span>
+                @if (mailList.Count > 0)
+                {
+                    <span class="notification-badge">!</span>
+                }
+            </button>
+            <button class="menu-btn @(activeTab == "attendance" ? "active" : "")" @onclick='() => SetActiveTab("attendance")'>
+                <span class="menu-icon">📅</span>
+                <span>출석체크</span>
+                @if (attendanceInfoList.Count > 0)
+                {
+                    <span class="notification-badge">!</span>
+                }
+            </button>
+            <button class="menu-btn @(activeTab == "deck" ? "active" : "")" @onclick='() => SetActiveTab("deck")'>
+                <span class="menu-icon">🃏</span>
+                <span>카드 덱</span>
+            </button>
+            <button class="menu-btn @(activeTab == "shop" ? "active" : "")" @onclick='() => SetActiveTab("shop")'>
+                <span class="menu-icon">🛒</span>
+                <span>상점</span>
+            </button>
+            <div>
+                <button class="menu-btn" @onclick="FindMatch">
+                    <span class="menu-icon">⚔️</span>
+                    <span>대전 상대 찾기</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="content-area">
+            @switch (activeTab)
+            {
+                case "mail":
+                    <div class="mail-content">
+                        <h2>우편함</h2>
+                        <div class="mail-list">
+                            @foreach (var mail in mailList)
+                            {
+                                @if (mail.status == 0)
+                                {
+                                    <div class="mail-item @((mail.status == 0) ? "unread" : "")">
+                                        <div class="mail-status">
+                                            @if (mail.status == 0)
+                                            {
+                                                <span>●</span>
+                                            }
+                                        </div>
+                                        <div class="mail-details">
+                                            <div class="mail-subject">@mail.mail_desc</div>
+                                            <div class="mail-date">@mail.reward_key</div>
+                                            <div class="mail-date">@mail.received_dt</div>
+                                        </div>
+                                        <div class="mail-actions">
+                                            <button class="receive-btn" @onclick:stopPropagation="true" @onclick="() => ReceiveAttachment(mail)">받기</button>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    break;
+
+                case "attendance":
+                    <div class="attendance-content">
+                        <h2>출석체크</h2>
+                        @if (attendanceInfoList != null && attendanceInfoList.Any())
+                        {
+                            <div class="attendance-tabs">
+                                @foreach (var attendance in attendanceInfoList)
+                                {
+                                    <button class="attendance-tab @(selectedeventKey == attendance.event_id ? "active" : "")"
+                                    @onclick="() => SelecteventKey(attendance.event_id)">
+                                        출석 유형 @attendance.event_id
+                                    </button>
+                                }
+                            </div>
+
+                            @if (selectedeventKey != 0)
+                            {
+                                var currentAttendance = attendanceInfoList
+                                .FirstOrDefault(a => a.event_id == selectedeventKey);
+
+                                <div class="calendar">
+                                    <div class="month-header">@DateTime.Now.ToString("yyyy년 MM월")</div>
+                                    <div class="attendance-info">
+                                        <p>현재 출석 횟수: @(currentAttendance?.attendance_no ?? 0) 일</p>
+                                    </div>
+                                    <div class="days-grid">
+                                        @for (int i = 1; i <= 7; i++)
+                                        {
+                                            bool isToday = i == DateTime.Now.Day;
+                                            bool hasChecked = i <= (currentAttendance?.attendance_no ?? 0);
+                                            <div class="day-cell @(isToday ? "today" : "") @(hasChecked ? "checked" : "")"
+                                            @onclick="() => CheckAttendanceDay(selectedeventKey, i)">
+                                                <span>@i</span>
+                                                @if (hasChecked)
+                                                {
+                                                    <span class="check-mark">✓</span>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="rewards-info">
+                                    <button class="check-btn" @onclick="() => TodayAttendance(selectedeventKey)"
+                                    disabled="@(!CanCheckAttendance(selectedeventKey))">
+                                        오늘 출석하기
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="attendance-none">출석 유형을 선택하세요</div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="attendance-none">출석 정보가 없습니다</div>
+                        }
+                    </div>
+                    break;
+
+
+                case "deck":
+                    <div class="deck-content">
+                        <h2>카드 덱 관리</h2>
+
+                        <div class="deck-layout">
+                            <!-- 왼쪽: 덱 목록 -->
+                            <div class="deck-list">
+                                <h3>내 덱 목록</h3>
+                                @foreach (var deck in playerDecks)
+                                {
+                                    <div class="deck-item @(selectedDeck == deck ? "selected" : "")"
+                                    @onclick="() => SelectDeck(deck)">
+                                        <div class="deck-name">덱 #@deck.deck_id</div>
+                                        <div class="deck-count">@deck.deck_list.Count / 10 카드</div>
+                                    </div>
+                                }
+                                <div class="deck-item new-deck" @onclick="CreateNewDeck">
+                                    <span class="plus-icon">+</span>
+                                    <div>새 덱 만들기</div>
+                                </div>
+                            </div>
+
+                            <!-- 오른쪽: 덱 편집 영역 -->
+                            <div class="deck-editor">
+                                @if (selectedDeck != null)
+                                {
+                                    <div class="deck-header">
+                                        <div class="deck-title">
+                                            <h3>덱 #@selectedDeck.deck_id</h3>
+                                            <span class="deck-count">(@selectedDeck.deck_list.Count / 10)</span>
+                                        </div>
+                                        <button class="save-btn" @onclick="SaveDeck">저장</button>
+                                        <button class="main-deck-btn" @onclick="SetMainDeck">메인덱으로 설정</button>
+                                    </div>
+
+                                    <!-- 현재 덱에 포함된 카드 -->
+                                    <div class="current-deck">
+                                        <h4>덱 구성 (@selectedDeck.deck_list.Count / 10)</h4>
+                                        @if (selectedDeck.deck_list.Count > 0)
+                                        {
+                                            <div class="card-grid">
+                                                @foreach (var deckCard in selectedDeck.deck_list)
+                                                {
+                                                    <div class="card">
+                                                        <div class="card-content">
+                                                            <div class="card-name">@deckCard.item_id</div>
+                                                            <button class="remove-btn" @onclick="() => RemoveCardFromDeck(deckCard.item_id)">-</button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="empty-deck">카드를 추가해주세요</div>
+                                        }
+                                    </div>
+
+                                    <!-- 보유 카드 목록 -->
+                                    <div class="available-cards">
+                                        <h4>보유 카드 목록</h4>
+                                        <div class="card-grid">
+                                            @foreach (var item in itemInfoList)
+                                            {
+                                                bool isInDeck = selectedDeck.deck_list.Any(c => c.item_id == item.item_id);
+                                                bool canAddCard = !isInDeck && selectedDeck.deck_list.Count < 10;
+
+                                                <div class="card @(!canAddCard ? "disabled" : "")"
+                                                @onclick="@(e => HandleCardClick(item.item_id, canAddCard))">
+                                                    <div class="card-content">
+                                                        <div class="card-name">@item.item_id</div>
+                                                        <div class="card-count">보유: @item.item_cnt</div>
+                                                        @if (canAddCard)
+                                                        {
+                                                            <button class="add-btn" @onclick:stopPropagation="true"
+                                                            @onclick="() => AddCardToDeck(item.item_id)">
+                                                                +
+                                                            </button>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="empty-selection">
+                                        <p>왼쪽에서 편집할 덱을 선택하거나 새로운 덱을 만드세요.</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    break;
+                case "shop":
+                    <div class="shop-content">
+                        <h2>상점</h2>
+                        <div class="shop-section">
+                            <h3>카드 가챠</h3>
+                            <div class="gacha-options">
+                                @foreach (var option in gachaOptions)
+                                {
+                                    <div class="gacha-option">
+                                        <div class="gacha-name">@option.Name</div>
+                                        <div class="gacha-description">@option.Description</div>
+                                        <div class="gacha-price">가격: @option.Price 골드</div>
+                                        <button class="gacha-button" @onclick="() => PurchaseGacha(option.Id)">구매</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    break;
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private string activeTab = "mail";
+    private string responseMessage = "";
+    private List<MailInfo> mailList;
+    private List<AssetInfo> AssetInfoList;
+    private List<Deck> playerDecks;
+    private List<ItemInfo> itemInfoList;
+    private List<AttendanceInfo> attendanceInfoList;
+    private string nickName = "";
+    private int selectedeventKey = 0;
+
+    private bool showRewardPopup = false;
+    private ReceivedReward receivedReward;
+
+    private bool showDeckSavePopup = false;
+    private string deckSaveMessage = "";
+
+    private bool showGachaResultPopup = false;
+    private string gatchaSaveMessage = "";
+    private List<ItemInfo> gachaResults;
+
+    protected override async Task OnInitializedAsync()
+    {
+        InitializeSampleData();
+    }
+
+    private void InitializeSampleData()
+    {
+        var attendance = StorageService.GetAttendanceInfo();
+        if (attendance == null)
+            attendance = new List<AttendanceInfo>();
+
+        var mail = StorageService.GetMailInfo();
+        if (mail == null)
+            mail = new List<MailInfo>();
+
+        var deck = StorageService.GetDeckInfo();
+        if (deck == null)
+            deck = new List<Deck>();
+
+        var currency = StorageService.GetAssetInfo();
+        if (currency == null)
+            currency = new List<AssetInfo>();
+
+        var item = StorageService.GetItemInfo();
+        if (item == null)
+            item = new List<ItemInfo>();
+
+        var nickName = StorageService.GetNickName();
+
+        attendanceInfoList = attendance;
+        mailList = mail;
+        playerDecks = deck;
+        AssetInfoList = currency;
+        itemInfoList = item;
+        nickName = nickName;
+    }
+
+    private void SetActiveTab(string tab)
+    {
+        activeTab = tab;
+    }
+
+
+    private async void ReceiveAttachment(MailInfo mail)
+    {
+        string result = await RequestService.SendRequest<MailReadRequest>(
+            "GameServer",
+            "/contents/mail/read",
+             HttpMethod.Post,
+             new MailReadRequest { MailId = mail.mail_id });
+
+
+        MailReadResponse response = ReceiveResponce.ConvertToResponse<MailReadResponse>(result);
+        if (response == null)
+        {
+            responseMessage = "응답 파싱 실패";
+            return;
+        }
+
+        if (response.Result != 0)
+        {
+            responseMessage = "메일 수령 실패";
+            return;
+        }
+
+        mail.status = 1;
+        return;
+    }
+
+    private async void DeleteMail(MailInfo mail)
+    {
+        string result = await RequestService.SendRequest<MailDeleteRequest>(
+                            "GameServer",
+                            "/contents/mail/delete",
+                            HttpMethod.Post,
+                            new MailDeleteRequest { MailId = mail.mail_id }
+                      );
+
+
+        MailDeleteResponse response = ReceiveResponce.ConvertToResponse<MailDeleteResponse>(result);
+        if (response == null)
+        {
+            responseMessage = "응답 파싱 실패";
+            return;
+        }
+
+        if (response.Result != 0)
+        {
+            responseMessage = "메일 수령 실패";
+            return;
+        }
+
+        return;
+    }
+
+    private void SelecteventKey(int eventKey)
+    {
+        selectedeventKey = eventKey;
+    }
+
+    private bool CanCheckAttendance(int eventKey)
+    {
+        if (attendanceInfoList == null) 
+            return false;
+
+        var attendance = attendanceInfoList
+            .FirstOrDefault(a => a.event_id == eventKey);
+
+        if (attendance == null) 
+            return false;
+
+        return true;
+    }
+
+    private void CheckAttendanceDay(int eventKey, int day)
+    {
+        Console.WriteLine($"출석 정보 확인: 유형 {eventKey}, 날짜 {day}");
+    }
+
+    private async Task TodayAttendance(int eventKey)
+    {
+        try
+        {
+            string result = await RequestService.SendRequest<AttendanceCheckRequest>(
+                "GameServer",
+                "/contents/attendance/check",
+                HttpMethod.Post,
+                new AttendanceCheckRequest { eventKey = eventKey }
+            );
+
+            var response = ReceiveResponce.ConvertToResponse<AttendanceCheckResponse>(result);
+            if (response == null || response.Result != 0)
+            {
+                responseMessage = "출석체크 실패";
+                return;
+            }
+
+            var attendance = attendanceInfoList
+                .FirstOrDefault(a => a.event_id == eventKey);
+
+            if (attendance != null)
+            {
+                attendance.attendance_no++;
+            }
+
+            receivedReward = response.ReceivedReward;
+            if (receivedReward != null)
+            {
+                if (receivedReward.ItemList != null)
+                    StorageService.AddItemInfo(receivedReward.ItemList);
+
+                if (receivedReward.CurrencyList != null)
+                    StorageService.AddAssetInfo(receivedReward.CurrencyList); 
+
+                showRewardPopup = true;
+            }
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            responseMessage = $"출석체크 중 오류: {ex.Message}";
+        }
+    }
+
+    private void CloseRewardPopup()
+    {
+        showRewardPopup = false;
+        StateHasChanged();
+    }
+
+    private Deck selectedDeck;
+
+    private void SelectDeck(Deck deck)
+    {
+        selectedDeck = deck;
+    }
+
+    private void CreateNewDeck()
+    {
+        int newDeckId = playerDecks.Count > 0 ? playerDecks.Max(d => d.deck_id) + 1 : 1;
+        var newDeck = new Deck(newDeckId, "");
+        playerDecks.Add(newDeck);
+        selectedDeck = newDeck;
+    }
+
+    private void AddCardToDeck(int itemId)
+    {
+        if (selectedDeck != null)
+        {
+            if (selectedDeck.AddCard(itemId))
+            {
+                StateHasChanged();
+            }
+        }
+    }
+
+    private void RemoveCardFromDeck(int itemId)
+    {
+        if (selectedDeck != null)
+        {
+            if (selectedDeck.RemoveCard(itemId))
+            {
+                StateHasChanged();
+            }
+        }
+    }
+    private async Task SetMainDeck()
+    {
+        if (selectedDeck == null)
+            return;
+
+        var req = new SetMainDeckRequest
+            {
+                DeckId = selectedDeck.deck_id
+            };
+
+        string result = await RequestService.SendRequest<SetMainDeckRequest>(
+            "GameServer",
+            "/contents/deck/main",
+            HttpMethod.Post,
+            req
+        );
+
+        var response = ReceiveResponce.ConvertToResponse<SetMainDeckResponse>(result);
+        if (response != null && response.Result == 0)
+        {
+            // StorageService 등에서 main_deck_id 갱신 필요시 처리
+            responseMessage = "메인덱이 설정되었습니다.";
+        }
+        else
+        {
+            responseMessage = "메인덱 설정에 실패했습니다.";
+        }
+        showDeckSavePopup = true;
+        StateHasChanged();
+    }
+
+    private async Task SaveDeck()
+    {
+        try
+        {
+            if (selectedDeck != null)
+            {
+                string deckString = selectedDeck.GetDeckList();
+
+                string result = await RequestService.SendRequest<SaveDeckRequest>(
+                    "GameServer",
+                    "/contents/deck/save",
+                    HttpMethod.Post,
+                    new SaveDeckRequest
+                        {
+                            DeckId = selectedDeck.deck_id,
+                            DeckList = deckString
+                        }
+                );
+
+                var response = ReceiveResponce.ConvertToResponse<SaveDeckResponse>(result);
+                if (response != null && response.Result == 0)
+                {
+                    StorageService.SetDeckInfo(playerDecks);
+                    responseMessage = "덱이 성공적으로 저장되었습니다.";
+                    showDeckSavePopup = true;
+                }
+                else
+                {
+                    responseMessage = "덱 저장에 실패했습니다.";
+                    showDeckSavePopup = true;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            deckSaveMessage = $"덱 저장 중 오류가 발생했습니다: {ex.Message}";
+            showDeckSavePopup = true;
+            StateHasChanged();
+        }
+    }
+
+    private void HandleCardClick(int itemId, bool canAdd)
+    {
+        if (canAdd)
+        {
+            AddCardToDeck(itemId);
+        }
+    }
+
+    private void CloseDeckSavePopup()
+    {
+        showDeckSavePopup = false;
+        StateHasChanged();
+    }
+
+    // 가챠 구매 및 실행
+    private async Task PurchaseGacha(int shopId)
+    {
+        try
+        {
+            long value = GetAssetInfo("gold");
+            int gachaPrice = 5; 
+
+            if (value < gachaPrice)
+            {
+                gatchaSaveMessage = "골드가 부족합니다.";
+                showDeckSavePopup = true;
+                return;
+            }
+
+            string result = await RequestService.SendRequest<BuyRequest>(
+                "GameServer",
+                "/contents/shop/buy",
+                HttpMethod.Post,
+                new BuyRequest { ShopId = shopId }
+            );
+
+            var response = ReceiveResponce.ConvertToResponse<BuyResponse>(result);
+            if (response == null || response.Result != 0)
+            {
+                gatchaSaveMessage = "구매에 실패했습니다.";
+                await JSRuntime.InvokeVoidAsync("alert", gatchaSaveMessage);
+                return;
+            }
+
+            if (response.UseAsset != null)
+            {
+                StorageService.AddAssetInfo(response.UseAsset.AssetInfoList);
+
+                AssetInfoList = StorageService.GetAssetInfo();
+            }
+
+            if (response.RewardInfo != null)
+            {
+                StorageService.AddItemInfo(response.RewardInfo.ItemList);
+
+                itemInfoList = StorageService.GetItemInfo();
+            }
+
+            gachaResults = response.RewardInfo.ItemList;
+            showGachaResultPopup = true;
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            gatchaSaveMessage = $"가챠 실행 중 오류가 발생했습니다: {ex.Message}";
+            showGachaResultPopup = true;
+            StateHasChanged();
+        }
+    }
+
+    private void CloseGachaResultPopup()
+    {
+        showGachaResultPopup = false;
+        StateHasChanged();
+    }
+
+    private Int64 GetAssetInfo(string assetName)
+    {
+        if (AssetInfoList == null)
+            return 0;
+
+		AssetInfoList = StorageService.GetAssetInfo();
+		var asset = AssetInfoList.FirstOrDefault(a => a.asset_name == assetName);
+		return asset?.asset_amount ?? 0;
+    }
+
+    private async Task FindMatch()
+    {
+        var result = await RequestService.SendRequest<EmptyDTO>(
+            "GameServer",
+            "/match/add",
+            HttpMethod.Post,
+            null
+        );
+
+        MatchAddResponse response = ReceiveResponce.ConvertToResponse<MatchAddResponse>(result);
+        if (response == null)
+        {
+            responseMessage = "응답 파싱 실패";
+            return;
+        }
+
+        if (response.Result != 0)
+        {
+            responseMessage = "매칭 신청 실패";
+            return;
+        }
+
+        NavigationManager.NavigateTo("/matchwaiting");
+    }
+
+    // Main.razor @code 블록 내에 추가
+    private class GachaOption
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Price { get; set; }
+    }
+
+    private List<GachaOption> gachaOptions = new()
+{
+    new() { Id = 1, Name = "일반 카드팩", Description = "카드 1장 획득", Price = 5 },
+};
+}

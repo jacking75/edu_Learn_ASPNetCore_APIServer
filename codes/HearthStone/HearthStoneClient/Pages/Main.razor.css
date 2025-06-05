@@ -1,0 +1,651 @@
+﻿.hearthstone-container
+{
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #1a140f;
+    color: #f8d9b0;
+    min-height: 100vh;
+    padding-bottom: 20px;
+}
+
+/* 헤더 스타일 */
+.header {
+    background-color: #27201c;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    flex: 1;
+}
+
+    .logo h1 {
+        margin: 0;
+        font-size: 24px;
+        color: #f8d9b0;
+    }
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+.player-portrait {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #4a3121;
+    border: 2px solid #c69b6d;
+}
+
+.player-name {
+    font-weight: bold;
+}
+
+.resources {
+    display: flex;
+    gap: 10px;
+}
+
+.resource {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+/* 메인 컨텐츠 스타일 */
+.main-content {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+}
+
+.menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background-color: #27201c;
+    border: none;
+    border-radius: 5px;
+    color: #f8d9b0;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+    .menu-btn:hover {
+        background-color: #3a2e25;
+    }
+
+    .menu-btn.active {
+        background-color: #4a3121;
+    }
+
+.menu-icon {
+    font-size: 20px;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #e53935;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.content-area {
+    flex: 1;
+    background-color: #27201c;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+/* 메일 스타일 */
+.mail-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mail-list {
+    background-color: #1a140f;
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.mail-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #3a2e25;
+    cursor: pointer;
+    position: relative;
+}
+
+    .mail-item:hover {
+        background-color: #3a2e25;
+    }
+
+    .mail-item.unread {
+        background-color: rgba(198, 155, 109, 0.1);
+    }
+
+.mail-status {
+    margin-right: 10px;
+    color: #4caf50;
+}
+
+.mail-details {
+    flex: 1;
+    padding-right: 80px; /* 버튼을 위한 공간 확보 */
+}
+
+.mail-subject {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.mail-date {
+    font-size: 12px;
+    color: #a89584;
+}
+
+.mail-view {
+    background-color: #1a140f;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.mail-body {
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+.mail-attachment {
+    background-color: #27201c;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.mail-actions {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.receive-btn, .delete-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 출석체크 스타일 */
+.attendance-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.attendance-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.attendance-tab {
+    background-color: #27201c;
+    border: 1px solid #3a2e25;
+    color: #f8d9b0;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+    .attendance-tab.active {
+        background-color: #4a3121;
+        border-color: #c69b6d;
+    }
+
+.attendance-info {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #c69b6d;
+    font-weight: bold;
+}
+
+.attendance-none {
+    padding: 30px;
+    text-align: center;
+    color: #a89584;
+    background-color: #1a140f;
+    border-radius: 5px;
+}
+
+.calendar {
+    background-color: #1a140f;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.month-header {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.day-cell {
+    aspect-ratio: 1;
+    border: 1px solid #3a2e25;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+    .day-cell.checked {
+        background-color: rgba(76, 175, 80, 0.2);
+    }
+
+.check-mark {
+    color: #4caf50;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.rewards-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.check-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    .check-btn:disabled {
+        background-color: #a89584;
+        cursor: not-allowed;
+    }
+
+/* 보상 팝업창 스타일 */
+.reward-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.reward-popup-content {
+    background-color: #27201c;
+    border: 2px solid #c69b6d;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.reward-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #3a2e25;
+}
+
+    .reward-popup-header h3 {
+        margin: 0;
+        color: #f8d9b0;
+    }
+
+.reward-popup-close {
+    background: none;
+    border: none;
+    color: #a89584;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.reward-popup-body {
+    padding: 20px;
+}
+
+.reward-items, .reward-currency {
+    margin-top: 15px;
+}
+
+    .reward-items h4, .reward-currency h4 {
+        color: #c69b6d;
+        margin-bottom: 10px;
+    }
+
+    .reward-items ul, .reward-currency ul {
+        padding-left: 20px;
+    }
+
+.reward-popup-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #3a2e25;
+    text-align: center;
+}
+
+.reward-popup-confirm {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+/* 덱 관리 스타일 */
+.deck-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.deck-layout {
+    display: flex;
+    gap: 20px;
+    height: 600px;
+}
+
+.deck-list {
+    flex: 0 0 200px;
+    background-color: #1a140f;
+    border-radius: 5px;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.deck-item {
+    background-color: #27201c;
+    border: 1px solid #3a2e25;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+    .deck-item:hover {
+        background-color: #312620;
+        transform: translateY(-2px);
+    }
+
+    .deck-item.selected {
+        border: 2px solid #c69b6d;
+        background-color: #3a2e25;
+    }
+
+.deck-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.deck-count {
+    font-size: 12px;
+    color: #a89584;
+}
+
+.new-deck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #3a2e25;
+    padding: 15px;
+}
+
+.plus-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.deck-editor {
+    flex: 1;
+    background-color: #1a140f;
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.deck-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deck-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.save-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+    .save-btn:hover {
+        background-color: #388e3c;
+    }
+
+.current-deck, .available-cards {
+    background-color: #27201c;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.card {
+    background-color: #3a2e25;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    border: 1px solid #4a3121;
+}
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .card.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.card-name {
+    font-weight: bold;
+}
+
+.card-count {
+    font-size: 12px;
+    color: #a89584;
+}
+
+.add-btn, .remove-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.remove-btn {
+    background-color: #e53935;
+    color: white;
+}
+
+.empty-deck, .empty-selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: #a89584;
+    text-align: center;
+    font-style: italic;
+}
+/* 상점 스타일 */
+.shop-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.shop-section {
+    background-color: #1a140f;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.gacha-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.gacha-option {
+    background-color: #27201c;
+    border: 1px solid #3a2e25;
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gacha-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #c69b6d;
+}
+
+.gacha-description {
+    font-size: 14px;
+    color: #a89584;
+}
+
+.gacha-price {
+    font-size: 16px;
+    color: #f8d9b0;
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+.gacha-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+    .gacha-button:hover {
+        background-color: #388e3c;
+    }
+
+    .gacha-button:disabled {
+        background-color: #a89584;
+        cursor: not-allowed;
+    }

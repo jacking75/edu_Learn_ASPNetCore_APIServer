@@ -278,7 +278,10 @@ services.AddHttpClient("MyClient")
     - 두 개의 프로젝트가 있다. 둘다 만드는 게임은 같지만 각각 개발자는 달라서 구현도 조금씩 다르다
     - API 서버로 실시간 게임 콘텐츠를 구현하는 방법을 볼 수 있다. 롱 폴링 방식 사용 
     - `codes/practice_omok_game-1` , 'codes/practice_omok_game-2`  
-  	
+- 2025년 신입 사원 교육 프로젝트 
+    - 하스스톤 모작
+    - `codes/HearthStone` 디렉토리에 있다.  
+  
     
 <br>   
 <br>   

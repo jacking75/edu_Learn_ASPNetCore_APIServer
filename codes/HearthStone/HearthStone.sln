@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "00.HiveServer", "HiveServer\00.HiveServer.csproj", "{D912E219-63AF-4C08-A289-3084490F774F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.GameServer", "GameServer\01.GameServer.csproj", "{04DD729B-BC8B-4BBB-A163-3D87D9FE4A8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.MatchServer", "MatchServer\02.MatchServer.csproj", "{26E5FFBC-C981-457A-A159-3618D3C29DD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{2A3A057F-5D22-31FD-628C-DF5EF75AEF1E}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		00.Document\Login.md = 00.Document\Login.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mysql", "mysql", "{462A60F3-D62B-4831-B83D-9A0FC6577DA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "init", "init", "{61CBA036-FFE6-4A9E-9083-299F782A0593}"
+	ProjectSection(SolutionItems) = preProject
+		mysql\init\init.sql = mysql\init\init.sql
+		Insert.md = Insert.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HearthStoneClient", "HearthStoneClient\HearthStoneClient.csproj", "{A03D6AF5-BAEF-4248-9B23-9F6D358A7D57}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{C8D5274F-AC00-46C7-1F8D-E88E81087A52}"
+	ProjectSection(SolutionItems) = preProject
+		00.Document\Contents\00_CreateAccount.md = 00.Document\Contents\00_CreateAccount.md
+		00.Document\Contents\01_Login.md = 00.Document\Contents\01_Login.md
+		00.Document\Contents\02_Mail.md = 00.Document\Contents\02_Mail.md
+		00.Document\Contents\03_Attendance.md = 00.Document\Contents\03_Attendance.md
+		00.Document\Contents\04_Deck.md = 00.Document\Contents\04_Deck.md
+		00.Document\Contents\05_Shop.md = 00.Document\Contents\05_Shop.md
+		00.Document\Contents\06_Matching.md = 00.Document\Contents\06_Matching.md
+		00.Document\Contents\07_HearthStone.md = 00.Document\Contents\07_HearthStone.md
+		00.Document\Contents\08_LogOut.md = 00.Document\Contents\08_LogOut.md
+		00.Document\DB\DBschema.md = 00.Document\DB\DBschema.md
+		00.Document\DB\game_db_erd.mermaid = 00.Document\DB\game_db_erd.mermaid
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D912E219-63AF-4C08-A289-3084490F774F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D912E219-63AF-4C08-A289-3084490F774F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D912E219-63AF-4C08-A289-3084490F774F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D912E219-63AF-4C08-A289-3084490F774F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04DD729B-BC8B-4BBB-A163-3D87D9FE4A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04DD729B-BC8B-4BBB-A163-3D87D9FE4A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04DD729B-BC8B-4BBB-A163-3D87D9FE4A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04DD729B-BC8B-4BBB-A163-3D87D9FE4A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E5FFBC-C981-457A-A159-3618D3C29DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E5FFBC-C981-457A-A159-3618D3C29DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E5FFBC-C981-457A-A159-3618D3C29DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E5FFBC-C981-457A-A159-3618D3C29DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A03D6AF5-BAEF-4248-9B23-9F6D358A7D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A03D6AF5-BAEF-4248-9B23-9F6D358A7D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A03D6AF5-BAEF-4248-9B23-9F6D358A7D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A03D6AF5-BAEF-4248-9B23-9F6D358A7D57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{462A60F3-D62B-4831-B83D-9A0FC6577DA3} = {2A3A057F-5D22-31FD-628C-DF5EF75AEF1E}
+		{61CBA036-FFE6-4A9E-9083-299F782A0593} = {462A60F3-D62B-4831-B83D-9A0FC6577DA3}
+		{C8D5274F-AC00-46C7-1F8D-E88E81087A52} = {2A3A057F-5D22-31FD-628C-DF5EF75AEF1E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B8966CB-C15D-4881-97C3-9FBB81F6355B}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,183 @@
+﻿@page "/createaccount"
+<PageTitle>CreateAccount</PageTitle>
+@using HiveModel = HearthStoneWeb.Models.Hive
+@using GameModel = HearthStoneWeb.Models.Game
+@using HearthStoneClient.Services
+@using System.ComponentModel.DataAnnotations
+@using System.Net.Http.Json
+@using System.Text.Json
+@inject RequestService RequestService
+@inject StorageService StorageService
+@inject NavigationManager NavigationManager
+@inherits ComponentBase
+
+<div class="hearthstone-container">
+    <div class="login-card">
+        <h3>로그인</h3>
+        <form>
+            <!-- 이메일 입력 -->
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" placeholder="이메일을 입력하세요" @bind="email" />
+            </div>
+
+            <!-- 비밀번호 입력 -->
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" placeholder="비밀번호를 입력하세요" @bind="password" />
+            </div>
+
+            <!-- 닉네임 입력 -->
+            <div class="form-group">
+                <label for="nickname">닉네임</label>
+                <input type="nickname" id="nickname" placeholder="닉네임을 입력하세요" @bind="nickname" />
+            </div>
+
+            <!-- 버튼 -->
+            <div class="button-group">
+                <button type="button" @onclick="HandleCreateAcount">회원가입</button>
+            </div>
+        </form>
+
+        <!-- 서버 응답 메시지 -->
+        @if (!string.IsNullOrEmpty(responseMessage))
+        {
+            <div class="response-message">
+                @responseMessage
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    /* 하스스톤 스타일 전체 컨테이너 */
+    .hearthstone-container {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #1a140f;
+        color: #f8d9b0;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 로그인 카드 */
+    .login-card {
+        background-color: #27201c;
+        border: 2px solid #c69b6d;
+        border-radius: 5px;
+        padding: 20px 30px;
+        width: 400px;
+    }
+
+        .login-card h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #f8d9b0;
+        }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            background-color: #3a2e25;
+            color: #f8d9b0;
+            border: 1px solid #3a2e25;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+            .form-group input:focus {
+                outline: none;
+                border-color: #c69b6d;
+            }
+
+    /* 버튼 */
+    .button-group {
+        display: flex;
+        gap: 10px;
+    }
+
+        .button-group button {
+            flex: 1;
+            background-color: #4a3121;
+            color: #f8d9b0;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+            .button-group button:hover {
+                background-color: #3a2e25;
+            }
+
+    /* 응답 메시지 */
+    .response-message {
+        margin-top: 15px;
+        background-color: #1a140f;
+        border: 1px solid #3a2e25;
+        border-radius: 5px;
+        padding: 10px;
+    }
+</style>
+
+
+@code {
+    private string responseMessage = "";
+    private string email = "";
+    private string password = "";
+	private string nickname = "";
+
+    protected override void OnInitialized()
+    {
+    }
+
+    public void Dispose()
+    {
+    }
+
+    private async Task HandleCreateAcount()
+    {
+        try
+        {
+            string result = await RequestService.SendRequest<HiveModel.CreateAccountRequest>(
+                "HiveServer",
+                "/Auth/CreateAccount",
+                HttpMethod.Post,
+                new HiveModel.CreateAccountRequest { EmailID = email, Password = password, NickName = nickname }
+            );
+
+            HiveModel.CreateAccountResponse response = ReceiveResponce.ConvertToResponse<HiveModel.CreateAccountResponse>(result);
+            if (response == null)
+            {
+                responseMessage = "응답 파싱 실패";
+                return;
+            }
+
+            if (response.Result != 0)
+            {
+                responseMessage = "회원가입 실패";
+                return;
+            }
+
+            StorageService.SetCreateAccountInfo(email, nickname);
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            responseMessage = $"에러: {ex.Message}";
+        }
+    }
+}

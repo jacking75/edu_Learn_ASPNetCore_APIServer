@@ -1,0 +1,266 @@
+﻿@page "/matchwaiting"
+@using HearthStoneClient.Services
+@using HearthStoneWeb.Models.Game
+@inject RequestService RequestService
+@inject StorageService StorageService
+@inject NavigationManager NavigationManager
+@inject PollingService PollingService
+@implements IDisposable
+
+<div class="match-waiting-bg">
+    <div class="match-panel">
+        <div class="player-section">
+            <div class="player-icon left"></div>
+            <div class="vs-text">VS</div>
+            <div class="player-icon right"></div>
+        </div>
+        <div class="waiting-text">
+            @if (!isMatched)
+            {
+                <span>상대방을 찾는 중...</span>
+                <div class="loader"></div>
+            }
+            else
+            {
+                <span>매칭 성공! 입장 중...</span>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .match-waiting-bg {
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, #2a2a2a 0%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .match-panel {
+    background: rgba(40, 40, 40, 0.95);
+    border-radius: 32px;
+    box-shadow: 0 0 32px #000a, 0 0 0 4px #c9a86a;
+    padding: 48px 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+    .player-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    }
+
+    .player-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c9a86a 60%, #fffbe6 100%);
+    border: 4px solid #c9a86a;
+    box-shadow: 0 0 16px #c9a86a88;
+    margin: 0 32px;
+    position: relative;
+    }
+
+    .player-icon.left::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: #444;
+    border-radius: 50%;
+    }
+
+    .player-icon.right::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: #222;
+    border-radius: 50%;
+    }
+
+    .vs-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #c9a86a;
+    text-shadow: 0 0 8px #000, 0 0 16px #c9a86a88;
+    margin: 0 16px;
+    }
+
+    .waiting-text {
+    color: #fffbe6;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 16px;
+    position: relative;
+    }
+
+    .loader {
+    margin: 16px auto 0;
+    border: 6px solid #c9a86a44;
+    border-top: 6px solid #c9a86a;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    }
+
+    @@keyframes spin {
+        0%
+
+    {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+    }
+</style>
+
+@code {
+    private bool isMatched = false;
+    private Guid matchGUID = Guid.Empty;
+    private int waitingTime = 0;
+    private System.Threading.Timer? waitingTimer;
+    private CancellationTokenSource? cts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cts = new CancellationTokenSource();
+
+        waitingTimer = new System.Threading.Timer(async _ =>
+        {
+            if (waitingTime >= 3000)
+            {
+                await StopPolling();
+                return;
+            }
+
+            waitingTime++;
+            await InvokeAsync(StateHasChanged);
+        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+
+        _ = StartPollingMatchWaiting();
+    }
+
+    public void Dispose()
+    {
+        waitingTimer?.Dispose();
+        cts?.Cancel();
+        cts?.Dispose();
+    }
+
+    private async Task StopPolling()
+    {
+        waitingTimer?.Dispose();  // 명시적으로 타이머 중지
+        waitingTimer = null;
+
+        await Task.Delay(1000);                 // 1초 대기
+        NavigationManager.NavigateTo("/main");
+
+        cts.Cancel();
+    }
+
+    private async Task StartPollingMatchWaiting()
+    {
+        bool isPolling = true;
+        while (isPolling)
+        {
+            isPolling = !(cts == null || cts.IsCancellationRequested);
+
+            await PollingService.StartPolling(CheckMatchWaiting, cts.Token);
+        }
+    }
+
+    async Task<bool> WaitingMatch()
+    {
+        if (matchGUID == Guid.Empty)
+        {
+            if (true == await MatchWaitingRequest())
+            {
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+
+        return (matchGUID != Guid.Empty);
+    }
+
+    async Task<bool> SuccessMatch()
+    {
+        if (true == await MatchStatusRequest())
+        {
+            isMatched = true;
+
+            await InvokeAsync(StateHasChanged);
+
+            await Task.Delay(1000);                 // 1초 대기
+            NavigationManager.NavigateTo("/match");  // 매치 페이지로 이동
+
+            cts.Cancel();
+            return true;
+        }
+
+        return false;
+    }     
+
+    async Task<bool> CheckMatchWaiting()
+    {
+        if (await WaitingMatch() == true)
+            return await SuccessMatch();
+
+        return false;
+    }
+
+    async Task<bool> MatchWaitingRequest()
+    {
+        try
+        {
+            string result = await RequestService.SendRequest<EmptyDTO>("GameServer", "/match/waiting", HttpMethod.Post, null);
+            var response = ReceiveResponce.ConvertToResponse<MatchWaitingResponse>(result);
+            if (response.MatchGUID != Guid.Empty)
+            {
+                matchGUID = response.MatchGUID;
+
+                return true;
+            }
+
+            return false;
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e); 
+            return false;
+        }
+    }
+
+    async Task<bool> MatchStatusRequest()
+    {
+        try
+        {
+            string result = await RequestService.SendRequest<MatchStatusRequest>("GameServer", "/match/status", HttpMethod.Post, new MatchStatusRequest { MatchGUID = matchGUID });
+            var response = ReceiveResponce.ConvertToResponse<MatchStatusResponse>(result);
+            if (response.Result == 0)
+            {
+                StorageService.SetGameInfo(response.GameInfo);
+
+                return true;
+            }
+            return false;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+    }
+}

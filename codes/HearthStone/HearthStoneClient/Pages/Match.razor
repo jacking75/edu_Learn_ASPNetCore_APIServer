@@ -1,0 +1,706 @@
+﻿@page "/match"
+@using HearthStoneWeb.Models.Game
+@using HearthStoneClient.Services
+@using System.Net.Http.Json
+@inject RequestService RequestService
+@inject StorageService StorageService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@implements IDisposable
+
+<div class="hearthstone-container">
+    @if (showCountdown && countdownValue > 0)
+    {
+        <div class="countdown-overlay">
+            <div class="countdown-container">
+                <h2>게임 시작까지</h2>
+                <div class="countdown-value">@countdownValue</div>
+            </div>
+        </div>
+    }
+
+    <div class="game-board">
+        <!-- 상대방 영역 -->
+        <div class="opponent-area">
+            <div class="player-info">
+                <div class="player-portrait"></div>
+                <div class="player-stats">
+                    <div class="hp"><span>HP:</span> @(opponentInfo?.Hp ?? 0)</div>
+                    <div class="mana"><span>마나:</span> @(opponentInfo?.Mana ?? 0)</div>
+                </div>
+                <div class="player-name">상대방</div>
+            </div>
+            <div class="card-area opponent-field">
+                @if (opponentField != null && opponentField.Count > 0)
+                {
+                    @foreach (var card in opponentField)
+                    {
+                        <div class="field-card @(targetCard == card.Key ? "targeted" : "")"
+                        @onclick="() => SelectOpponentFieldCard(card.Key)">
+                            <div class="card-value">@card.Key</div>
+                            <div class="card-stats">
+                                <span class="attack">공격: @card.Value.Attack</span>
+                                <span class="hp">체력: @card.Value.Hp</span>
+                                <span class="mana">마나: @card.Value.ManaCost</span>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="card-area opponent-cards">
+                @if (opponentInitialCards != null)
+                {
+                    foreach (var _ in Enumerable.Range(0, opponentInitialCards.Count))
+                    {
+                        <div class="card card-back"></div>
+                    }
+                }
+            </div>
+        </div>
+
+        <!-- 중앙 영역 (게임 로그/알림) -->
+        <div class="game-center">
+            <div class="game-status">    
+               <div class="turn-indicator">
+                   @if (isMyTurn)
+                   {
+                       <span class="my-turn">내 턴</span>
+                   }
+                   else
+                   {
+                       <span class="opponent-turn">상대방 턴</span>
+                   }
+               </div>
+               <div class="status-message">@gameStatusMessage</div> 
+            </div>
+        </div>
+
+        <!-- 플레이어 영역 -->
+        <div class="player-area">
+            <div class="card-area player-field">
+                @if (myField != null && myField.Count > 0)
+                {
+                    @foreach (var card in myField)
+                    {
+                        <div class="field-card @(selectedFieldCard == card.Key ? "selected" : "")"
+                        @onclick="() => SelectFieldCard(card.Key, false)">
+                            <div class="card-value">@card.Key</div>
+                            <div class="card-stats">
+                                <span class="attack">공격: @card.Value.Attack</span>
+                                <span class="hp">체력: @card.Value.Hp</span>
+                                <span class="mana">마나: @card.Value.ManaCost</span>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="card-area player-hand"> 
+                  @if (myHand != null && myHand.Count > 0)
+                  {
+                      @foreach (var card in myHand)
+                      {
+                          var cardId = card.Key;
+                          var cardInfo = card.Value;
+                          <div class="hand-card @(selectedHandCard == cardId ? "selected" : "")"
+                          @onclick="() => SelectHandCard(cardId)">
+                              <div class="card-inner">
+                                  <div class="card-value">@cardId</div>
+                                  <div class="card-stats">
+                                      <span class="attack">공격: @cardInfo.Attack</span>
+                                      <span class="hp">체력: @cardInfo.Hp</span>
+                                      <span class="mana">마나: @cardInfo.ManaCost</span>
+                                  </div>
+                              </div>
+                          </div>
+                      }
+                  }
+            </div>
+        </div>
+    </div>
+
+    <!-- 게임 컨트롤 -->
+    <div class="game-controls">
+          <div class="player-info">
+                <div class="player-portrait player"></div>
+                <div class="player-stats">
+                    <div class="hp"><span>HP:</span> @(playerInfo?.Hp ?? 0)</div>
+                    <div class="mana"><span>마나:</span> @(playerInfo?.Mana ?? 0)</div>
+                </div>
+                <div class="player-name">나</div>
+            </div>
+
+        @if (gameStarted)
+        {
+            <button class="action-btn" disabled="@(!isMyTurn)" @onclick="DrawCard">카드 드로우</button>
+            <button class="action-btn" disabled="@(!isMyTurn || selectedHandCard < 0)" @onclick="PlayCard">카드 사용</button>
+            <button class="action-btn" disabled="@(!isMyTurn || selectedFieldCard < 0)" @onclick="Attack">공격</button>
+            <button class="action-btn endturn" disabled="@(!isMyTurn)" @onclick="EndTurn">턴 종료</button>
+        }
+    </div>
+</div>
+
+@code {
+    private HSGameInfo gameInfo;
+    private HSGameUserInfo playerInfo;
+    private HSGameUserInfo opponentInfo;
+    private HSPlayerState playerState;
+    private HSOpponentState opponentState;
+    private Dictionary<int, CardInfo> myInitialCards;
+    private List<int> opponentInitialCards;
+    private bool gameStarted = false;
+    private bool isMyTurn = false;
+    private bool isInitialPhase = true;
+    private Dictionary<int, CardInfo> myHand = new Dictionary<int, CardInfo>(); // 내 손에 있는 카드 ID 목록
+    private Dictionary<int, CardInfo> myField = new Dictionary<int, CardInfo>(); // 내 필드에 있는 카드
+    private Dictionary<int, CardInfo> opponentField = new Dictionary<int, CardInfo>(); // 상대방 필드에 있는 카드
+    private int selectedHandCard = -1; // 손에서 선택한 카드 인덱스
+    private int selectedFieldCard = -1; // 내 필드에서 선택한 카드 ID
+    private int targetCard = -1; // 상대방 필드에서 공격 대상으로 선택한 카드 ID
+    private string gameStatusMessage = ""; // 게임 상태 메시지
+    private Timer gameStateTimer; // 게임 상태 주기적 조회를 위한 타이머
+    private long currentAccountUid;
+
+    // 카운트다운 관련 변수
+    private bool showCountdown = false;
+    private int countdownValue = 5; // 5초부터 시작
+    private int timeUntilGameStart = 0;
+    private Timer countdownTimer;
+    private DateTime gameStartTime;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // 게임 정보 가져오기
+        gameInfo = StorageService.GetGameInfo();
+
+        if (gameInfo == null)
+        {
+            NavigationManager.NavigateTo("/main");
+            return;
+        }
+
+        // 플레이어 정보 설정
+        var sessionInfo = StorageService.GetSessionInfo();
+        if (sessionInfo != null)
+        {
+            currentAccountUid = sessionInfo.GetAccountUid();
+            playerInfo = gameInfo.GameUserList.FirstOrDefault(u => u.AccountUid == currentAccountUid);
+            opponentInfo = gameInfo.GameUserList.FirstOrDefault(u => u.AccountUid != currentAccountUid);
+        }
+
+        // 게임 초기화
+        await InitializeGame();
+
+        // 게임 시작 시간 설정 및 카운트다운 시작
+        SetupGameStartCountdown();
+    }
+
+    public void Dispose()
+    {
+        // 타이머 종료
+        gameStateTimer?.Dispose();
+        countdownTimer?.Dispose();
+
+        // 비동기 작업을 시작하지만 결과를 기다리지 않음
+        _ = Task.Run(async () => await FinishGameWithError());
+    }
+
+    private void SetupGameStartCountdown()
+    {
+        // 게임 시작 시간 가져오기
+        gameStartTime = gameInfo.StartTime;
+
+        // 게임 시작까지 남은 시간 계산 (밀리초)
+        TimeSpan timeUntilStart = gameStartTime - DateTime.UtcNow;
+
+        // 이미 시작 시간이 지났으면 바로 게임 시작
+        if (timeUntilStart.TotalSeconds <= 0)
+        {
+            StartGame();
+            return;
+        }
+
+        // 게임 시작까지 남은 시간 (초)
+        timeUntilGameStart = (int)timeUntilStart.TotalSeconds;
+
+        // 1초마다 타이머 작동하여 시간 업데이트
+        countdownTimer = new Timer(async _ =>
+        {
+            await InvokeAsync(() =>
+            {
+                timeUntilGameStart--;
+
+                // 5초 전부터 카운트다운 표시
+                if (timeUntilGameStart <= 5 && !showCountdown)
+                {
+                    showCountdown = true;
+                    countdownValue = timeUntilGameStart;
+                }
+                else if (showCountdown)
+                {
+                    countdownValue = timeUntilGameStart;
+                }
+
+                // 시간이 되면 게임 시작
+                if (timeUntilGameStart <= 0)
+                {
+                    showCountdown = false;
+                    countdownTimer?.Dispose();
+                    countdownTimer = null;
+                    StartGame();
+                }
+
+                StateHasChanged();
+            });
+        }, null, 0, 1000);
+    }
+
+    private async Task InitializeGame()
+    {
+        try
+        {
+            // 초기 카드 가져오기
+            string result = await RequestService.SendRequest<InitGameRequest>(
+                "GameServer",
+                "/hearthstone/initgame",
+                HttpMethod.Post,
+                new InitGameRequest
+                    {
+                        MatchGUID = gameInfo.MatchGUID
+                    });
+
+            var response = ReceiveResponce.ConvertToResponse<InitGameResponse>(result);
+
+            if (response == null || response.Result != ErrorCode.None || response.InitialCardList == null)
+            {
+                HandleException("게임 초기화 실패");
+                return;
+            }
+
+            // 내 카드와 상대 카드 설정
+            myInitialCards = response.InitialCardList;
+           // opponentInitialCards = Enumerable.Range(0, 3).ToList(); // 상대방도 3장
+
+            // 초기 게임 상태를 얻기 위해 상태 조회
+            await RefreshGameState();
+        }
+        catch (Exception ex)
+        {
+            HandleException(ex.Message);
+        }
+    }
+
+    private async Task HandleException(string ex)
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("console.error", $"게임 오류 발생: {ex}");
+
+            // 게임 종료 처리
+            if (gameInfo != null)
+            {
+                await FinishGameWithError();
+            }
+
+            // 사용자에게 알림
+            await JSRuntime.InvokeVoidAsync("alert", "게임 중 오류가 발생했습니다. 메인 화면으로 이동합니다.");
+
+            // 메인 페이지로 이동
+            NavigationManager.NavigateTo("/main");
+        }
+        catch
+        {
+            // 최후의 방어책: 어떤 상황에서든 메인으로 이동
+            NavigationManager.NavigateTo("/main");
+        }
+    }
+
+    private void StartGameStatePolling()
+    {
+        // 1초마다 게임 상태 조회
+        gameStateTimer = new Timer(async _ =>
+        {
+            await InvokeAsync(async () =>
+            {
+                await RefreshGameState();
+                StateHasChanged();
+            });
+        }, null, 0, 1000); // 1초(1000ms) 간격으로 설정
+    }
+
+    private async Task RefreshGameState()
+    {
+        try
+        {
+            string result = await RequestService.SendRequest<GameStateRequest>(
+                "GameServer",
+                "hearthstone/state",
+                HttpMethod.Post,
+                new GameStateRequest { MatchGuid = gameInfo.MatchGUID });
+
+            var response = ReceiveResponce.ConvertToResponse<GameStateResponse>(result);
+            if (response == null || response.Result != ErrorCode.None || response.GameState == null)
+            {
+                gameStatusMessage = "게임 상태 조회 실패";
+                await JSRuntime.InvokeVoidAsync("alert", gameStatusMessage);
+
+				//NavigationManager.NavigateTo("/main");
+                return;
+            }
+
+            UpdateGameState(response.GameState);
+
+            UpdatePlayerState(response.PlayerState, response.OpponentState);
+        }
+        catch (Exception ex)
+        {
+            gameStatusMessage = $"게임 상태 갱신 중 오류: {ex.Message}";
+        }
+    }
+
+    private void UpdateGameState(HSGameState state)
+    {
+        // 턴 정보 업데이트
+        var sessionInfo = StorageService.GetSessionInfo();
+        if (sessionInfo != null)
+        {
+            isMyTurn = state.CurrentTurnUid == sessionInfo.GetAccountUid();
+
+            // 플레이어 정보 업데이트
+            playerInfo = state.Players.FirstOrDefault(u => u.AccountUid == currentAccountUid);
+            opponentInfo = state.Players.FirstOrDefault(u => u.AccountUid != currentAccountUid);
+        }
+
+        // 게임 종료 체크
+        if (state.IsGameOver)
+        {
+            HandleGameOver(state.WinnerUid);
+        }
+    }
+
+    private void UpdatePlayerState(HSPlayerState pState, HSOpponentState oState)
+    {
+        if (pState != null)
+        {
+            playerState = pState;
+            // 손패 목록 업데이트
+            myHand = pState.HandCardList;
+            // 필드 카드 업데이트
+            myField = pState.FieldCardList;
+        }
+
+        if (oState != null)
+        {
+            opponentState = oState;
+            // 상대방 필드 카드 업데이트
+            opponentField = oState.FieldCardList;
+        }
+    }
+
+    private void HandleGameOver(Int64? winnerUid)
+    {
+        var sessionInfo = StorageService.GetSessionInfo();
+        if (sessionInfo != null)
+        {
+            bool isWinner = winnerUid.HasValue && winnerUid.Value == sessionInfo.GetAccountUid();
+            string resultMessage = isWinner ? "승리했습니다!" : winnerUid.HasValue ? "패배했습니다." : "게임이 무승부로 종료되었습니다.";
+
+            // 게임 종료 메시지 표시 후 메인으로 이동
+            JSRuntime.InvokeVoidAsync("alert", $"게임이 종료되었습니다. {resultMessage}");
+            NavigationManager.NavigateTo("/main");
+        }
+    }
+
+    // 카드 드로우
+    private async Task DrawCard()
+    {
+        try
+        {
+            // 서버에 카드 드로우 요청
+            string result = await RequestService.SendRequest<DrawCardRequest>(
+                "GameServer",
+                "/hearthstone/drawcard",
+                HttpMethod.Post,
+                new DrawCardRequest
+                    {
+                        MatchGUID = gameInfo.MatchGUID
+                    });
+
+            var response = ReceiveResponce.ConvertToResponse<DrawCardResponse>(result);
+
+            if (response == null || response.Result != ErrorCode.None)
+            {
+                gameStatusMessage = "카드 드로우 실패";
+                await JSRuntime.InvokeVoidAsync("alert", gameStatusMessage);
+
+                return;
+            }
+
+            // 드로우한 카드를 손패에 추가
+            if (response.DrawnCard != null)
+            { 
+                myHand[response.DrawnCard.ItemId] = response.DrawnCard;
+
+                gameStatusMessage = $"카드 {response.DrawnCard.ItemId}을(를) 드로우했습니다.";
+            }
+
+            // 게임 상태 갱신
+            await RefreshGameState();
+        }
+        catch (Exception ex)
+        {
+            HandleException(ex.Message);
+        }
+    }
+
+    // 카드 사용
+    // 카드 사용
+    private async Task PlayCard()
+    {
+        try
+        {
+            if (selectedHandCard < 0 || !myHand.ContainsKey(selectedHandCard))
+            {
+                gameStatusMessage = "사용할 카드를 선택하세요";
+                return;
+            }
+
+            int cardToPlay = selectedHandCard;
+
+            // 서버에 카드 사용 요청
+            string result = await RequestService.SendRequest<PlayCardRequest>(
+                "GameServer",
+                "/hearthstone/playcard",
+                HttpMethod.Post,
+                new PlayCardRequest
+                    {
+                        MatchGUID = gameInfo.MatchGUID,
+                        CardId = cardToPlay
+                    });
+
+            var response = ReceiveResponce.ConvertToResponse<PlayCardResponse>(result);
+
+            if (response == null || response.Result != ErrorCode.None)
+            {
+                gameStatusMessage = "카드 사용 실패";
+                await JSRuntime.InvokeVoidAsync("alert", gameStatusMessage);
+                return;
+            }
+
+            // 사용한 카드를 손패에서 제거
+            myHand.Remove(cardToPlay);
+            selectedHandCard = -1; // 선택 초기화
+
+            gameStatusMessage = $"카드 {cardToPlay}을(를) 사용했습니다.";
+
+            // 게임 상태 갱신
+            await RefreshGameState();
+        }
+        catch (Exception ex)
+        {
+            HandleException(ex.Message);
+        }
+    }
+
+    // 공격
+    private async Task Attack()
+    {
+        try
+        {
+            if (selectedFieldCard < 0)
+            {
+                gameStatusMessage = "공격할 카드를 선택하세요";
+                return;
+            }
+
+            // if (targetCard < 0)
+            // {
+            //     gameStatusMessage = "공격 대상을 선택하세요";
+            //     return;
+            // }
+
+            // 서버에 공격 요청
+            string result = await RequestService.SendRequest<AttackRequest>(
+                "GameServer",
+                "/hearthstone/attack",
+                HttpMethod.Post,
+                new AttackRequest
+                    {
+                        MatchGUID = gameInfo.MatchGUID,
+                        AttackerCardId = selectedFieldCard,
+                        TargetCardId = targetCard
+                    });
+
+            var response = ReceiveResponce.ConvertToResponse<AttackResponse>(result);
+
+            if (response == null || response.Result != ErrorCode.None)
+            {
+              
+                gameStatusMessage = "공격 실패";
+                await JSRuntime.InvokeVoidAsync("alert", gameStatusMessage);
+                return;
+            }
+
+            // 선택 초기화
+            gameStatusMessage = $"카드 {selectedFieldCard}로 {targetCard}을(를) 공격했습니다. 데미지: {response.DamageDealt}";
+
+            selectedFieldCard = -1;
+            targetCard = -1;
+
+            // 게임 상태 갱신
+            await RefreshGameState();
+        }
+        catch (Exception ex)
+        {
+            HandleException(ex.Message);
+        }
+    }
+
+    // 턴 종료
+    private async Task EndTurn()
+    {
+        try
+        {
+            // 서버에 턴 종료 요청
+            string result = await RequestService.SendRequest<EndTurnRequest>(
+                "GameServer",
+                "/hearthstone/endturn",
+                HttpMethod.Post,
+                new EndTurnRequest
+                    {
+                        MatchGUID = gameInfo.MatchGUID
+                    });
+
+            var response = ReceiveResponce.ConvertToResponse<EndTurnResponse>(result);
+
+            if (response == null || response.Result != ErrorCode.None)
+            {
+                gameStatusMessage = "턴 종료 실패";
+
+                await JSRuntime.InvokeVoidAsync("alert", gameStatusMessage);
+                return;
+            }
+
+            isMyTurn = false;
+            gameStatusMessage = "턴을 종료했습니다. 상대의 턴입니다.";
+
+            // 게임 상태 갱신
+            await RefreshGameState();
+        }
+        catch (Exception ex)
+        {
+            HandleException(ex.Message);
+        }
+    }
+
+    // 카드 선택 메서드 (손패)
+    private void SelectHandCard(int cardId)
+    {
+        if (isMyTurn && myHand.ContainsKey(cardId))
+        {
+            selectedHandCard = (selectedHandCard == cardId) ? -1 : cardId;
+            selectedFieldCard = -1; // 필드 선택 초기화
+            targetCard = -1; // 타겟 선택 초기화
+        }
+    }
+
+    // 내 필드의 카드 선택
+    private void SelectFieldCard(int cardId, bool isOpponent)
+    {
+        if (!isMyTurn) return;
+
+        if (!isOpponent)
+        {
+            // 내 필드의 카드 선택
+            selectedFieldCard = (selectedFieldCard == cardId) ? -1 : cardId;
+            selectedHandCard = -1; // 손패 선택 초기화
+            targetCard = -1; // 타겟 선택 초기화
+        }
+    }
+
+    // 상대방 필드의 카드 선택 (공격 대상)
+    private void SelectOpponentFieldCard(int cardId)
+    {
+        if (!isMyTurn || selectedFieldCard < 0) return;
+
+        // 상대 필드의 카드를 타겟으로 선택 (내 필드 카드가 선택된 경우에만)
+        targetCard = (targetCard == cardId) ? -1 : cardId;
+    }
+
+    private async Task FinishGameWithError()
+    {
+        try
+        {
+            var sessionInfo = StorageService.GetSessionInfo();
+            if (sessionInfo == null) return;
+
+            await RequestService.SendRequest<FinishGameRequest>(
+                "GameServer",
+                "/hearthstone/finishgame",
+                HttpMethod.Post,
+                new FinishGameRequest
+                    {
+                        MatchGUID = gameInfo.MatchGUID,
+                        WinnerUid = null // 무승부 또는 비정상 종료로 처리
+                    });
+
+            StorageService.ClearGameInfo();
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("console.error", $"게임 종료 처리 실패: {ex.Message}");
+        }
+    }
+
+    // private async Task ReplaceSelectedCards()
+    // {
+    //     if (!selectedCardIndexList.Any())
+    //         return;
+
+    //     try
+    //     {
+    //         // 카드 교체 요청
+    //         string result = await RequestService.SendRequest<ReplaceCardsRequest>(
+    //             "GameServer",
+    //             "/hearthstone/replacecards",
+    //             HttpMethod.Post,
+    //             new ReplaceCardsRequest
+    //                 {
+    //                     MatchGUID = gameInfo.MatchGUID,
+    //                     ReplaceCardIndexList = selectedCardIndexList.ToList()
+    //                 });
+
+    //         var response = ReceiveResponce.ConvertToResponse<ReplaceCardsResponse>(result);
+
+    //         if (response == null || response.Result != ErrorCode.None || response.InitialCardList == null)
+    //         {
+    //             gameStatusMessage ="카드 교체 실패";
+    //             await JSRuntime.InvokeVoidAsync("alert", gameStatusMessage);
+
+    //             return;
+    //         }
+
+    //         // 카드 교체
+    //         myInitialCards = response.InitialCardList;
+    //         selectedCardIndexList.Clear();
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         HandleException(ex.Message);
+    //     }
+    // }
+
+    private void StartGame()
+    {
+        gameStarted = true;
+        isInitialPhase = false;
+        isMyTurn = gameInfo.CurrentTurnUid == StorageService.GetSessionInfo()?.GetAccountUid();
+
+        // 게임 시작 메시지 표시
+        gameStatusMessage = "게임이 시작되었습니다!";
+
+
+        // 게임 폴링 시작
+        StartGameStatePolling();
+    }
+}
+

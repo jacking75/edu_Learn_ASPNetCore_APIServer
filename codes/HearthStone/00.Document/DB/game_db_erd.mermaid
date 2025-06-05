@@ -1,0 +1,152 @@
+erDiagram
+    %% hive_db 데이터베이스
+    account {
+        BIGINT account_uid PK "AUTO_INCREMENT"
+        VARCHAR(50) email_id UK "NOT NULL"
+        VARCHAR(50) nickname "NOT NULL"
+        VARCHAR(100) pw "NOT NULL"
+        VARCHAR(100) salt_value "NOT NULL"
+        DATETIME create_dt "NOT NULL DEFAULT CURRENT_TIMESTAMP"
+    }
+
+    %% game_db 데이터베이스
+    user {
+        BIGINT account_uid PK
+        INT main_deck_id "NOT NULL"
+        DATETIME last_login_dt "NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE"
+    }
+
+    user_deck {
+        BIGINT account_uid PK
+        INT deck_id PK
+        VARCHAR(1024) deck_list "NOT NULL"
+        DATETIME create_dt "NOT NULL DEFAULT CURRENT_TIMESTAMP"
+    }
+
+    user_asset {
+        BIGINT account_uid PK
+        VARCHAR(100) asset_name PK
+        BIGINT asset_amount "NOT NULL DEFAULT 0"
+    }
+
+    user_attendance {
+        BIGINT account_uid PK
+        INT attendance_key PK "DEFAULT 0"
+        INT attendance_no "NOT NULL DEFAULT 0"
+        DATETIME attendance_dt "NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE"
+    }
+
+    user_item {
+        BIGINT account_uid PK
+        INT item_id PK
+        INT item_cnt "NOT NULL"
+    }
+
+    user_mail {
+        BIGINT account_uid PK
+        BIGINT mail_id PK
+        INT status "NOT NULL DEFAULT 0"
+        VARCHAR(1024) mail_info "NOT NULL"
+        VARCHAR(1024) mail_desc "NOT NULL"
+        DATETIME received_dt "NOT NULL"
+        DATETIME expire_dt "NOT NULL"
+    }
+
+    %% master_db 데이터베이스
+    version {
+        INT id PK "AUTO_INCREMENT"
+        VARCHAR(20) app_version "NOT NULL"
+        VARCHAR(20) master_data_version "NOT NULL"
+        DATETIME create_dt "DEFAULT CURRENT_TIMESTAMP"
+    }
+
+    item {
+        BIGINT item_id "NOT NULL"
+        TINYINT quality "NOT NULL"
+        TINYINT item_type "NOT NULL"
+        INT ability_key "NOT NULL"
+    }
+
+    ability {
+        INT ability_key "NOT NULL"
+        VARCHAR(8) ability_type "NOT NULL"
+        BIGINT ability_value "NOT NULL"
+    }
+
+    gacha_info {
+        INT gacha_key "NOT NULL"
+        INT count "NOT NULL"
+    }
+
+    gacha_rate {
+        INT gacha_key "NOT NULL"
+        BIGINT item_id "NOT NULL"
+        BIGINT rate "NOT NULL"
+    }
+
+    attendance_info {
+        INT attendance_key "NOT NULL"
+        CHAR(1) free_yn "NOT NULL"
+    }
+
+    attendance_reward {
+        INT day_seq "NOT NULL"
+        INT attendance_key "NOT NULL"
+        INT reward_key "NOT NULL"
+    }
+
+    reward_info {
+        INT reward_key "NOT NULL"
+        VARCHAR(20) reward_class "NOT NULL"
+        VARCHAR(20) reward_type "NOT NULL"
+        BIGINT reward_value "NOT NULL"
+    }
+
+    initial_free_items {
+        BIGINT item_id "NOT NULL"
+        INT item_cnt "NOT NULL DEFAULT 1"
+    }
+
+    initial_currency {
+        VARCHAR(8) currency_type "NOT NULL"
+        BIGINT value "NOT NULL DEFAULT 0"
+    }
+
+    initial_mail {
+        BIGINT mail_id "NOT NULL"
+        INT status "NOT NULL DEFAULT 0"
+        VARCHAR(1024) mail_info "NOT NULL"
+        VARCHAR(1024) mail_desc "NOT NULL"
+        DATETIME received_dt "NOT NULL"
+        DATETIME expire_dt "NOT NULL"
+    }
+
+    %% 관계 정의 (논리적 관계)
+    account ||--o{ user : "has"
+    user ||--o{ user_deck : "owns"
+    user ||--o{ user_asset : "possesses"
+    user ||--o{ user_attendance : "records"
+    user ||--o{ user_item : "contains"
+    user ||--o{ user_mail : "receives"
+    
+    %% 마스터 데이터 관계
+    item ||--o{ user_item : "references"
+    item ||--|| ability : "has"
+    item ||--o{ gacha_rate : "included_in"
+    item ||--o{ initial_free_items : "given_as"
+    
+    gacha_info ||--o{ gacha_rate : "defines"
+    
+    attendance_info ||--o{ attendance_reward : "provides"
+    attendance_info ||--o{ user_attendance : "tracks"
+    
+    attendance_reward }o--|| reward_info : "grants"
+    
+    initial_mail ||--o{ user_mail : "copies_to"
+
+    %% 범례
+    note_legend {
+        string description "PK: Primary Key"
+        string uk_desc "UK: Unique Key"
+        string fk_desc "FK: Foreign Key (논리적)"
+    }

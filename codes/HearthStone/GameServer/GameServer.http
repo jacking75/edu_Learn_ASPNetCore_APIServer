@@ -1,0 +1,151 @@
+### 게임 서버 로그인
+POST http://0.0.0.0:22222/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "accountUid": 12345,
+  "HiveToken": "sample-hive-token",
+  "Nickname": "TestUser"
+}
+
+### 출석 정보 불러오기
+POST http://localhost:5000/contents/attendance/load
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+
+### 출석 체크 및 보상 받기
+POST http://localhost:5000/contents/attendance/check
+Content-Type: application/json
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+{
+  "eventKey": 1
+}
+
+### 유저 데이터 전체 로드
+POST http://0.0.0.0:22222/contents/dataload
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+### 아이템 목록 불러오기
+POST http://0.0.0.0:22222/contents/item/load
+Uid: 1
+Token: sample_token
+Accept: application/json
+
+### 가챠 아이템 획득
+POST http://0.0.0.0:22222/contents/item/gacha
+Content-Type: application/json
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+{
+  "GachaId": "normal_gacha"
+}
+
+### 메일 목록 불러오기
+POST http://0.0.0.0:22222/contents/mail/load
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+### 메일 읽기
+POST http://0.0.0.0:22222/contents/mail/read
+Content-Type: application/json
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+{
+  "MailId": "mail_1"
+}
+
+### 메일 삭제
+POST http://0.0.0.0:22222/contents/mail/delete
+Content-Type: application/json
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+{
+  "MailId": "mail_1"
+}
+
+### 매치 대기열에 추가
+POST http://0.0.0.0:22222/match/add
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+### 매치 대기 상태 확인
+POST http://0.0.0.0:22222/match/waiting
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+### 매치 상태 확인
+POST http://0.0.0.0:22222/match/status
+Content-Type: application/json
+AccountUid: 1
+Token: sample_token
+Accept: application/json
+
+{
+  "MatchGUID": "12345678-1234-1234-1234-123456789012"
+}
+
+### 하스스톤 게임 시작
+POST http://0.0.0.0:22222/HearthStone/start
+Content-Type: application/json
+Accept: application/json
+
+{
+  "MatchId": "12345678-1234-1234-1234-123456789012",
+  "accountUids": [1, 2]
+}
+
+### 턴 종료
+POST http://0.0.0.0:22222/HearthStone/12345678-1234-1234-1234-123456789012/endturn
+Content-Type: application/json
+Accept: application/json
+
+{
+  "accountUid": 1
+}
+
+### 플레이어 액션 처리
+POST http://0.0.0.0:22222/HearthStone/12345678-1234-1234-1234-123456789012/action
+Content-Type: application/json
+Accept: application/json
+
+{
+  "accountUid": 1,
+  "Action": {
+    "ActionType": "PlayCard",
+    "Payload": {
+      "CardId": "card_001",
+      "Target": null
+    }
+  }
+}
+
+### 게임 상태 조회
+GET http://0.0.0.0:22222/HearthStone/12345678-1234-1234-1234-123456789012/state
+Accept: application/json
+
+
+### 게임 종료
+POST http://0.0.0.0:22222/HearthStone/12345678-1234-1234-1234-123456789012/end
+Content-Type: application/json
+Accept: application/json
+
+{
+  "WinneraccountUid": 1
+}

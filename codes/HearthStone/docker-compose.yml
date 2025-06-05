@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mysql-server:
+    image: mysql:8.0
+    container_name: mysql-server
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: hive_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    labels:
+      databases: "hive_db, master_db, game_db"
+
+  redis:
+    image: redis:7.0
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_HOST=localhost
+  
+volumes:
+  mysql_data:
+  hive-redis:
+  game-redis:
+  match-redis:

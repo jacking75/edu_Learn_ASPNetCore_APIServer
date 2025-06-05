@@ -1,0 +1,32 @@
+### 계정 생성(CreateAccount)
+POST http://0.0.0.0:11111/Auth/CreateAccount
+Content-Type: application/json
+Accept: application/json
+
+{
+  "accountUid": "testuser@sample.com",
+  "Password": "testpassword"
+}
+
+###
+
+### 로그인(Login)
+POST http://0.0.0.0:11111/Auth/Login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "accountUid": "testuser@sample.com",
+  "Password": "testpassword"
+}
+
+###
+
+### 토큰 검증(VerifyToken)
+POST http://0.0.0.0:11111/Auth/VerifyToken
+Content-Type: application/json
+Accept: application/json
+
+{
+  "HiveToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
