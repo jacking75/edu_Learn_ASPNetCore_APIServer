@@ -4,7 +4,8 @@
 - [ASP.NET Core](https://learn.microsoft.com/ko-kr/aspnet/core  )  
 - [C# 비동기 프로그래밍 정리](https://docs.google.com/document/d/e/2PACX-1vRHRbQjeoJH9lXalTClFBuB-D41v9TaBTPc_TeUS-yKhPZTJa2dWjpv_Rib863b_disjspqymOjgKwq/pub )
 - [(YOUTUBE) VisualAcademy](https://www.youtube.com/@VisualAcademy/videos )
-- [practical-aspnetcore](https://github.com/dodyg/practical-aspnetcore) ASP.NET Core의 다양한 샘플 코드를 볼 수 있다.  
+- [practical-aspnetcore](https://github.com/dodyg/practical-aspnetcore) ASP.NET Core의 다양한 샘플 코드를 볼 수 있다.
+- [Microsoft Docs MCP Server](https://github.com/MicrosoftDocs/mcp )   MS Docs에 있는 ASP.NET Core 관련 기술 문서를 LLM으로 물어볼 때 도움이 된다.  
   
 **이 저장소에 있는 코드는 약간의 오류나 좋지 않은 코드는 일부러 놓아두고 있습니다. 학습하는 사람이 학습하면서 수정하는 것을 유도하고 있습니다. PR은 받지 않습니다.**        
 
