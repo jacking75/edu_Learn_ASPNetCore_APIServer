@@ -32,7 +32,6 @@
 - [DB 프로그래밍 라이브러리 SqlKata 소개](https://docs.google.com/document/d/e/2PACX-1vTnRYJOXyOagNhTdhpkI_xOQX4DlMu0TRcC9Ehew6wraufgEtBuQiSdGpKzaEmRb-jfsLv43i0nBQsp/pub )
     - [예제 프로그램: github_sqlkata_demo.zip](https://drive.google.com/file/d/1FBpB1zQ84LqGOA9WAJ6vk5S3453ekqDc/view?usp=sharing )
 - [코드에서 DB 트랜잭션 하기](./how_to_db_transaction.md )
-- [DB 프로그래밍 Tips](./db_tips.ms)  
     
     
 ### 로그  
