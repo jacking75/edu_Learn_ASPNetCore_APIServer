@@ -1,0 +1,6 @@
+@WaitingQueue.Server_HostAddress = http://localhost:5002
+
+GET {{WaitingQueue.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
