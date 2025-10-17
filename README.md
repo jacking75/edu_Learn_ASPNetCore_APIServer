@@ -173,6 +173,7 @@ ASP.NET Core로 게임 API 서버를 개발하기 위한 학습 경로를 다음
 ### 필수 자료
 1. [Microsoft.Extensions.Configuration 및 Microsoft.Extensions.Options 사용 시작](https://docs.google.com/document/d/12OwjWyzMwYWMWi9LEZEvgE2gjx-aGWP17f2Pw_z1S4o/pub) (★★★★) - 설정 읽는 방법
 2. [ASP.NET Core에서 여러 환경 사용](https://docs.microsoft.com/ko-kr/aspnet/core/fundamentals/environments) (★★★) - 환경별 설정
+3. [Development, Production 용 appsettings.json 사용하기](./appsettings.{Environment}.json.md )
 
 ### 참고 자료
 1. [Microsoft.Extensions.Configuration.Json에서 읽은 설정 값에 Prefix 부여](https://docs.google.com/document/d/e/2PACX-1vQbK6RbrkoyhQDL1u1_8_ZQ02Dsqhkdv3WHj2UHY8SyuM5fgOy3RtIZ2B2f0iFtMqySU-dCZKjAsd4Y/pub) (★★) - 설정 관련 팁
