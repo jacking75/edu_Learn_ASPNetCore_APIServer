@@ -49,11 +49,12 @@ ASP.NET Core로 게임 API 서버를 개발하기 위한 학습 경로를 다음
 
 1. **C# 프로그래밍 기초**
    - [(인프런 무료 영상) C# 처음부터 배우기](https://inf.run/bfkW) (★★★★) - C# 기초 학습 
+   - [메모장으로 코딩하는 C#](https://rkttu.github.io/csharp-book/part1-basics/ ) 
    - [C# 자료구조](http://www.csharpstudy.com/DS/array.aspx ) (★★★)
    - [coding_rule.md](./coding_rule.md) (★★★) - 코딩 규칙 및 가이드라인
 
 
-2. **ASP.NET Core 기본**
+3. **ASP.NET Core 기본**
    - [(YOUTUBE) 1~6단계로 ASP.NET Core 기본 실습](https://youtu.be/YTDWXJG1SD8?si=PHz6XvNGy4yU-Sjj) (★★★★) - ASP.NET Core의 기본 개념과 실습. 예제 코드는 `codes` 디렉토리의 `basic2` 디렉토리 안에 있다. 
    - [VSCode 게임 웹서버 환경설정](UsingVSCode.md) (★★★★) - VSCode에서 ASP.NET Core의 환경 설정 및 디버깅 방법
    - [ASP.NET Core Web 시작](https://blog.naver.com/sssang97/223088811266) (★★★★) - 기본 시작 방법 (Visual Studio 기반)
@@ -65,21 +66,21 @@ ASP.NET Core로 게임 API 서버를 개발하기 위한 학습 경로를 다음
    - [API 서버 간 통신 때 HttpClientFactory 사용하기](HttpClientFactory.md) (★★★★) - HttpClientFactory 사용법
    - [MS Docs: ASP.NET Core에서 IHttpClientFactory를 사용하여 HTTP 요청 만들기](https://learn.microsoft.com/ko-kr/aspnet/core/fundamentals/http-requests?view=aspnetcore-8.0 ) (★★★★) - HttpClientFactory 사용법
 
-3. **데이터베이스**
+4. **데이터베이스**
    - [MySqlConnector 간단 정리](https://gist.github.com/jacking75/51a1c96f4efa1b7a27030a7410f39bc6) (★★★) - MySQL 연결 방법
    - [DB 프로그래밍 라이브러리 SqlKata 소개](https://docs.google.com/document/d/e/2PACX-1vTnRYJOXyOagNhTdhpkI_xOQX4DlMu0TRcC9Ehew6wraufgEtBuQiSdGpKzaEmRb-jfsLv43i0nBQsp/pub) (★★★★) - 쿼리 빌더 라이브러리
    - [예제 프로그램: github_sqlkata_demo.zip](https://drive.google.com/file/d/1FBpB1zQ84LqGOA9WAJ6vk5S3453ekqDc/view?usp=sharing) (★★★) - SQLKata 예제
 
-4. **Redis 학습**
+5. **Redis 학습**
    - [(영상) Redis 야무지게 사용하기](https://www.youtube.com/watch?v=92NizoBL4uA) (★★★★) - NHN Redis 강의
    - [Redis 기능 학습하기](http://redisgate.kr/redis/introduction/redis_intro.php) (★★★) - 잘 구조화된 Redis 학습 자료. 해당 링크의 글은 읽고, 해당 사이트 다른 글은 필요할 때 찾아보는 것을 추천 
    - [Redis의 기본 데이터 유형 및 명령](https://docs.google.com/document/d/10mHFq-kTpGBk1-id5Z-zoseiLnTKr_T8N3byBZP5mEg/edit?usp=sharing) (★★★★) - Redis 자료형. 익숙한 자료구조들이 있어서, 필요한 데이터 유형을 찾아보는 것을 추천한다.
 
-5. **Redis 라이브러리 CloudStructure 학습**
+6. **Redis 라이브러리 CloudStructure 학습**
    - [CloudStructures를 이용한 C# Redis 프로그래밍](https://gist.github.com/jacking75/5f91f8cf975e0bf778508acdf79499c0 ) (★★★) - CloudStructures를 이용한 redis 다루기 입문
    - [CloudStructures 라이브러리 사용 설명서](./redis_CloudStructures_Docs) (★★★★) - C#에서 Redis 사용 
 
-6. **로깅 (ZLogger, SeriLog 중 택 1)**
+7. **로깅 (ZLogger, SeriLog 중 택 1)**
    - [ZLogger 사용하기](./ZLogger/) (★★★★) - 로그 라이브러리 ZLogger 사용 방법
    - [SeriLog 사용하기](./Serilog.md) (★★★★) - ZLogger 대체 로깅 라이브러리
 
