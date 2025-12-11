@@ -1093,18 +1093,9 @@ app.Run();
 ---   
   
 </br>  
-  
-좋다, 말한 세 가지 유즈케이스
 
-1. 스테이지 클리어
-2. 우편 받기(보상 수령)
-3. 출석체크 보상 받기
 
-가 **4개 레이어(MyApp.Api / Application / Domain / Infrastructure)** 를 어떻게 타는지 전체 흐름을 단계별로 적어보겠다.
-
-앞에서 정리한 도메인 타입들(Reward, Player, Currency 등)은 이미 존재한다고 가정하고, **핵심 코드와 흐름** 위주로 보여준다.
-
----
+# 유즈케이스  
 
 ## 공통 전제: 프로젝트 구조
 
@@ -1116,7 +1107,6 @@ src
  └─ MyApp.Infrastructure  // EF Core, Repository 구현, 외부 연동
 ```
 
----
 
 # 1. 유즈케이스 1: 스테이지 클리어
 
@@ -1891,9 +1881,9 @@ public class AttendanceController : ControllerBase
 
 원하면 여기에서 하나 골라서 **테스트 코드(유닛/통합)까지 포함한 예제**를 이어서 만들어 줄 수 있다.
   
+  
 
-좋다.
-요구한 대로 **4개 유즈케이스(가챠, 스테이지 클리어, 우편 수령, 출석체크 보상)**에 대해
+# 4개 유즈케이스(가챠, 스테이지 클리어, 우편 수령, 출석체크 보상) 전체 구현
 
 * 도메인 유닛 테스트
 * 애플리케이션 유닛 테스트
@@ -2955,25 +2945,25 @@ public class StageIntegrationTests : IAsyncLifetime
 
         // 스키마 생성
         await _conn.ExecuteAsync(@"
-CREATE TABLE Players(
-    Id INTEGER PRIMARY KEY,
-    Level INTEGER NOT NULL,
-    Gems INTEGER NOT NULL,
-    Gold INTEGER NOT NULL,
-    Stamina INTEGER NOT NULL
-);
-CREATE TABLE Stages(
-    Id INTEGER PRIMARY KEY,
-    RequiredStamina INTEGER NOT NULL,
-    RewardGold INTEGER NOT NULL,
-    RewardGems INTEGER NOT NULL,
-    BaseExp INTEGER NOT NULL
-);
-CREATE TABLE PlayerStageClears(
-    PlayerId INTEGER NOT NULL,
-    StageId INTEGER NOT NULL,
-    ClearedAt TEXT NOT NULL
-);");
+                                    CREATE TABLE Players(
+                                        Id INTEGER PRIMARY KEY,
+                                        Level INTEGER NOT NULL,
+                                        Gems INTEGER NOT NULL,
+                                        Gold INTEGER NOT NULL,
+                                        Stamina INTEGER NOT NULL
+                                    );
+                                    CREATE TABLE Stages(
+                                        Id INTEGER PRIMARY KEY,
+                                        RequiredStamina INTEGER NOT NULL,
+                                        RewardGold INTEGER NOT NULL,
+                                        RewardGems INTEGER NOT NULL,
+                                        BaseExp INTEGER NOT NULL
+                                    );
+                                    CREATE TABLE PlayerStageClears(
+                                        PlayerId INTEGER NOT NULL,
+                                        StageId INTEGER NOT NULL,
+                                        ClearedAt TEXT NOT NULL
+                                    );");
 
         // 초기 데이터
         await _conn.ExecuteAsync(
@@ -3059,12 +3049,10 @@ CREATE TABLE PlayerStageClears(
   * Dapper 기반 통합 테스트 패턴 예시
 
 전체 흐름이다.
-
-원하면 특정 유즈케이스 하나를 골라서,
-**API Controller까지 포함한 end-to-end 테스트(WebApplicationFactory 이용)** 예제도 이어서 만들어 줄 수 있다.
-
   
-좋다, 바로 **우편 수령 + 출석체크 보상** Dapper 통합테스트 예제를 만들어보겠다.
+
+
+# 우편 수령 + 출석체크 보상 통합테스트 예제
 전제는 앞에서 만든 도메인/애플리케이션 레이어(Mail, AttendanceInfo, MailService, AttendanceService, IPlayerRepository 등)가 이미 정의되어 있다는 것으로 두겠다.
 
 여기서는 **Infrastructure(Dapper Repo) + 통합 테스트 코드**만 집중해서 보여준다.
@@ -3259,21 +3247,21 @@ public class MailIntegrationTests : IAsyncLifetime
 
         // 스키마 생성
         await _conn.ExecuteAsync(@"
-CREATE TABLE Players(
-    Id      INTEGER PRIMARY KEY,
-    Level   INTEGER NOT NULL,
-    Gems    INTEGER NOT NULL,
-    Gold    INTEGER NOT NULL,
-    Stamina INTEGER NOT NULL
-);
-CREATE TABLE Mails(
-    Id          INTEGER PRIMARY KEY,
-    PlayerId    INTEGER NOT NULL,
-    RewardGold  INTEGER NOT NULL,
-    RewardGems  INTEGER NOT NULL,
-    IsClaimed   INTEGER NOT NULL,
-    ExpireAt    TEXT    NOT NULL
-);");
+                                    CREATE TABLE Players(
+                                        Id      INTEGER PRIMARY KEY,
+                                        Level   INTEGER NOT NULL,
+                                        Gems    INTEGER NOT NULL,
+                                        Gold    INTEGER NOT NULL,
+                                        Stamina INTEGER NOT NULL
+                                    );
+                                    CREATE TABLE Mails(
+                                        Id          INTEGER PRIMARY KEY,
+                                        PlayerId    INTEGER NOT NULL,
+                                        RewardGold  INTEGER NOT NULL,
+                                        RewardGems  INTEGER NOT NULL,
+                                        IsClaimed   INTEGER NOT NULL,
+                                        ExpireAt    TEXT    NOT NULL
+                                    );");
 
         // 초기 데이터
         await _conn.ExecuteAsync(
@@ -3529,23 +3517,13 @@ CREATE TABLE AttendanceInfos(
 이 패턴을 그대로 복사해서
 가챠, 스테이지, 기타 유즈케이스(예: 미션, 업적, 이벤트 보상)도 같은 방식으로 확장하면 된다.
 
-
-좋다. 이번에는 **미션, 업적, 이벤트 보상**까지 포함해서,
-
-* 도메인 엔티티
-* 애플리케이션 서비스(유즈케이스)
-* Dapper 기반 Repository
-* 간단한 통합 테스트 예제
-
-를 한 번에 만들어보겠다.
-
-이미 앞에서 `Player`, `Reward`, `Currency`, `IPlayerRepository`, `IUnitOfWork`, `ITimeProvider` 등은 정의되어 있다고 가정한다
-(없다면 이전 답변 코드와 그대로 이어서 보면 된다).
-
----
+---  
+  
 
 # 1. 미션 (Mission) 유즈케이스
-
+이미 앞에서 `Player`, `Reward`, `Currency`, `IPlayerRepository`, `IUnitOfWork`, `ITimeProvider` 등은 정의되어 있다고 가정한다
+(없다면 이전 답변 코드와 그대로 이어서 보면 된다).
+  
 ## 1-1. 도메인 (MyApp.Domain)
 
 ### Mission 엔티티
@@ -4115,7 +4093,6 @@ public class DapperPlayerAchievementRepository : IPlayerAchievementRepository
 ---
 
 # 3. 이벤트 보상 (Event Reward) 유즈케이스
-
 이벤트는 “기간 제한 + 1회성 보상 수령” 정도로 단순하게 가정한다
 (실제로는 누적 포인트, 누적 접속일 등 여러 유형이 있지만 패턴은 동일하다).
 
@@ -4408,12 +4385,10 @@ public class DapperPlayerEventRewardRepository : IPlayerEventRewardRepository
 * 출석체크
 
 까지 합치면 웬만한 수집형 RPG의 기본 보상/진행 유즈케이스는 거의 다 커버되는 셈이다.
-
-원하면 이 구조들을 실제 `MyApp.Api / Application / Domain / Infrastructure` 프로젝트로 나눴을 때의 csproj 참조 관계나, DI 등록 코드(Startup/Program.cs)를 한 번에 정리해서 보여줄 수도 있다.
-
-   
-좋다, 이제까지 만든 도메인/유즈케이스들을 실제 솔루션 구조와 DI 구성까지 한 번에 정리해보겠다.
-
+  
+  
+     
+# 도메인/유즈케이스들을 실제 솔루션 구조와 DI 구성까지 한 번에 정리
 아래 기준으로 설명하겠다.
 
 ```text
@@ -4823,9 +4798,10 @@ public class MailController : ControllerBase
 
 지금 단계에서 실제로 구현을 시작하고 싶은 클래스(예: MissionController, EventController)의 구체적인 코드 골격이 필요하면, 그 부분만 골라서 컨트롤러 + DTO까지 쭉 만들어줄 수 있다.
 
+  
 
-좋다, 이제까지 만든 구조에 이어서 **“우편함(메일 목록 조회)” 기능**을 4레이어 전체로 추가해보겠다.
 
+# 우편함(메일 목록 조회) 기능*을 4레이어 전체로 추가
 이미 있는 전제들 그대로 쓴다
 
 * 레이어 구조
@@ -5462,5 +5438,5 @@ public static class ApplicationDependencyInjection
 * 아이템 선택 시 상세 요청 → 내용 + 보상 확인
 * “받기” 버튼 → 수령 API 호출 → 인벤 업데이트
 
-이렇게 깔끔하게 흐름을 구성할 수 있다.
+이렇게 깔끔하게 흐름을 구성할 수 있다  .
 
