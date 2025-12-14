@@ -1,13 +1,11 @@
-﻿using GameAPIServer.Models.DAO;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace GameAPIServer.Servicies.Interfaces;
 
 public interface IGameService
 {
-    public Task<(ErrorCode, int)> InitNewUserGameData(Int64 playerId, string nickname);
+    public Task<ErrorCode> InitNewUserGameData(Int64 uid);
    
 }
  

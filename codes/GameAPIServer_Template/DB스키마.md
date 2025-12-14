@@ -1,10 +1,10 @@
 아래 사용 예를 참고하여 만드는 게임에 맞게 DB 스키마 정보를 만들도록 한다.  
 사용하지 않는 것은 삭제한다.  
   
+   
+# game DB
+데이터베이스 이름: `game_db`  
   
-  
-# account DB
-
 ## account_info 테이블
 하이브 계정 정보를 가지고 있는 테이블
 ```sql
@@ -12,34 +12,15 @@
 CREATE TABLE account
 (
     `uid`         BIGINT          NOT NULL    AUTO_INCREMENT COMMENT '유니크 유저 번호',
-    `user_id`             VARCHAR(50)     NOT NULL    COMMENT '유저아이디. 내용은 이메일',
+    `user_id`           VARCHAR(50)     NOT NULL    COMMENT '유저아이디.
     `salt_value`        VARCHAR(100)    NOT NULL    COMMENT '암호화 값',
     `pw`                VARCHAR(100)    NOT NULL    COMMENT '해싱된 비밀번호',
     `create_dt`         DATETIME        NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성 일시',
-    `recent_login_dt`   DATETIME        NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '최근 로그인 일시',
-     PRIMARY KEY (player_id),
+     PRIMARY KEY (uid),
      UNIQUE KEY (user_id)
 )
 ```
-   
-   
-# game DB
-  
-## user_info 테이블
-게임에서 생성 된 계정 정보들을 가지고 있는 테이블    
-  
-```sql
--- 테이블 생성 SQL - user
-CREATE TABLE user
-(
-    `uid`                           BIGINT            NOT NULL    AUTO_INCREMENT COMMENT '유저아이디', 
-    `create_dt`                     DATETIME       NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성 일시', 
-    `recent_login_dt`               DATETIME       NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '최근 로그인 일시', 
-     PRIMARY KEY (uid),
-     UNIQUE KEY (nickname)
-);
 
-```
 
 ## user_money 테이블
 유저의 재화 정보를 가지고 있는 테이블
@@ -47,7 +28,7 @@ CREATE TABLE user
 -- 테이블 생성 SQL - user_money
 CREATE TABLE user_money
 (
-    `uid`         INT    NOT NULL    COMMENT '유저아이디', 
+    `uid`         BIGINT    NOT NULL    COMMENT '유저아이디', 
     `jewelry`     INT    NOT NULL    DEFAULT 0 COMMENT '보석', 
     `gold_medal`  INT    NOT NULL    DEFAULT 0 COMMENT '금 메달', 
     `cash`        INT    NOT NULL    DEFAULT 0 COMMENT '현금', 
@@ -59,30 +40,8 @@ ALTER TABLE user_money
     ADD CONSTRAINT FK_user_money_uid_user_uid FOREIGN KEY (uid)
         REFERENCES user (uid) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ```
-
-## friend 테이블
-친구 정보를 가지고 있는 테이블  
-```sql
--- 테이블 생성 SQL - friend
-CREATE TABLE friend
-(
-    `uid`         INT         NOT NULL    COMMENT '유저아이디', 
-    `friend_uid`  INT         NOT NULL    COMMENT '친구 유저아이디', 
-    `friend_yn`   TINYINT     NOT NULL    DEFAULT 0  COMMENT '친구 여부', 
-    `create_dt`   DATETIME    NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성 일시', 
-     PRIMARY KEY (uid, friend_uid)
-);
--- Foreign Key 설정 SQL - friend(uid) -> user(uid)
-ALTER TABLE friend
-    ADD CONSTRAINT FK_friend_uid_user_uid FOREIGN KEY (uid)
-        REFERENCES user (uid) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
--- Foreign Key 설정 SQL - friend(friend_uid) -> user(uid)
-ALTER TABLE friend
-    ADD CONSTRAINT FK_friend_friend_uid_user_uid FOREIGN KEY (friend_uid)
-        REFERENCES user (uid) ON DELETE RESTRICT ON UPDATE RESTRICT;
-```
-
+  
+    
 ## mailbox 테이블
 우편함 정보를 가지고 있는 테이블
 ```sql
@@ -90,7 +49,7 @@ ALTER TABLE friend
 CREATE TABLE mailbox
 (
     `mail_seq`    INT             NOT NULL    AUTO_INCREMENT COMMENT '우편 일련번호', 
-    `uid`         INT             NOT NULL    COMMENT '유저아이디', 
+    `uid`         BIGINT             NOT NULL    COMMENT '유저아이디', 
     `mail_title`  VARCHAR(100)    NOT NULL    COMMENT '우편 제목', 
     `create_dt`   DATETIME        NOT NULL    COMMENT '생성 일시', 
     `expire_dt`   DATETIME        NOT NULL    COMMENT '만료 일시', 
@@ -129,7 +88,7 @@ ALTER TABLE mailbox_reward
 -- 테이블 생성 SQL - user_attendance
 CREATE TABLE user_attendance
 (
-    `uid`                   INT         NOT NULL    COMMENT '유저아이디', 
+    `uid`                   BIGINT         NOT NULL    COMMENT '유저아이디', 
     `attendance_cnt`        INT         NOT NULL    COMMENT '출석 횟수', 
     `recent_attendance_dt`  DATETIME    NOT NULL    COMMENT '최근 출석 일시', 
      PRIMARY KEY (uid)

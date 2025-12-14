@@ -4,7 +4,7 @@ using System.Data;
 using System.Reflection;
 using System.Threading.Tasks;
 using GameAPIServer.Repository.Interfaces;
-using GameAPIServer.Models.DAO;
+using GameAPIServer.Models;
 using SqlKata.Execution;
 using ZLogger;
 
@@ -12,33 +12,38 @@ namespace GameAPIServer.Repository;
 
 public partial class GameDb : IGameDb
 {
-    public async Task<ErrorCode> CreateAccount(string userID, string pw)
+    public async Task<(ErrorCode, Int64)> CreateAccount(string userID, string pw)
     {
         try
         {
             var saltValue = Security.SaltString();
             var hashingPassword = Security.MakeHashingPassWord(saltValue, pw);
 
-            var affectedRows = await _queryFactory.Query("account")
-                                .InsertAsync(new
+            var uid = await _queryFactory.Query("account")
+                                .InsertGetIdAsync<Int64>(new
                                 {
                                     user_id = userID,
                                     salt_value = saltValue,
                                     pw = hashingPassword,
                                     create_dt = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
-                                    recent_login_dt = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                                 });
 
             _logger.ZLogDebug(
             $"[CreateAccount] email: {userID}, salt_value : {saltValue}, hashed_pw:{hashingPassword}");
 
-            return affectedRows != 1 ? ErrorCode.CreateAccountFailInsert : ErrorCode.None;
+            var errorCode =ErrorCode.None;
+            if(uid <= 0)
+            {
+                errorCode = ErrorCode.CreateAccountFailInsert;
+            }
+
+            return (errorCode, uid);
         }
         catch (Exception ex)
         {
             _logger.ZLogError(
             $"[HiveDb.CreateAccount] ErrorCode: {ErrorCode.CreateAccountFailException}, {ex}");
-            return ErrorCode.CreateAccountFailException;
+            return (ErrorCode.CreateAccountFailException, 0);
         }
     }
 
@@ -72,7 +77,7 @@ public partial class GameDb : IGameDb
     }
         
 
-    public async Task<int> InsertInitMoneyInfo(int uid, IDbTransaction transaction)
+    public async Task<int> InsertInitMoneyInfo(Int64 uid, IDbTransaction transaction)
     {
         return await _queryFactory.Query("user_money").InsertAsync(
              new
@@ -81,7 +86,7 @@ public partial class GameDb : IGameDb
              }, transaction);
     }
 
-    public async Task<int> InsertInitAttendance(int uid, IDbTransaction transaction)
+    public async Task<int> InsertInitAttendance(Int64 uid, IDbTransaction transaction)
     {
         return await _queryFactory.Query("user_attendance").InsertAsync(
              new

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using GameAPIServer.Repository.Interfaces;
-using GameAPIServer.Models.DTO;
+using GameAPIServer.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ZLogger;

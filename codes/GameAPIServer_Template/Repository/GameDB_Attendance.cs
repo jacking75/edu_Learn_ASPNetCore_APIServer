@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
 using GameAPIServer.Repository.Interfaces;
-using GameAPIServer.Models.DAO;
+using GameAPIServer.Models;
 using SqlKata.Execution;
 
 namespace GameAPIServer.Repository;
 
 public partial class GameDb : IGameDb
 {
-    public async Task<GdbAttendanceInfo> GetAttendanceById(int uid)
+    public async Task<GdbAttendanceInfo> GetAttendanceById(Int64 uid)
     {
         return await _queryFactory.Query("user_attendance").Where("uid", uid)
                                                 .FirstOrDefaultAsync<GdbAttendanceInfo>();
     }
 
-    public async Task<int> CheckAttendanceById(int uid)
+    public async Task<int> CheckAttendanceById(Int64 uid)
     {
         return await _queryFactory.StatementAsync($"UPDATE user_attendance " +
                                                   $"SET attendance_cnt = attendance_cnt +1, " +

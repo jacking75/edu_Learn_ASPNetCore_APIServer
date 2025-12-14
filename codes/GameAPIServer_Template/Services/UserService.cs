@@ -1,5 +1,5 @@
-﻿using GameAPIServer.Models.DAO;
-using GameAPIServer.Models.DTO;
+﻿using GameAPIServer.Models;
+using GameAPIServer.DTOs;
 using GameAPIServer.Repository.Interfaces;
 using GameAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -22,21 +22,8 @@ public class UserService : IUserService
         _memoryDb = memoryDb;
     }
 
-    public async Task<(ErrorCode, GdbUserInfo)> GetUserInfo(int uid)
-    {
-        try
-        {
-            return (ErrorCode.None, await _gameDb.GetUserByUid(uid));
-        }
-        catch (Exception e)
-        {
-            _logger.ZLogError(e,
-                $"[User.GetUserInfo] ErrorCode: {ErrorCode.UserInfoFailException}, Uid: {uid}");
-            return (ErrorCode.UserInfoFailException, null);
-        }
-    }
 
-    public async Task<(ErrorCode, GdbUserMoneyInfo)> GetUserMoneyInfo(int uid)
+    public async Task<(ErrorCode, GdbUserMoneyInfo)> GetUserMoneyInfo(Int64 uid)
     {
         try
         {
@@ -50,41 +37,7 @@ public class UserService : IUserService
         }
     }
 
-    
+   
 
-    public async Task<(ErrorCode, OtherUserInfo)> GetOtherUserInfo(int uid)
-    {
-        try
-        {
-            var userInfo = await _gameDb.GetUserByUid(uid);
-            if (userInfo == null)
-            {
-                _logger.ZLogError($"[User.GetOtherUserInfo] ErrorCode: {ErrorCode.UserNotExist}, Uid: {uid}");
-                return (ErrorCode.UserNotExist, null);
-            }
-
-            
-            var (errorCode, rank) = await _memoryDb.GetUserRankAsync(uid);
-
-            if(errorCode != ErrorCode.None)
-            {
-                _logger.ZLogError($"[User.GetOtherUserInfo] ErrorCode: {errorCode}, Uid: {uid}");
-                return (errorCode, null);
-            }
-
-            return (ErrorCode.None, new OtherUserInfo
-            {
-                uid = uid,
-                nickname = userInfo.nickname,                    
-                rank = rank,
-            });
-
-        }
-        catch (Exception e)
-        {
-            _logger.ZLogError(e,
-                $"[User.GetOtherUserInfo] ErrorCode: {ErrorCode.GetOtherUserInfoFailException}, Uid: {uid}");
-            return (ErrorCode.GetOtherUserInfoFailException, null);
-        }
-    }
+  
 }

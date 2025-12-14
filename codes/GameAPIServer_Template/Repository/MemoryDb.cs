@@ -1,7 +1,7 @@
 ﻿using GameAPIServer.Models;
 using CloudStructures;
 using CloudStructures.Structures;
-using GameAPIServer.Models.DTO;
+using GameAPIServer.DTOs;
 using GameAPIServer.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

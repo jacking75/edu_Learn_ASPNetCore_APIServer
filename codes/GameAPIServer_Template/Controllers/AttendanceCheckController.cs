@@ -1,4 +1,4 @@
-﻿using GameAPIServer.Models.DTO;
+﻿using GameAPIServer.DTOs;
 using GameAPIServer.Servicies.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

@@ -1,5 +1,5 @@
 ﻿using GameAPIServer.Models;
-using GameAPIServer.Models.DTO;
+using GameAPIServer.DTOs;
 using GameAPIServer.Repository.Interfaces;
 using GameAPIServer.Servicies.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -23,7 +23,7 @@ public class MailService : IMailService
         _itemService = itemService;
     }
 
-    public async Task<(ErrorCode,List<UserMailInfo>)> GetMailList(int uid)
+    public async Task<(ErrorCode,List<UserMailInfo>)> GetMailList(Int64 uid)
     {
         try
         {
@@ -48,7 +48,7 @@ public class MailService : IMailService
         }
     }
 
-    public async Task<(ErrorCode,List<ReceivedReward>)> ReceiveMail(int uid, int mailSeq)
+    public async Task<(ErrorCode,List<ReceivedReward>)> ReceiveMail(Int64 uid, int mailSeq)
     {
         try
         {
@@ -81,7 +81,7 @@ public class MailService : IMailService
         }
     }
 
-    async Task<(ErrorCode,List<ReceivedReward>)> ReceiveMailRewards(int uid, int mailSeq, IEnumerable<RewardData> mailRewards)
+    async Task<(ErrorCode,List<ReceivedReward>)> ReceiveMailRewards(Int64 uid, int mailSeq, IEnumerable<RewardData> mailRewards)
     {
         try
         {
@@ -132,7 +132,7 @@ public class MailService : IMailService
         }
     }
 
-    public async Task<ErrorCode> DeleteMail(int uid, int mailSeq)
+    public async Task<ErrorCode> DeleteMail(Int64 uid, int mailSeq)
     {
         try
         {

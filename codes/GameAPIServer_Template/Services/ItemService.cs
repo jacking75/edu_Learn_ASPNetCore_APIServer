@@ -25,7 +25,7 @@ public class ItemService : IItemService
            
   
 
-    public async Task<(ErrorCode,List<RewardData>)> ReceiveOneGacha(int uid, int gachaKey)
+    public async Task<(ErrorCode,List<RewardData>)> ReceiveOneGacha(Int64 uid, int gachaKey)
     {
         try
         {
@@ -88,7 +88,7 @@ public class ItemService : IItemService
         }
     }
 
-    public async Task<ErrorCode> ReceiveReward(int uid, RewardData reward)
+    public async Task<ErrorCode> ReceiveReward(Int64 uid, RewardData reward)
     {
         int rowCount;
         var errorCode = ErrorCode.None;

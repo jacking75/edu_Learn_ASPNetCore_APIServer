@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using GameAPIServer.Repository.Interfaces;
 using GameAPIServer.Servicies.Interfaces;
-using GameAPIServer.Models.DTO;
+using GameAPIServer.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ZLogger;
@@ -16,16 +16,12 @@ public class LoginController : ControllerBase
     readonly IMemoryDb _memoryDb;
     readonly ILogger<LoginController> _logger;
     readonly IAuthService _authService;
-    readonly IGameService _gameService;
-    readonly IDataLoadService _dataLoadService;
-
-    public LoginController(ILogger<LoginController> logger, IMemoryDb memoryDb, IAuthService authService, IGameService gameService, IDataLoadService dataLoadService)
+ 
+    public LoginController(ILogger<LoginController> logger, IMemoryDb memoryDb, IAuthService authService)
     {
         _logger = logger;
         _memoryDb = memoryDb;
         _authService = authService;
-        _gameService = gameService;
-        _dataLoadService = dataLoadService;
     }
 
     /// <summary>

@@ -1,5 +1,5 @@
-﻿using GameAPIServer.Models;
-using GameAPIServer.Models.DTO;
+﻿using GameAPIServer.Models; 
+using GameAPIServer.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

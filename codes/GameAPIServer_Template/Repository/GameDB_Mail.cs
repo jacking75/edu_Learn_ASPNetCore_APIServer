@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GameAPIServer.Repository.Interfaces;
-using GameAPIServer.Models.DAO;
+using GameAPIServer.Models;
 using SqlKata.Execution;
 
 namespace GameAPIServer.Repository;
 
 public partial class GameDb : IGameDb
 {
-    public async Task<IEnumerable<GdbMailboxInfo>> GetMailList(int uid)
+    public async Task<IEnumerable<GdbMailboxInfo>> GetMailList(Int64 uid)
     {
         return await _queryFactory.Query("mailbox").Where("uid", uid)
                                                 .Where("expire_dt", ">", DateTime.Now)

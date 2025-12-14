@@ -1,14 +1,13 @@
-﻿using GameAPIServer.Models.DAO;
-using GameAPIServer.Models.DTO;
+﻿using GameAPIServer.DTOs;
+using GameAPIServer.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace GameAPIServer.Servicies.Interfaces;
 
 public interface IUserService
-{
-    public Task<(ErrorCode, GdbUserInfo)> GetUserInfo(int uid);
+{    
+    public Task<(ErrorCode, GdbUserMoneyInfo)> GetUserMoneyInfo(Int64 uid);
     
-    public Task<(ErrorCode, GdbUserMoneyInfo)> GetUserMoneyInfo(int uid);
     
-    public Task<(ErrorCode, OtherUserInfo)> GetOtherUserInfo(int uid);
 }

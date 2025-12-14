@@ -1,12 +1,12 @@
 ﻿using GameAPIServer.Repository.Interfaces;
 using GameAPIServer.Servicies.Interfaces;
-using GameAPIServer.Models.DAO;
+using GameAPIServer.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZLogger;
-using GameAPIServer.Models;
+
 
 namespace GameAPIServer.Servicies;
 
@@ -25,7 +25,7 @@ public class AttendanceService : IAttendanceService
         _itemService = itemService;
     }
 
-    public async Task<(ErrorCode, GdbAttendanceInfo)> GetAttendanceInfo(int uid)
+    public async Task<(ErrorCode, GdbAttendanceInfo)> GetAttendanceInfo(Int64 uid)
     {
         try
         {
@@ -39,7 +39,7 @@ public class AttendanceService : IAttendanceService
         }
     }
 
-    public async Task<(ErrorCode, List<ReceivedReward>)> CheckAttendanceAndReceiveRewards(int uid)
+    public async Task<(ErrorCode, List<ReceivedReward>)> CheckAttendanceAndReceiveRewards(Int64 uid)
     {
         try
         {

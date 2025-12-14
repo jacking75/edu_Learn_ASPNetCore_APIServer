@@ -1,5 +1,5 @@
 ﻿using GameAPIServer.Servicies.Interfaces;
-using GameAPIServer.Models.DAO;
+using GameAPIServer.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,10 +24,11 @@ public class AuthService : IAuthService
         _memoryDb = memoryDb;
     }
 
-    public async Task<ErrorCode> CreateAccount(string userID, string passWord)
+    public async Task<(ErrorCode, Int64)> CreateAccount(string userID, string passWord)
     {
-        var result = await _gameDb.CreateAccount(userID, passWord);
-        return result;
+        var (result, uid) = await _gameDb.CreateAccount(userID, passWord);
+
+        return (result, uid);
     }
     
     public async Task<(ErrorCode, Int64, string)> Login(string userID, string passWord)

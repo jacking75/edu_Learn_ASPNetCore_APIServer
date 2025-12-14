@@ -10,7 +10,6 @@ using SqlKata.Execution;
 
 using GameAPIServer.Repository.Interfaces;
 using GameAPIServer.Models;
-using GameAPIServer.Models.DAO;
 
 
 namespace GameAPIServer.Repository;
@@ -40,54 +39,14 @@ public partial class GameDb : IGameDb
         Close();
     }
 
-    public async Task<GdbUserInfo> GetUserByPlayerId(Int64 playerId)
-    {
-        return await _queryFactory.Query("user")
-                                .Where("player_id", playerId)
-                                .FirstOrDefaultAsync<GdbUserInfo>();
-    }
 
-    public async Task<GdbUserInfo> GetUserByUid(int uid)
-    {
-        return await _queryFactory.Query("user")
-                                .Where("uid", uid)
-                                .FirstOrDefaultAsync<GdbUserInfo>();
-    }
-
-    public async Task<GdbUserInfo> GetUserByNickname(string nickname, IDbTransaction transaction)
-    {
-        return await _queryFactory.Query("user")
-                                .Where("nickname", nickname)
-                                .FirstOrDefaultAsync<GdbUserInfo>(transaction);
-    }
-
-    public async Task<int> InsertUser(Int64 playerId, string nickname, IDbTransaction transaction)
-    {
-        return await _queryFactory.Query("user")
-                                .InsertGetIdAsync<int>(new
-                                {
-                                    player_id = playerId,
-                                    nickname = nickname,
-                                    create_dt = DateTime.Now,
-                                    recent_login_dt = DateTime.Now,
-                                }, transaction);
-    }
-
-    public async Task<int> UpdateRecentLogin(int uid)
-    {
-        return await _queryFactory.Query("user").Where("uid", uid).UpdateAsync(new
-        {
-            recent_login_dt = DateTime.Now,
-        });
-    }
-
-    public async Task<GdbUserMoneyInfo> GetUserMoneyById(int uid)
+    public async Task<GdbUserMoneyInfo> GetUserMoneyById(Int64 uid)
     {
         return await _queryFactory.Query("user_money").Where("uid", uid)
                                                 .FirstOrDefaultAsync<GdbUserMoneyInfo>();
     }
 
-    public async Task<int> UpdateUserjewelry(int uid, int rewardQty)
+    public async Task<int> UpdateUserjewelry(Int64 uid, int rewardQty)
     {
         return await _queryFactory.Query("user_money").Where("uid", uid)
                                                 .IncrementAsync("jewelry", rewardQty);
@@ -98,7 +57,7 @@ public partial class GameDb : IGameDb
         return await _queryFactory.Query("user").Select("uid", "total_bestscore").GetAsync<RdbUserScoreData>();
     }
 
-    public async Task<int> UpdateMainChar(int uid, int charKey)
+    public async Task<int> UpdateMainChar(Int64 uid, int charKey)
     {
         return await _queryFactory.Query("user").Where("uid", uid).UpdateAsync(new
         {
