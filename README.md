@@ -1,5 +1,4 @@
 # ASP.NET Core Web API 게임 서버 학습 자료 분석
-
 본 문서는 저장소의 다양한 학습 자료를 분석하고, 카테고리별로 정리한 내용입니다. 각 자료의 유용성(★~★★★★)을 표기하여 학습자가 효율적으로 자료를 선택할 수 있도록 돕습니다.
 
 
@@ -22,7 +21,7 @@
 - **게임 서버 OS**: Linux
 - **기타 기술**: Docker, nGrinder, 프로메테우스 & 그라파나
 - **클라이언트 테스트**: C# Blazor (후순위)
-
+    
 ## 목차
 1. [초급 학습자 추천 경로](#초급-학습자-추천-경로)
 2. [C# 프로그래밍](#c-프로그래밍 )
@@ -35,12 +34,14 @@
 9. [참고 프로젝트](#참고-프로젝트)
 10. [기타 학습 자료](#기타-학습-자료)
 11. [LinqPad 관련자료](#linqpad-관련-자료)
-
+  
+  
 ## 초급 학습자 추천 경로
-
 ASP.NET Core로 게임 API 서버를 개발하기 위한 학습 경로를 다음과 같이 추천합니다.   
 직접 실습해야 할 부분은, 실습을 해보면서 프로젝트를 진행해 나가야 합니다.
-
+  
+[인포그래픽](./infographic.md)    
+  
 0. **게임 서버 기초**
    - [모바일 게임 개발 개요](https://drive.google.com/file/d/1WImt5yn7cpIBm2opZFWMapWW2GX6XB_R/view?usp=sharing ) (★★★) - 모바일 게임 개발 개요
    - [Web서비스의 서버구성과목적](https://docs.google.com/presentation/d/105NPfv7CPfgk0Iw_6vSB_oOavQZpes7-Wit5HuCm7oM/edit?usp=sharing) (★★★★) - 전반적인 서버 구조 이해
